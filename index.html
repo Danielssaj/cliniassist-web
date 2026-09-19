@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClinIAssist — Automatización con IA para clínicas</title>
+<meta name="description" content="Asistente virtual 24/7, recepción por voz, confirmación automática de citas, menos inasistencias, reseñas en Google y reactivación de pacientes. Automatización con IA para clínicas.">
+<link rel="canonical" href="https://cliniassist.com/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ClinIAssist">
+<meta property="og:title" content="ClinIAssist — Automatización con IA para clínicas">
+<meta property="og:description" content="Asistente virtual 24/7, recepción por voz, confirmación automática de citas, reseñas en Google y reactivación de pacientes.">
+<meta property="og:url" content="https://cliniassist.com/">
+<meta property="og:image" content="https://cliniassist.com/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClinIAssist — Automatización con IA para clínicas">
+<meta name="twitter:description" content="Asistente virtual 24/7, recepción por voz, confirmación automática de citas, reseñas en Google y reactivación de pacientes.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ClinIAssist",
+  "url": "https://cliniassist.com/",
+  "description": "ClinIAssist es una empresa especializada en automatización con Inteligencia Artificial para clínicas y centros de salud: asistente virtual 24/7, recepción por voz, agenda y confirmación de citas, reducción de inasistencias, reputación en Google y reactivación de pacientes.",
+  "areaServed": "Clínicas y centros de salud",
+  "sameAs": []
+}
+</script>
+</head>
+<body>
+
+<!--
+  Número de WhatsApp: edítalo UNA sola vez en js/script.js (constante WHATSAPP_NUMBER).
+  Todos los botones "Necesito el servicio" se actualizan solos.
+-->
+
+<header class="site-header" id="header">
+  <div class="container header-inner">
+    <a href="#top" class="logo">
+      <span class="logo-mark">
+        <svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M14 8v12M8 14h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="logo-text">ClinIAssist</span>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Cómo funciona</a>
+      <a href="#precios">Precios</a>
+      <a href="#faq">Preguntas</a>
+    </nav>
+
+    <div class="header-cta">
+      <a href="#" class="btn btn-primary btn-sm js-whatsapp" data-wa-text="Hola, necesito el servicio de ClinIAssist." target="_blank" rel="noopener">Necesito el servicio</a>
+    </div>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <svg class="hero-pulse" viewBox="0 0 600 60" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 30 H150 l14 -20 l18 40 l14 -32 l10 12 H320 l12 -16 l16 32 l10 -16 H600" />
+    </svg>
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <h1 class="hero-title reveal">
+          Tu clínica, atendida por IA.<br>
+          <span class="hero-title-light">Sin contratar a nadie más.</span>
+        </h1>
+
+        <p class="hero-sub reveal">
+          Tu clínica atendida por IA las 24 horas. Automatizamos la agenda de WhatsApp,
+          los recordatorios y el seguimiento de pacientes para eliminar las sillas
+          vacías y potenciar tus ingresos.
+        </p>
+
+        <div class="hero-actions reveal">
+          <a href="#" class="btn btn-primary btn-lg js-whatsapp" data-wa-text="Hola, necesito el servicio de ClinIAssist." target="_blank" rel="noopener">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.13.82.84-3.05-.2-.31A8.2 8.2 0 1 1 12 20.2Zm4.5-6.15c-.24-.12-1.44-.71-1.66-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.78.96-.14.16-.28.18-.53.06-.24-.12-1.02-.38-1.95-1.2-.72-.64-1.2-1.44-1.35-1.68-.14-.24-.02-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.13 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.44-.59 1.64-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28Z"/></svg>
+            <span>Necesito el servicio</span>
+          </a>
+          <a href="#servicios" class="btn btn-ghost btn-lg">
+            <span>Ver cómo funciona</span>
+            <svg class="btn-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <p class="hero-trust reveal">
+          Pensado para clínicas dentales, estéticas, veterinarias, fisioterapia y
+          centros médicos que atienden a sus pacientes por WhatsApp.
+        </p>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="hero-visual-glow" aria-hidden="true"></div>
+
+        <span class="float-badge float-badge-top">
+          <span class="float-badge-icon">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4.5l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          Disponible 24/7
+        </span>
+
+        <div class="phone-scene">
+          <div class="confirm-card" id="confirmCard">
+            <span class="confirm-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4 10-10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span>Cita confirmada 👍</span>
+          </div>
+
+          <div class="phone-wrap">
+            <div class="phone-shadow" aria-hidden="true"></div>
+
+            <div class="phone-frame">
+              <span class="phone-btn phone-btn-power" aria-hidden="true"></span>
+              <span class="phone-btn phone-btn-vol1" aria-hidden="true"></span>
+              <span class="phone-btn phone-btn-vol2" aria-hidden="true"></span>
+
+              <div class="phone-screen">
+                <span class="phone-notch" aria-hidden="true"><i></i></span>
+
+                <div class="chat-mock">
+                  <div class="chat-mock-head">
+                    <span class="chat-avatar" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4.5l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                    <span class="chat-head-text">
+                      <strong>Asistente ClinIAssist</strong>
+                      <em><span class="chat-dot"></span> en línea</em>
+                    </span>
+                  </div>
+
+                  <div class="chat-mock-body">
+                    <div class="bubble in bubble-visible">Hola, ¿tienen algún hueco para una limpieza dental esta semana?</div>
+
+                    <div class="typing-indicator out" hidden><span></span><span></span><span></span></div>
+                    <div class="bubble out" hidden>¡Hola! Soy el asistente de la clínica. Claro que sí, tenemos espacio este jueves a las 10:00 AM o a las 4:00 PM. ¿Cuál te va mejor?</div>
+
+                    <div class="bubble in" hidden>El jueves a las 4:00 PM por favor.</div>
+
+                    <div class="typing-indicator out" hidden><span></span><span></span><span></span></div>
+                    <div class="bubble out" hidden>¡Perfecto! Ya quedó agendado en el sistema. Te enviaremos un recordatorio 24 horas antes.</div>
+                  </div>
+
+                  <div class="chat-mock-input" aria-hidden="true">
+                    <span>Escribe un mensaje</span>
+                    <span class="chat-send">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M4 12 20 4l-6 16-2.5-6.5L4 12Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                    </span>
+                  </div>
+                </div>
+
+                <span class="phone-home" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="cal-widget">
+            <div class="cal-widget-head">
+              <span class="cal-widget-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 3v4M16 3v4M3 10h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </span>
+              <span>Agenda de la semana</span>
+            </div>
+            <div class="cal-widget-days">
+              <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span>
+            </div>
+            <div class="cal-widget-grid">
+              <div class="cal-slot busy"></div><div class="cal-slot fillable"></div><div class="cal-slot busy"></div><div class="cal-slot fillable"></div><div class="cal-slot fillable"></div>
+              <div class="cal-slot fillable"></div><div class="cal-slot busy"></div><div class="cal-slot fillable"></div><div class="cal-slot busy"></div><div class="cal-slot fillable"></div>
+              <div class="cal-slot fillable"></div><div class="cal-slot fillable"></div><div class="cal-slot busy"></div><div class="cal-slot fillable"></div><div class="cal-slot fillable"></div>
+            </div>
+            <p class="cal-widget-caption"><span id="calCount">0</span> citas agendadas hoy</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PÉRDIDAS VS RESULTADOS -->
+  <section class="lossgain" id="perdidas">
+    <div class="container">
+      <div class="section-head lossgain-head reveal">
+        <h2>¿Cuánto dinero pierde tu clínica al mes por sillas vacías?</h2>
+        <p>Tan solo 2 pacientes que no se presenten a la semana equivalen a tiempo y dinero perdidos en tratamientos no realizados.</p>
+      </div>
+
+      <div class="lossgain-grid">
+
+        <div class="lg-card lg-loss reveal">
+          <span class="lg-label">Sin ClinIAssist</span>
+          <ul>
+            <li>
+              <span class="lg-icon lg-icon-x" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </span>
+              <span>3 de cada 10 pacientes olvidan su cita y nadie los reagenda.</span>
+            </li>
+            <li>
+              <span class="lg-icon lg-icon-x" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </span>
+              <span>Recepción pasa horas pegada al teléfono confirmando citas a mano.</span>
+            </li>
+            <li>
+              <span class="lg-icon lg-icon-x" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </span>
+              <span>Pacientes antiguos que no vuelven porque nadie les escribe.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="lg-card lg-gain reveal">
+          <span class="lg-label">Con ClinIAssist</span>
+          <ul>
+            <li>
+              <span class="lg-icon lg-icon-check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span>Reducción del 90% de ausencias (no-shows) con recordatorios inteligentes.</span>
+            </li>
+            <li>
+              <span class="lg-icon lg-icon-check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span>Agenda llena automáticamente 24/7 sin esfuerzo del personal.</span>
+            </li>
+            <li>
+              <span class="lg-icon lg-icon-check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span>Pacientes recuperados en piloto automático.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="services" id="servicios">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Lo que hacemos por tu clínica</h2>
+        <p>9 tareas que ClinIAssist se encarga de resolver para tu clínica.</p>
+      </div>
+
+      <div class="service-grid">
+
+        <article class="service-card reveal">
+          <span class="service-badge badge-a">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h11l4 4v10H4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 10h7M8 14h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </span>
+          <span class="service-num">01</span>
+          <h3>Automatización integral de canales</h3>
+          <p>Gestión centralizada y chatbots de atención en correo, SMS, WhatsApp e Instagram.</p>
+        </article>
+
+        <article class="service-card reveal">
+          <span class="service-badge badge-b">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 21c4.97 0 9-3.5 9-8s-4.03-8-9-8-9 3.5-9 8c0 1.7.53 3.28 1.44 4.6L3 21l4.6-1.24A9.7 9.7 0 0 0 12 21Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="service-num">02</span>
+          <h3>Asistente virtual de texto 24/7</h3>
+          <p>IA conversacional entrenada con las preguntas frecuentes de tu clínica: precios, horarios, ubicación y seguros médicos aceptados.</p>
+        </article>
+
+        <article class="service-card reveal">
+          <span class="service-badge badge-c">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6.5 3.5c1 2 1.7 3.5 3 4.7-1 1-1.5 1.8-1.2 2.7.6 1.9 3.4 4.7 5.3 5.3.9.3 1.7-.2 2.7-1.2 1.2 1.3 2.7 2 4.7 3-1 2-3 3-5 2.7-4.6-.7-9.8-5.9-10.5-10.5-.3-2 .7-4 2.7-5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="service-num">03</span>
+          <h3>Asistente de voz IA</h3>
+          <p>Recepción telefónica automatizada que atiende llamadas en tiempo real, resuelve dudas y agenda citas directo en tu calendario.</p>
+        </article>
+
+        <article class="service-card reveal">
+          <span class="service-badge badge-a">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 3v4M16 3v4M3 10h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="m9 16 2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="service-num">04</span>
+          <h3>Sistema anti-inasistencias</h3>
+          <p>Recordatorios automáticos de citas por WhatsApp y correo, con opciones interactivas para confirmar o reprogramar.</p>
+        </article>
+
+        <article class="service-card reveal">
+          <span class="service-badge badge-b">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M9 3v3h6V3" stroke="currentColor" stroke-width="1.6"/><path d="m8.5 13 2 2 4.5-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="service-num">05</span>
+          <h3>Triaje automatizado</h3>
+          <p>Cuestionario de pre-diagnóstico enviado antes de la consulta para recopilar síntomas y enviar un resumen directo al doctor.</p>
+        </article>
+
+        <article class="service-card reveal">
+          <span class="service-badge badge-c">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3a5 5 0 0 1 5 5c0 3.5-5 9-5 9s-5-5.5-5-9a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+          </span>
+          <span class="service-num">06</span>
+          <h3>Alertas internas para recepción</h3>
+          <p>Notificaciones automáticas a tu equipo por nuevas citas, cancelaciones de última hora o listas de espera.</p>
+        </article>
+
+        <article class="service-card reveal">
+          <span class="service-badge badge-a">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 0 1 2-2h9l5 5v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M15 4v5h5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="service-num">07</span>
+          <h3>Página web especializada</h3>
+          <p>Sitios web de alta velocidad, optimizados específicamente para la conversión de pacientes y reservas directas.</p>
+        </article>
+
+        <article class="service-card reveal">
+          <span class="service-badge badge-b">
+            <svg viewBox="0 0 24 24" fill="none"><path d="m12 17.3-5.5 3 1.4-6.1L3 9.9l6.2-.5L12 3.6l2.8 5.8 6.2.5-4.9 4.3 1.4 6.1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="service-num">08</span>
+          <h3>Google Maps y reputación</h3>
+          <p>Optimización de tu perfil de negocio y sistema automatizado post consulta para recopilar reseñas de 5 estrellas de forma constante.</p>
+        </article>
+
+        <article class="service-card reveal">
+          <span class="service-badge badge-c">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M17.5 6.5A5.5 5.5 0 1 0 12 12l5.5-5.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 12v9M8 21h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </span>
+          <span class="service-num">09</span>
+          <h3>Reactivación de pacientes inactivos</h3>
+          <p>Campañas automatizadas para recuperar y agendar a pacientes antiguos que no han regresado en los últimos meses.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section class="process" id="proceso">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>De la primera conversación a tu clínica automatizada</h2>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-step reveal">
+          <span class="step-num">01</span>
+          <h3>Diagnóstico</h3>
+          <p>Revisamos cómo funciona hoy tu agenda, tu atención y tu reputación en Google.</p>
+        </div>
+        <div class="process-step reveal">
+          <span class="step-num">02</span>
+          <h3>Diseño a medida</h3>
+          <p>Elegimos contigo qué servicios de ClinIAssist encajan con tu clínica y tus pacientes.</p>
+        </div>
+        <div class="process-step reveal">
+          <span class="step-num">03</span>
+          <h3>Implementación</h3>
+          <p>Configuramos el asistente, la agenda y las campañas sin detener tu operación diaria.</p>
+        </div>
+        <div class="process-step reveal">
+          <span class="step-num">04</span>
+          <h3>Ajuste continuo</h3>
+          <p>Medimos inasistencias, reseñas y reactivaciones, y afinamos el sistema cada mes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PANEL / HERRAMIENTA -->
+  <section class="tool">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Tu agenda, potenciada con IA y en piloto automático</h2>
+        <p>Conectamos ClinIAssist directamente a tu calendario actual (Google, Outlook, etc.). La IA agenda y confirma citas por WhatsApp sin que tengas que mover un dedo.</p>
+      </div>
+
+      <div class="tool-panel reveal">
+        <div class="tool-tabs" role="tablist">
+          <button class="tool-tab is-active" type="button" data-tab="agenda" role="tab" aria-selected="true">
+            <span class="tool-tab-title">Agenda</span>
+            <span class="tool-tab-desc">Tus pacientes reservan solos, sin llamadas</span>
+          </button>
+          <button class="tool-tab" type="button" data-tab="ficha" role="tab" aria-selected="false">
+            <span class="tool-tab-title">Ficha paciente</span>
+            <span class="tool-tab-desc">Historial y seguimiento siempre a mano</span>
+          </button>
+          <button class="tool-tab" type="button" data-tab="resenas" role="tab" aria-selected="false">
+            <span class="tool-tab-title">Reseñas</span>
+            <span class="tool-tab-desc">La IA las pide sola, tras cada consulta</span>
+          </button>
+          <button class="tool-tab" type="button" data-tab="stats" role="tab" aria-selected="false">
+            <span class="tool-tab-title">Estadísticas</span>
+            <span class="tool-tab-desc">Resultados medibles, mes a mes</span>
+          </button>
+        </div>
+
+        <div class="tool-body">
+
+          <div class="tool-panel-content is-active" data-panel="agenda" role="tabpanel">
+            <div class="agenda-mock">
+              <div class="gcal-wrap">
+                <div class="gcal">
+                  <div class="gcal-row gcal-row-head">
+                    <span class="gcal-time"></span>
+                    <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span>
+                  </div>
+
+                  <div class="gcal-row">
+                    <span class="gcal-time">09:00</span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">M. González<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">C. Díaz<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-green is-confirmed js-appt">J. Ramírez<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">Dr. Pérez<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">A. Fuentes<i class="gcal-check">✓</i></button></span>
+                  </div>
+
+                  <div class="gcal-row">
+                    <span class="gcal-time">10:00</span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">R. Soto<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">P. Herrera<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">M. González<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-green is-pending js-appt">T. Silva<i class="gcal-q">?</i></button></span>
+                  </div>
+
+                  <div class="gcal-row">
+                    <span class="gcal-time">11:00</span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">L. Vidal<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">F. Contreras<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">N. Rojas<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">S. Muñoz<i class="gcal-check">✓</i></button></span>
+                  </div>
+
+                  <div class="gcal-row">
+                    <span class="gcal-time">12:00</span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">E. Castro<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-green is-confirmed js-appt">O. Vega<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">I. Bravo<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">C. Díaz<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-pending js-appt">Dr. Pérez<i class="gcal-q">?</i></button></span>
+                  </div>
+
+                  <div class="gcal-row">
+                    <span class="gcal-time">14:00</span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">A. Fuentes<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">R. Soto<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-green is-pending js-appt">K. Espinoza<i class="gcal-q">?</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">P. Herrera<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"></span>
+                  </div>
+
+                  <div class="gcal-row">
+                    <span class="gcal-time">15:00</span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">M. González<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">L. Vidal<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">F. Contreras<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">N. Rojas<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">S. Muñoz<i class="gcal-check">✓</i></button></span>
+                  </div>
+
+                  <div class="gcal-row">
+                    <span class="gcal-time">16:00</span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">E. Castro<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">C. Díaz<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">I. Bravo<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">Dr. Pérez<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">A. Fuentes<i class="gcal-check">✓</i></button></span>
+                  </div>
+
+                  <div class="gcal-row">
+                    <span class="gcal-time">17:00</span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">R. Soto<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">P. Herrera<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">M. González<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">L. Vidal<i class="gcal-check">✓</i></button></span>
+                    <span class="gcal-cell"><button type="button" class="gcal-event tag-blue is-confirmed js-appt">N. Rojas<i class="gcal-check">✓</i></button></span>
+                  </div>
+                </div>
+
+                <div class="gcal-legend">
+                  <span><i class="dot-blue"></i> Agendado por IA</span>
+                  <span><i class="dot-green"></i> Agendado por Recepción</span>
+                  <span class="gcal-legend-sep">·</span>
+                  <span><i class="gcal-check">✓</i> Confirmada</span>
+                  <span><i class="gcal-q">?</i> Pendiente</span>
+                </div>
+              </div>
+
+              <div class="agenda-benefit">
+                <h4 class="agenda-benefit-title"><span aria-hidden="true">🤖</span> Todo esto lo hace la IA por ti</h4>
+                <ul class="benefit-list">
+                  <li>
+                    <span class="benefit-icon badge-a" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h11l4 4v10H4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 10h7M8 14h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    </span>
+                    <div>
+                      <strong>Multicanalidad total</strong>
+                      <p>Captación de pacientes desde WhatsApp, Instagram, SMS, correo, llamadas y web, directo a tu calendario actual.</p>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="benefit-icon badge-c" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4.5l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                    <div>
+                      <strong>Atención 24/7 ininterrumpida</strong>
+                      <p>La IA responde, atiende y agenda a cualquier persona que necesite una hora, incluso de madrugada o en fines de semana.</p>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="benefit-icon badge-b" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M15 17h5l-1.4-1.4A2 2 0 0 1 18 14.2V11a6 6 0 0 0-4-5.66V5a2 2 0 1 0-4 0v.34A6 6 0 0 0 6 11v3.2a2 2 0 0 1-.58 1.4L4 17h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 17a3 3 0 0 0 6 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    </span>
+                    <div>
+                      <strong>Recordatorios inteligentes automáticos</strong>
+                      <p>Envío automatizado de recordatorios 48h, 24h o 12h antes de cada cita, para eliminar las inasistencias.</p>
+                    </div>
+                  </li>
+                  <li>
+                    <span class="benefit-icon badge-a" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M17.5 6.5A5.5 5.5 0 1 0 12 12l5.5-5.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 12v9M8 21h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    </span>
+                    <div>
+                      <strong>Recuperación de pacientes antiguos</strong>
+                      <p>Campañas y gestión automática para reactivar a pacientes inactivos y recuperarlos para la clínica.</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="appt-detail" id="apptDetail">
+                <div class="appt-detail-card">
+                  <button type="button" class="appt-detail-close" id="apptDetailClose" aria-label="Cerrar">×</button>
+                  <span class="appt-detail-status"><i class="gcal-check">✓</i> Confirmado</span>
+                  <h4>María González</h4>
+                  <dl class="appt-detail-list">
+                    <div><dt>Fecha y hora</dt><dd>Jueves 18 · 10:30 AM</dd></div>
+                    <div><dt>Sucursal</dt><dd>Clínica Providencia</dd></div>
+                    <div><dt>Procedimiento</dt><dd>Limpieza dental profunda</dd></div>
+                    <div><dt>Origen</dt><dd>Agendado por IA (Web)</dd></div>
+                  </dl>
+                  <div class="appt-detail-actions">
+                    <button type="button" class="btn btn-ghost btn-sm">Reagendar cita</button>
+                    <button type="button" class="btn btn-primary btn-sm">Enviar recordatorio manual</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tool-panel-content" data-panel="ficha" role="tabpanel">
+            <div class="patient-card">
+              <div class="patient-card-head">
+                <span class="patient-avatar">MP</span>
+                <div class="patient-id">
+                  <strong>María Pérez</strong>
+                  <span>Providencia, Santiago · Paciente desde 2022</span>
+                </div>
+                <span class="patient-status">Tratamiento activo: Ortodoncia</span>
+              </div>
+              <div class="patient-grid">
+                <div><span>Teléfono</span><strong>+56 9 1234 5678</strong></div>
+                <div><span>Correo</span><strong>maria.perez@email.com</strong></div>
+                <div><span>Última visita</span><strong>Hace 6 meses</strong></div>
+                <div><span>Estado</span><strong>Tratamiento activo: Ortodoncia</strong></div>
+                <div><span>Canal preferido</span><strong>WhatsApp</strong></div>
+              </div>
+              <div class="patient-auto-note">
+                <span aria-hidden="true">🤖</span>
+                <p>ClinIAssist gestiona el seguimiento de este paciente automáticamente, enviando recordatorios de control cada 3 meses sin intervención manual de tu equipo.</p>
+              </div>
+              <button type="button" class="patient-cta" id="patientCta">
+                <span class="patient-cta-icon" aria-hidden="true">🤖</span>
+                <span class="patient-cta-label">Enviar recordatorio automático por WhatsApp ahora</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="tool-panel-content" data-panel="resenas" role="tabpanel">
+            <div class="review-panel">
+              <div class="review-list">
+                <div class="review-item">
+                  <div class="review-head">
+                    <span class="review-avatar">C</span>
+                    <div class="review-id"><strong>Carla M.</strong><span class="review-stars">★★★★★</span></div>
+                    <span class="review-source">Google Reviews</span>
+                  </div>
+                  <p class="review-quote">"¡Increíble la rapidez! Me atendieron por WhatsApp un domingo a las 10 PM y agendé mi hora en segundos sin llamar a nadie."</p>
+                </div>
+                <div class="review-item">
+                  <div class="review-head">
+                    <span class="review-avatar">D</span>
+                    <div class="review-id"><strong>Diego R.</strong><span class="review-stars">★★★★★</span></div>
+                    <span class="review-source">Google Reviews</span>
+                  </div>
+                  <p class="review-quote">"Pude reagendar mi cita súper cómodo y rápido por chat. Da gusto lo moderno que funciona la clínica."</p>
+                </div>
+                <div class="review-item">
+                  <div class="review-head">
+                    <span class="review-avatar">M</span>
+                    <div class="review-id"><strong>María P.</strong><span class="review-stars">★★★★★</span></div>
+                    <span class="review-source">Google Reviews</span>
+                  </div>
+                  <p class="review-quote">"Excelente atención, muy puntuales y los recordatorios por WhatsApp me salvaron de olvidar mi control."</p>
+                </div>
+              </div>
+              <p class="review-footnote">Reseñas pedidas automáticamente por ClinIAssist justo después de la consulta.</p>
+            </div>
+          </div>
+
+          <div class="tool-panel-content" data-panel="stats" role="tabpanel">
+            <div class="stats-compare">
+              <div class="stats-col stats-before">
+                <span class="stats-col-label">Antes de ClinIAssist</span>
+                <div class="bar-group">
+                  <div class="bar-row">
+                    <div class="bar-row-label"><span aria-hidden="true">❌</span> Ausencias y horas perdidas</div>
+                    <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:30%"></div></div>
+                    <span class="bar-value">30%</span>
+                  </div>
+                  <div class="bar-row">
+                    <div class="bar-row-label"><span aria-hidden="true">📞</span> Recepción saturada, llamadas perdidas</div>
+                    <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:92%"></div></div>
+                    <span class="bar-value">Saturada</span>
+                  </div>
+                  <div class="bar-row">
+                    <div class="bar-row-label"><span aria-hidden="true">🕐</span> Tiempo de respuesta promedio</div>
+                    <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:65%"></div></div>
+                    <span class="bar-value">+2 horas</span>
+                  </div>
+                </div>
+              </div>
+              <div class="stats-col stats-after">
+                <span class="stats-col-label">Con ClinIAssist</span>
+                <div class="bar-group">
+                  <div class="bar-row">
+                    <div class="bar-row-label"><span aria-hidden="true">✅</span> Ausencias por inasistencia</div>
+                    <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:4%"></div></div>
+                    <span class="bar-value">0%</span>
+                  </div>
+                  <div class="bar-row">
+                    <div class="bar-row-label"><span aria-hidden="true">📈</span> Citas agendadas automáticamente</div>
+                    <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:60%"></div></div>
+                    <span class="bar-value">+35%</span>
+                  </div>
+                  <div class="bar-row">
+                    <div class="bar-row-label"><span aria-hidden="true">💬</span> Confirmación de citas por WhatsApp</div>
+                    <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:96%"></div></div>
+                    <span class="bar-value">98%</span>
+                  </div>
+                  <div class="bar-row">
+                    <div class="bar-row-label"><span aria-hidden="true">🔄</span> Pacientes antiguos reactivados este mes</div>
+                    <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:75%"></div></div>
+                    <span class="bar-value">+45</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRECIOS -->
+  <section class="pricing" id="precios">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Planes diseñado para tu clínica</h2>
+        <p>Pago único de implementación + mantención trimestral opcional. Precios en pesos chilenos (CLP).</p>
+      </div>
+
+      <div class="promo-banner reveal">
+        <span class="promo-icon" aria-hidden="true">⚡</span>
+        <p>35% de descuento en todos los planes · Válido del 1 sep al 31 oct</p>
+      </div>
+
+      <div class="pricing-grid">
+
+        <article class="plan-card reveal">
+          <span class="plan-discount">-35%</span>
+          <h3>Plan Esencial</h3>
+          <p class="plan-price-strike">$538.000 CLP</p>
+          <p class="plan-price">$350.000<span>CLP</span></p>
+          <p class="plan-price-note">Pago único de implementación</p>
+          <p class="plan-maint">Mantención trimestral: <strong>$75.000 CLP</strong><span>cada 3 meses · aprox. $25.000/mes</span></p>
+          <p class="plan-for"><strong>Ideal para:</strong> un dentista, psicólogo o médico general que atiende solo y quiere automatizar su WhatsApp y agenda básica.</p>
+          <ul class="plan-features">
+            <li>Asistente virtual de texto 24/7</li>
+            <li>Agenda, confirmación y reprogramación</li>
+            <li>Sistema anti-inasistencias</li>
+            <li class="is-off">Automatización integral de canales</li>
+            <li class="is-off">Triaje automatizado</li>
+            <li class="is-off">Google Maps y gestión de reputación</li>
+            <li class="is-off">Asistente de voz IA (recepción telefónica)</li>
+            <li class="is-off">Alertas internas para recepción</li>
+            <li class="is-off">Web especializada y reactivación</li>
+          </ul>
+          <a href="#" class="btn btn-ghost btn-block js-whatsapp" data-wa-text="Hola, me interesa el Plan Esencial de ClinIAssist." target="_blank" rel="noopener">Necesito el servicio</a>
+        </article>
+
+        <article class="plan-card reveal">
+          <span class="plan-badge">Más popular · Recomendado</span>
+          <span class="plan-discount">-35%</span>
+          <h3>Plan Expansión</h3>
+          <p class="plan-price-strike">$1.000.000 CLP</p>
+          <p class="plan-price">$650.000<span>CLP</span></p>
+          <p class="plan-price-note">Pago único de implementación</p>
+          <p class="plan-maint">Mantención trimestral: <strong>$114.000 CLP</strong><span>cada 3 meses · aprox. $38.000/mes</span></p>
+          <p class="plan-for"><strong>Ideal para:</strong> clínicas con 2 a 5 profesionales, recepción colapsada, que necesitan multicanalidad (WhatsApp, Instagram, Web), recordatorios automáticos y recuperación de pacientes antiguos.</p>
+          <ul class="plan-features">
+            <li>Asistente virtual de texto 24/7</li>
+            <li>Agenda, confirmación y reprogramación</li>
+            <li>Sistema anti-inasistencias</li>
+            <li>Automatización integral de canales</li>
+            <li>Triaje automatizado</li>
+            <li>Google Maps y gestión de reputación</li>
+            <li class="is-off">Asistente de voz IA (recepción telefónica)</li>
+            <li class="is-off">Alertas internas para recepción</li>
+            <li class="is-off">Web especializada y reactivación</li>
+          </ul>
+          <a href="#" class="btn btn-ghost btn-block js-whatsapp" data-wa-text="Hola, me interesa el Plan Expansión de ClinIAssist." target="_blank" rel="noopener">Necesito el servicio</a>
+        </article>
+
+        <article class="plan-card reveal">
+          <span class="plan-discount">-35%</span>
+          <h3>Plan Personalizado / Empresa</h3>
+          <p class="plan-price-strike">Desde $1.340.000 CLP</p>
+          <p class="plan-price">Desde $870.000<span>CLP</span></p>
+          <p class="plan-price-note">Pago único de implementación, en adelante</p>
+          <p class="plan-maint">Mantención trimestral: <strong>desde $162.000 CLP</strong><span>cada 3 meses · aprox. $54.000/mes</span></p>
+          <p class="plan-for"><strong>Ideal para:</strong> centros médicos grandes con varias sucursales que requieren integraciones avanzadas o flujos complejos a la medida.</p>
+          <ul class="plan-features">
+            <li>Asistente virtual de texto 24/7</li>
+            <li>Agenda, confirmación y reprogramación</li>
+            <li>Sistema anti-inasistencias</li>
+            <li>Automatización integral de canales</li>
+            <li>Triaje automatizado</li>
+            <li>Google Maps y gestión de reputación</li>
+            <li>Asistente de voz IA (recepción telefónica)</li>
+            <li>Alertas internas para recepción</li>
+            <li>Web especializada y reactivación</li>
+          </ul>
+          <a href="#" class="btn btn-ghost btn-block js-whatsapp" data-wa-text="Hola, me interesa el Plan Personalizado / Empresa de ClinIAssist." target="_blank" rel="noopener">Necesito el servicio</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ROLES -->
+  <section class="roles">
+    <div class="container">
+      <div class="roles-headline reveal">
+        <span class="roles-kicker">Para clínicas con recepción</span>
+        <h2>¿Y mi recepcionista? ¿La despido?</h2>
+        <p class="roles-answer">No.</p>
+        <p class="roles-copy">ClinIAssist no reemplaza a tu equipo; se encarga de lo repetitivo y colapsado para que ellos brillen en lo que importa. Tu IA cubre lo que un humano físicamente no alcanza: las 22:00 horas, los fines de semana, los momentos de alta ocupación y la acumulación de mensajes en WhatsApp.</p>
+      </div>
+
+      <div class="roles-grid">
+        <div class="roles-col reveal">
+          <h3>Tu equipo</h3>
+          <ul>
+            <li>Recibe y atiende con calidez a los pacientes en la clínica.</li>
+            <li>Gestiona pagos, cobros y trámites presenciales en el mostrador.</li>
+            <li>Resuelve dudas complejas o casos particulares cara a cara.</li>
+            <li>Supervisa a la IA y coordina la agenda general.</li>
+          </ul>
+        </div>
+        <div class="roles-col roles-col-ai reveal">
+          <h3>Tu asistente ClinIAssist</h3>
+          <ul>
+            <li>Atiende consultas y agenda por WhatsApp 24/7 (noches, madrugadas y fines de semana).</li>
+            <li>Envía recordatorios automáticos para eliminar inasistencias.</li>
+            <li>Pide reseñas y reactiva a pacientes inactivos automáticamente.</li>
+            <li>Maneja múltiples chats simultáneos cuando hay peak de mensajes.</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="roles-footnote reveal"><span aria-hidden="true">🤝</span> La sesión de formación incluye a tu recepcionista explícitamente. Trabajamos en equipo con ella desde el Día 1.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Preguntas frecuentes</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item reveal" open>
+          <summary>¿Funciona con mi número de WhatsApp actual?</summary>
+          <p>Sí. Podemos integrar ClinIAssist con el número que ya usa tu clínica, o darte uno nuevo dedicado solo a la IA, según lo que prefieras.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>¿Necesito conocimientos técnicos para usar ClinIAssist?</summary>
+          <p>No. Nosotros configuramos e integramos todo el sistema. Tu equipo solo recibe la agenda y las conversaciones ya organizadas.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>¿ClinIAssist reemplaza a mi personal de recepción?</summary>
+          <p>No los reemplaza, los libera de tareas repetitivas para que se enfoquen en la atención presencial y en los casos que sí necesitan una persona.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>¿Cuánto tiempo toma implementarlo?</summary>
+          <p>Entre una y tres semanas, según cuántos servicios de ClinIAssist active tu clínica.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO / CTA -->
+  <section class="cta-section" id="contacto">
+    <div class="container cta-inner reveal">
+      <div class="cta-copy">
+        <h2>Cuéntanos sobre tu clínica y te decimos cómo automatizarla</h2>
+        <p>Respondemos por WhatsApp o por este formulario, lo que te resulte más cómodo.</p>
+        <div class="cta-contacts">
+          <a href="mailto:contacto@cliniassist.com">contacto@cliniassist.com</a>
+          <a href="#" class="js-whatsapp" data-wa-text="Hola, necesito el servicio de ClinIAssist." target="_blank" rel="noopener">Escribir por WhatsApp</a>
+        </div>
+      </div>
+
+      <form class="cta-form" id="contactForm">
+        <div class="form-row">
+          <label for="fNombre">Nombre</label>
+          <input id="fNombre" type="text" name="nombre" placeholder="Tu nombre" required>
+        </div>
+        <div class="form-row">
+          <label for="fClinica">Clínica</label>
+          <input id="fClinica" type="text" name="clinica" placeholder="Nombre de la clínica" required>
+        </div>
+        <div class="form-row">
+          <label for="fContacto">Email o WhatsApp</label>
+          <input id="fContacto" type="text" name="contacto" placeholder="¿Cómo te contactamos?" required>
+        </div>
+        <div class="form-row">
+          <label for="fMensaje">¿Qué te gustaría automatizar?</label>
+          <textarea id="fMensaje" name="mensaje" rows="3" placeholder="Ej: confirmación de citas, reseñas, reactivación de pacientes"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Enviar solicitud</button>
+        <p class="form-note" id="formNote" hidden>Gracias. Te contactaremos muy pronto.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span class="logo">
+      <span class="logo-mark">
+        <svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M14 8v12M8 14h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="logo-text">ClinIAssist</span>
+    </span>
+    <p class="footer-tag">Automatización con Inteligencia Artificial para clínicas y centros de salud.</p>
+    <p class="footer-copy">© <span id="year"></span> ClinIAssist. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
