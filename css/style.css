@@ -228,7 +228,8 @@ p{ margin:0; }
   border-bottom: 1px solid var(--line);
 }
 .header-inner{ display:flex; align-items:center; gap: 24px; height: 68px; }
-.logo{ display:flex; align-items:center; gap:9px; font-family: var(--font-head); font-weight:600; font-size:1.1rem; margin-right:auto; color: var(--ink); }
+.logo{ display:flex; align-items:center; gap:11px; font-family: var(--font-head); font-weight:600; font-size:1.2rem; margin-right:auto; color: var(--ink); }
+.header-inner .logo{ font-size:1.4rem; }
 .logo-mark{ display:block; object-fit:contain; flex-shrink:0; image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
 .logo-mark-dark{ display:none; }
 .main-nav{ display:flex; align-items:center; gap: 26px; font-weight:600; font-size:0.92rem; color: var(--ink-soft); }
