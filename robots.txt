@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cliniassist.com/sitemap.xml
+Sitemap: https://cliniassist.online/sitemap.xml

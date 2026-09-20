@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ClinIAssist — Automatización con IA para clínicas</title>
 <meta name="description" content="Asistente virtual 24/7, recepción por voz, confirmación automática de citas, menos inasistencias, reseñas en Google y reactivación de pacientes. Automatización con IA para clínicas.">
-<link rel="canonical" href="https://cliniassist.com/">
+<link rel="canonical" href="https://cliniassist.online/">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/favicon.png">
 
@@ -13,8 +13,8 @@
 <meta property="og:site_name" content="ClinIAssist">
 <meta property="og:title" content="ClinIAssist — Automatización con IA para clínicas">
 <meta property="og:description" content="Asistente virtual 24/7, recepción por voz, confirmación automática de citas, reseñas en Google y reactivación de pacientes.">
-<meta property="og:url" content="https://cliniassist.com/">
-<meta property="og:image" content="https://cliniassist.com/og-image.jpg">
+<meta property="og:url" content="https://cliniassist.online/">
+<meta property="og:image" content="https://cliniassist.online/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ClinIAssist — Automatización con IA para clínicas">
 <meta name="twitter:description" content="Asistente virtual 24/7, recepción por voz, confirmación automática de citas, reseñas en Google y reactivación de pacientes.">
@@ -29,7 +29,7 @@
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "ClinIAssist",
-  "url": "https://cliniassist.com/",
+  "url": "https://cliniassist.online/",
   "description": "ClinIAssist es una empresa especializada en automatización con Inteligencia Artificial para clínicas y centros de salud: asistente virtual 24/7, recepción por voz, agenda y confirmación de citas, reducción de inasistencias, reputación en Google y reactivación de pacientes.",
   "areaServed": "Clínicas y centros de salud",
   "sameAs": []
@@ -46,7 +46,8 @@
 <header class="site-header" id="header">
   <div class="container header-inner">
     <a href="#top" class="logo">
-      <img class="logo-mark" src="assets/logo.png" alt="Logo de ClinIAssist" width="32" height="32">
+      <img class="logo-mark logo-mark-light" src="assets/logo.png" alt="Logo de ClinIAssist" width="32" height="32">
+      <img class="logo-mark logo-mark-dark" src="assets/logo-white.png" alt="Logo de ClinIAssist" width="32" height="32">
       <span class="logo-text">ClinIAssist</span>
     </a>
 
@@ -255,18 +256,25 @@
   </section>
 
   <!-- SERVICIOS -->
-  <section class="services" id="servicios">
+  <section class="services services-dark" id="servicios">
+    <div class="services-glow g1" aria-hidden="true"></div>
+    <div class="services-glow g2" aria-hidden="true"></div>
+    <div class="services-glow g3" aria-hidden="true"></div>
     <div class="container">
-      <div class="section-head reveal">
+      <div class="section-head on-dark reveal">
         <h2>Lo que hacemos por tu clínica</h2>
         <p>9 tareas que ClinIAssist se encarga de resolver para tu clínica.</p>
       </div>
 
       <div class="service-grid">
+        <svg class="service-connector-svg" id="serviceConnectorSvg" aria-hidden="true">
+          <path class="connector-path"></path>
+          <circle class="connector-spark" r="3.4"></circle>
+        </svg>
 
         <article class="service-card reveal">
-          <span class="service-badge badge-a">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h11l4 4v10H4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 10h7M8 14h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span class="service-badge">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="2.6" stroke="currentColor" stroke-width="1.6"/><path d="M12 9.4V5M12 19v-4.4M9.4 12H5M19 12h-4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="4" r="1.5" fill="currentColor"/><circle cx="12" cy="20" r="1.5" fill="currentColor"/><circle cx="4" cy="12" r="1.5" fill="currentColor"/><circle cx="20" cy="12" r="1.5" fill="currentColor"/></svg>
           </span>
           <span class="service-num">01</span>
           <h3>Automatización integral de canales</h3>
@@ -274,8 +282,8 @@
         </article>
 
         <article class="service-card reveal">
-          <span class="service-badge badge-b">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 21c4.97 0 9-3.5 9-8s-4.03-8-9-8-9 3.5-9 8c0 1.7.53 3.28 1.44 4.6L3 21l4.6-1.24A9.7 9.7 0 0 0 12 21Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <span class="service-badge">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h13l3 3v9a1.6 1.6 0 0 1-1.6 1.6H9L5 22v-3.4H4A1.6 1.6 0 0 1 2.4 17V7.6A1.6 1.6 0 0 1 4 6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12.2" cy="12" r="3" stroke="currentColor" stroke-width="1.4"/><path d="M12.2 10.2V12l1.3.9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
           <span class="service-num">02</span>
           <h3>Asistente virtual de texto 24/7</h3>
@@ -283,8 +291,8 @@
         </article>
 
         <article class="service-card reveal">
-          <span class="service-badge badge-c">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M6.5 3.5c1 2 1.7 3.5 3 4.7-1 1-1.5 1.8-1.2 2.7.6 1.9 3.4 4.7 5.3 5.3.9.3 1.7-.2 2.7-1.2 1.2 1.3 2.7 2 4.7 3-1 2-3 3-5 2.7-4.6-.7-9.8-5.9-10.5-10.5-.3-2 .7-4 2.7-5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <span class="service-badge">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 14v-3a8 8 0 0 1 16 0v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><rect x="2.4" y="13" width="3.2" height="5.4" rx="1.4" stroke="currentColor" stroke-width="1.5"/><rect x="18.4" y="13" width="3.2" height="5.4" rx="1.4" stroke="currentColor" stroke-width="1.5"/><path d="M9 12v2M12 10.5v5M15 12v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </span>
           <span class="service-num">03</span>
           <h3>Asistente de voz IA</h3>
@@ -292,8 +300,8 @@
         </article>
 
         <article class="service-card reveal">
-          <span class="service-badge badge-a">
-            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 3v4M16 3v4M3 10h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="m9 16 2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="service-badge">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="5" width="15" height="15.5" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 3v4M13 3v4M2.5 9.5h15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="17.6" cy="17" r="4.4" fill="var(--services-bg)" stroke="currentColor" stroke-width="1.4"/><path d="m15.7 17 1.2 1.2 2.2-2.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
           <span class="service-num">04</span>
           <h3>Sistema anti-inasistencias</h3>
@@ -301,8 +309,8 @@
         </article>
 
         <article class="service-card reveal">
-          <span class="service-badge badge-b">
-            <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M9 3v3h6V3" stroke="currentColor" stroke-width="1.6"/><path d="m8.5 13 2 2 4.5-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="service-badge">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3.6" width="14" height="17.4" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M9 3h6a1 1 0 0 1 1 1v1.4H8V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 11.5h4.5M8 14.5h6.5M8 17.5h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M16.3 9.2v3M14.8 10.7h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </span>
           <span class="service-num">05</span>
           <h3>Triaje automatizado</h3>
@@ -310,8 +318,8 @@
         </article>
 
         <article class="service-card reveal">
-          <span class="service-badge badge-c">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3a5 5 0 0 1 5 5c0 3.5-5 9-5 9s-5-5.5-5-9a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+          <span class="service-badge">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3.6a1.3 1.3 0 0 1 1.3 1.3v.6a5.8 5.8 0 0 1 4 5.5v3l1.7 2.3H5l1.7-2.3v-3a5.8 5.8 0 0 1 4-5.5v-.6A1.3 1.3 0 0 1 12 3.6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 18.6a2 2 0 0 0 4 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M4.2 8.4a8.6 8.6 0 0 1 2-3.6M19.8 8.4a8.6 8.6 0 0 0-2-3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
           </span>
           <span class="service-num">06</span>
           <h3>Alertas internas para recepción</h3>
@@ -319,8 +327,8 @@
         </article>
 
         <article class="service-card reveal">
-          <span class="service-badge badge-a">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 0 1 2-2h9l5 5v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M15 4v5h5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <span class="service-badge">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="4.5" width="19" height="13" rx="1.8" stroke="currentColor" stroke-width="1.5"/><path d="M8.5 21h7M12 17.5v3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="m11.4 8.3-2.3 3.4h2.1l-1.1 3.4 3.6-4.2h-2.1l1.4-2.6Z" fill="currentColor"/></svg>
           </span>
           <span class="service-num">07</span>
           <h3>Página web especializada</h3>
@@ -328,8 +336,9 @@
         </article>
 
         <article class="service-card reveal">
-          <span class="service-badge badge-b">
-            <svg viewBox="0 0 24 24" fill="none"><path d="m12 17.3-5.5 3 1.4-6.1L3 9.9l6.2-.5L12 3.6l2.8 5.8 6.2.5-4.9 4.3 1.4 6.1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <span class="service-badge service-badge-maps">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 21.5s6.2-5.6 6.2-10.7a6.2 6.2 0 1 0-12.4 0c0 5.1 6.2 10.7 6.2 10.7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="10.7" r="2.3" stroke="currentColor" stroke-width="1.4"/></svg>
+            <span class="service-badge-stars" aria-hidden="true">★★★★★</span>
           </span>
           <span class="service-num">08</span>
           <h3>Google Maps y reputación</h3>
@@ -337,8 +346,8 @@
         </article>
 
         <article class="service-card reveal">
-          <span class="service-badge badge-c">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M17.5 6.5A5.5 5.5 0 1 0 12 12l5.5-5.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 12v9M8 21h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span class="service-badge">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M17.7 6.3A5.6 5.6 0 1 0 12 12l5.7-5.7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7 12h2.2l1.3-2.6 1.6 4.6 1.3-2h2.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
           <span class="service-num">09</span>
           <h3>Reactivación de pacientes inactivos</h3>
@@ -354,6 +363,7 @@
     <div class="container">
       <div class="section-head reveal">
         <h2>De la primera conversación a tu clínica automatizada</h2>
+        <p>Agendamos una breve sesión de diagnóstico contigo y definimos el plan exacto para automatizar tu clínica sin alterar tu operación.</p>
       </div>
 
       <div class="process-grid">
@@ -385,7 +395,8 @@
   <section class="tool">
     <div class="container">
       <div class="section-head reveal">
-        <img class="section-logo" src="assets/logo.png" alt="ClinIAssist" width="44" height="44">
+        <img class="section-logo section-logo-light" src="assets/logo.png" alt="ClinIAssist" width="44" height="44">
+        <img class="section-logo section-logo-dark" src="assets/logo-white.png" alt="ClinIAssist" width="44" height="44">
         <h2>Tu agenda, potenciada con IA y en piloto automático</h2>
         <p>Conectamos ClinIAssist directamente a tu calendario actual (Google, Outlook, etc.). La IA agenda y confirma citas por WhatsApp sin que tengas que mover un dedo.</p>
       </div>
@@ -836,7 +847,7 @@
         <h2>Cuéntanos sobre tu clínica y te decimos cómo automatizarla</h2>
         <p>Respondemos por WhatsApp o por este formulario, lo que te resulte más cómodo.</p>
         <div class="cta-contacts">
-          <a href="mailto:contacto@cliniassist.com">contacto@cliniassist.com</a>
+          <a href="mailto:contacto@cliniassist.online">contacto@cliniassist.online</a>
           <a href="#" class="js-whatsapp" data-wa-text="Hola, necesito el servicio de ClinIAssist." target="_blank" rel="noopener">Escribir por WhatsApp</a>
         </div>
       </div>
@@ -869,7 +880,8 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <span class="logo">
-      <img class="logo-mark" src="assets/logo.png" alt="Logo de ClinIAssist" width="26" height="26">
+      <img class="logo-mark logo-mark-light" src="assets/logo.png" alt="Logo de ClinIAssist" width="26" height="26">
+      <img class="logo-mark logo-mark-dark" src="assets/logo-white.png" alt="Logo de ClinIAssist" width="26" height="26">
       <span class="logo-text">ClinIAssist</span>
     </span>
     <p class="footer-tag">Automatización con Inteligencia Artificial para clínicas y centros de salud.</p>

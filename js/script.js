@@ -26,13 +26,103 @@
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Navegación entre secciones: scroll con desaceleración elástica (en vez del
-  // scroll-behavior:smooth genérico) + destello de "llegada" en la sección destino.
-  const easeOutBack = (t) => {
-    const c1 = 1.15;
-    const c3 = c1 + 1;
-    return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+  // Conector luminoso entre las 9 tarjetas de servicios: traza una línea por los
+  // centros reales de las tarjetas (recalculada si cambia el layout) y anima una
+  // partícula que viaja por ese trazado. Los tramos que quedan bajo una tarjeta
+  // no se ven, porque el SVG está detrás de las tarjetas (mismo truco que el
+  // conector de la sección "proceso").
+  (() => {
+    const grid = document.querySelector('.service-grid');
+    const svg = document.getElementById('serviceConnectorSvg');
+    if (!grid || !svg) return;
+    const pathEl = svg.querySelector('.connector-path');
+    const spark = svg.querySelector('.connector-spark');
+    let points = [];
+    let segLengths = [];
+    let totalLength = 0;
+
+    const measure = () => {
+      const cards = Array.from(grid.querySelectorAll('.service-card'));
+      if (!cards.length) return;
+      const gridRect = grid.getBoundingClientRect();
+      svg.setAttribute('viewBox', `0 0 ${gridRect.width} ${gridRect.height}`);
+      points = cards.map(card => {
+        const r = card.getBoundingClientRect();
+        return { x: r.left - gridRect.left + r.width / 2, y: r.top - gridRect.top + r.height / 2 };
+      });
+      const d = points.map((p, i) => (i === 0 ? 'M' : 'L') + p.x.toFixed(1) + ',' + p.y.toFixed(1)).join(' ');
+      pathEl.setAttribute('d', d);
+      segLengths = [];
+      totalLength = 0;
+      for (let i = 1; i < points.length; i++) {
+        const dx = points[i].x - points[i - 1].x;
+        const dy = points[i].y - points[i - 1].y;
+        const len = Math.sqrt(dx * dx + dy * dy);
+        segLengths.push(len);
+        totalLength += len;
+      }
+    };
+
+    const pointAtDistance = (dist) => {
+      let d = dist;
+      for (let i = 0; i < segLengths.length; i++) {
+        if (d <= segLengths[i] || i === segLengths.length - 1) {
+          const t = segLengths[i] ? Math.min(d / segLengths[i], 1) : 0;
+          const a = points[i], b = points[i + 1];
+          return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t };
+        }
+        d -= segLengths[i];
+      }
+      return points[0] || { x: 0, y: 0 };
+    };
+
+    let resizeTimer = null;
+    const scheduleMeasure = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(measure, 200);
+    };
+
+    measure();
+    setTimeout(measure, 500); // recalcula tras el ajuste de fuentes/layout
+    window.addEventListener('resize', scheduleMeasure);
+
+    if (reduceMotion) {
+      spark.setAttribute('opacity', '0');
+      return;
+    }
+
+    const DURATION = 7000;
+    const start = performance.now();
+    const tick = (now) => {
+      if (totalLength > 0) {
+        const elapsed = (now - start) % DURATION;
+        const p = pointAtDistance((elapsed / DURATION) * totalLength);
+        spark.setAttribute('cx', p.x);
+        spark.setAttribute('cy', p.y);
+      }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  })();
+
+  // Navegación entre secciones: scroll con desaceleración progresiva, limpia y
+  // sin rebote (curva cubic-bezier(0.25, 1, 0.5, 1)) + destello de "llegada".
+  const cubicBezierEase = (x1, y1, x2, y2) => {
+    const bez = (t, a, b) => 3 * (1 - t) * (1 - t) * t * a + 3 * (1 - t) * t * t * b + t * t * t;
+    const bezDerivative = (t, a, b) => 3 * (1 - t) * (1 - t) * a + 6 * (1 - t) * t * (b - a) + 3 * t * t * (1 - b);
+    return (x) => {
+      let t = x;
+      for (let i = 0; i < 6; i++) {
+        const dx = bez(t, x1, x2) - x;
+        const d = bezDerivative(t, x1, x2);
+        if (Math.abs(d) < 1e-6) break;
+        t -= dx / d;
+        t = Math.min(1, Math.max(0, t));
+      }
+      return bez(t, y1, y2);
+    };
   };
+  const scrollEase = cubicBezierEase(0.25, 1, 0.5, 1);
 
   const flashSection = (el) => {
     el.classList.remove('section-focus');
@@ -54,12 +144,12 @@
       return;
     }
 
-    const duration = 850;
+    const duration = 700;
     const startTime = performance.now();
 
     const step = (now) => {
       const progress = Math.min((now - startTime) / duration, 1);
-      window.scrollTo(0, startY + distance * easeOutBack(progress));
+      window.scrollTo(0, startY + distance * scrollEase(progress));
       if (progress < 1) {
         requestAnimationFrame(step);
       } else {
