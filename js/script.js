@@ -26,6 +26,63 @@
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Navegación entre secciones: scroll con desaceleración elástica (en vez del
+  // scroll-behavior:smooth genérico) + destello de "llegada" en la sección destino.
+  const easeOutBack = (t) => {
+    const c1 = 1.15;
+    const c3 = c1 + 1;
+    return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+  };
+
+  const flashSection = (el) => {
+    el.classList.remove('section-focus');
+    void el.offsetWidth; // reinicia la animación aunque se repita sobre la misma sección
+    el.classList.add('section-focus');
+    el.addEventListener('animationend', () => el.classList.remove('section-focus'), { once: true });
+  };
+
+  const scrollToTarget = (target) => {
+    const header = document.getElementById('header');
+    const headerHeight = header ? header.offsetHeight : 0;
+    const startY = window.pageYOffset;
+    const targetY = Math.max(0, target.getBoundingClientRect().top + startY - headerHeight - 14);
+    const distance = targetY - startY;
+
+    if (reduceMotion || Math.abs(distance) < 2) {
+      window.scrollTo(0, targetY);
+      flashSection(target);
+      return;
+    }
+
+    const duration = 850;
+    const startTime = performance.now();
+
+    const step = (now) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      window.scrollTo(0, startY + distance * easeOutBack(progress));
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        window.scrollTo(0, targetY);
+        flashSection(target);
+      }
+    };
+    requestAnimationFrame(step);
+  };
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    const hash = link.getAttribute('href');
+    if (!hash || hash.length < 2) return;
+    let target;
+    try { target = document.querySelector(hash); } catch (e) { return; }
+    if (!target) return;
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      scrollToTarget(target);
+      if (history.pushState) history.pushState(null, '', hash);
+    });
+  });
+
   // Conversación de WhatsApp: mensajes + indicadores de "escribiendo..." + tarjeta de confirmación final.
   const chatBody = document.querySelector('.hero-visual .chat-mock-body');
   const confirmCard = document.getElementById('confirmCard');
