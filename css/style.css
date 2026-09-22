@@ -811,7 +811,12 @@ p{ margin:0; }
   opacity:0;
   pointer-events:none;
   transition: opacity .3s ease;
-  overflow:auto;
+  /* .tool-body se mide y ajusta por JS al alto real de esta pestaña (ver
+     script.js), así que en condiciones normales nunca debería desbordar.
+     overflow:hidden es la red de seguridad: si algún caso extremo (zoom,
+     una fuente que aún no cargó) deja un par de px de más, se recortan en
+     silencio en vez de mostrar una barra de scroll que rompe el diseño. */
+  overflow:hidden;
 }
 .tool-panel-content.is-active{ opacity:1; pointer-events:auto; }
 
@@ -819,16 +824,16 @@ p{ margin:0; }
    Vertical: el calendario ocupa todo el ancho arriba, y el bloque de
    beneficios va debajo como una fila de tarjetas — así el calendario gana
    espacio en vez de competir por ancho con el panel lateral. */
-.agenda-mock{ position:relative; display:flex; flex-direction:column; gap:28px; }
+.agenda-mock{ position:relative; display:flex; flex-direction:column; gap:22px; }
 .gcal-wrap{ display:flex; flex-direction:column; gap:12px; }
 .gcal{ display:grid; grid-template-columns: 40px repeat(5, 1fr); gap:4px; }
 .gcal-row{ display:contents; }
 .gcal-row-head span{ font-size:0.68rem; font-weight:700; color: var(--ink-soft); text-align:center; }
 .gcal-time{ font-family: var(--font-mono); font-size:0.62rem; font-weight:700; color: var(--ink-soft); display:flex; align-items:center; }
-.gcal-cell{ min-height:28px; border-radius:5px; background: var(--surface-alt); display:flex; padding:1px; }
+.gcal-cell{ min-height:26px; border-radius:5px; background: var(--surface-alt); display:flex; padding:1px; }
 .gcal-event{
   flex:1; border:none; border-radius:4px; display:flex; align-items:center; justify-content:center;
-  font-family:inherit; font-size:0.8125rem; font-weight:500; color:#fff; text-align:center; line-height:1.2; padding:4px 8px;
+  font-family:inherit; font-size:0.8125rem; font-weight:500; color:#fff; text-align:center; line-height:1.2; padding:3px 8px;
   cursor:pointer; transition: transform .15s ease, filter .15s ease;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
@@ -850,11 +855,11 @@ p{ margin:0; }
 .agenda-benefit-title{ display:flex; align-items:center; gap:8px; font-size:0.92rem; font-weight:700; color: var(--ink); margin:0; }
 .benefit-list{ display:grid; grid-template-columns: repeat(4, 1fr); gap:14px; }
 .benefit-list li{
-  display:flex; flex-direction:column; align-items:flex-start; gap:10px;
+  display:flex; flex-direction:column; align-items:flex-start; gap:8px;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
-  padding: 14px;
+  padding: 12px 14px;
 }
 .benefit-icon{ width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .benefit-icon svg{ width:17px; height:17px; }

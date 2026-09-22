@@ -371,6 +371,19 @@
 
     syncBodyHeight(toolPanel.querySelector('.tool-panel-content.is-active'));
 
+    // Este script corre de forma síncrona apenas se parsea, antes de que
+    // las tipografías de Google Fonts terminen de descargar — la primera
+    // medición cae con la fuente de reemplazo (más angosta) y el texto de
+    // la agenda/las tarjetas de beneficios envuelve menos líneas de las
+    // que ocupa una vez que Manrope reemplaza esa fuente. Sin este reintento
+    // esa medición corta quedaba fija para siempre, dejando `.tool-body` un
+    // poco más bajo que el contenido real y apareciendo scroll en la agenda.
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        syncBodyHeight(toolPanel.querySelector('.tool-panel-content.is-active'));
+      });
+    }
+
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         const targetId = tab.getAttribute('data-tab');
