@@ -428,15 +428,58 @@
     });
   }
 
-  // Ficha de cita: se abre al hacer clic en cualquier bloque de la agenda
+  // Ficha de cita: se abre al hacer clic en cualquier bloque de la agenda,
+  // con el contenido de la celda que realmente se clickeó — antes el modal
+  // era estático (siempre "María González · Jueves 18 · 10:30 AM") sin
+  // importar qué paciente u horario se abriera.
   const apptDetail = document.getElementById('apptDetail');
   const apptDetailClose = document.getElementById('apptDetailClose');
   if (apptDetail) {
-    const openDetail = () => apptDetail.classList.add('is-open');
+    const nameEl = apptDetail.querySelector('h4');
+    const statusEl = apptDetail.querySelector('.appt-detail-status');
+    const [dateEl, , treatmentEl, originEl] = apptDetail.querySelectorAll('.appt-detail-list dd');
+    const DAYS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+    // No hay un procedimiento real por celda en la maqueta del calendario,
+    // así que se rota una lista de ejemplos plausibles por posición — el
+    // punto es que cada cita se vea distinta, no que sea el dato exacto.
+    const TREATMENTS = [
+      'Limpieza dental profunda',
+      'Control rutinario',
+      'Evaluación general',
+      'Chequeo cardiológico',
+      'Seguimiento post-operatorio',
+      'Consulta pediátrica',
+      'Revisión de resultados de laboratorio',
+      'Sesión de kinesiología',
+    ];
+
+    const apptButtons = Array.from(document.querySelectorAll('.js-appt'));
+
+    const openDetail = (btn, index) => {
+      const row = btn.closest('.gcal-row');
+      const cell = btn.closest('.gcal-cell');
+      const time = row?.querySelector('.gcal-time')?.textContent.trim() ?? '';
+      const cellsInRow = row ? Array.from(row.querySelectorAll('.gcal-cell')) : [];
+      const day = DAYS[cellsInRow.indexOf(cell)] ?? '';
+      const patientName = btn.textContent.replace(/[✓?]/g, '').trim();
+      const isConfirmed = btn.classList.contains('is-confirmed');
+      const isFromIA = btn.classList.contains('tag-blue');
+
+      if (nameEl) nameEl.textContent = patientName;
+      if (statusEl) {
+        statusEl.classList.toggle('is-pending', !isConfirmed);
+        statusEl.innerHTML = isConfirmed ? '<i class="gcal-check">✓</i> Confirmado' : '<i class="gcal-q">?</i> Pendiente';
+      }
+      if (dateEl) dateEl.textContent = `${day} · ${time} hrs`;
+      if (treatmentEl) treatmentEl.textContent = TREATMENTS[index % TREATMENTS.length];
+      if (originEl) originEl.textContent = isFromIA ? 'Agendado por IA (Web)' : 'Agendado por Recepción';
+
+      apptDetail.classList.add('is-open');
+    };
     const closeDetail = () => apptDetail.classList.remove('is-open');
 
-    document.querySelectorAll('.js-appt').forEach(btn => {
-      btn.addEventListener('click', openDetail);
+    apptButtons.forEach((btn, index) => {
+      btn.addEventListener('click', () => openDetail(btn, index));
     });
     if (apptDetailClose) apptDetailClose.addEventListener('click', closeDetail);
     apptDetail.addEventListener('click', (e) => {
@@ -474,6 +517,26 @@
     onScroll();
   }
 
+  // Selector rápido de especialidad: un solo chip activo a la vez, cuyo
+  // valor se refleja en el input oculto que viaja con el resto del formulario.
+  const specialtyPicker = document.getElementById('specialtyPicker');
+  const specialtyInput = document.getElementById('fEspecialidad');
+  const specialtyChips = specialtyPicker ? Array.from(specialtyPicker.querySelectorAll('.specialty-chip')) : [];
+  const resetSpecialtyPicker = () => {
+    specialtyChips.forEach(chip => chip.classList.remove('is-active'));
+    if (specialtyInput) specialtyInput.value = '';
+  };
+  specialtyChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const alreadyActive = chip.classList.contains('is-active');
+      resetSpecialtyPicker();
+      if (!alreadyActive) {
+        chip.classList.add('is-active');
+        if (specialtyInput) specialtyInput.value = chip.dataset.specialty;
+      }
+    });
+  });
+
   const form = document.getElementById('contactForm');
   const formNote = document.getElementById('formNote');
   if (form && formNote) {
@@ -481,6 +544,7 @@
       e.preventDefault();
       formNote.hidden = false;
       form.reset();
+      resetSpecialtyPicker();
     });
   }
 })();
