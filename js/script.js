@@ -169,9 +169,24 @@
     link.addEventListener('click', (e) => {
       e.preventDefault();
       scrollToTarget(target);
-      if (history.pushState) history.pushState(null, '', hash);
+      // La barra de direcciones se mantiene siempre limpia (sin #hash):
+      // la navegación por anclas es solo visual, no un cambio de URL real.
+      if (history.pushState) history.pushState(null, '', '/');
     });
   });
+
+  // Si se llega con un hash en la URL (enlace compartido o marcador antiguo),
+  // hacemos scroll a esa sección una sola vez y luego limpiamos la URL.
+  if (window.location.hash) {
+    const goToInitialHash = () => {
+      let initialTarget;
+      try { initialTarget = document.querySelector(window.location.hash); } catch (e) { initialTarget = null; }
+      if (initialTarget) scrollToTarget(initialTarget);
+      if (history.replaceState) history.replaceState(null, '', '/');
+    };
+    if (document.readyState === 'complete') goToInitialHash();
+    else window.addEventListener('load', goToInitialHash, { once: true });
+  }
 
   // Conversación de WhatsApp: mensajes + indicadores de "escribiendo..." + tarjeta de confirmación final.
   const chatBody = document.querySelector('.hero-visual .chat-mock-body');
@@ -292,6 +307,21 @@
       setInterval(fillNext, 550);
     }
   }
+
+  // Tarjetas de servicios con giro 3D: un clic (o Enter/Espacio) revela la
+  // métrica de impacto de ese servicio en el dorso; otro clic la devuelve.
+  document.querySelectorAll('.service-card[role="button"]').forEach(card => {
+    const toggleFlip = () => {
+      const flipped = card.classList.toggle('is-flipped');
+      card.setAttribute('aria-pressed', String(flipped));
+    };
+    card.addEventListener('click', toggleFlip);
+    card.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      toggleFlip();
+    });
+  });
 
   // Pestañas interactivas de "Una sola herramienta para toda tu clínica"
   const toolPanel = document.querySelector('.tool-panel');

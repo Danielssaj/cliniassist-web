@@ -633,20 +633,44 @@ p{ margin:0; }
 .connector-path{ fill:none; stroke: var(--services-cyan); stroke-width:1.4; stroke-dasharray:2 7; stroke-linecap:round; opacity:.35; }
 .connector-spark{ fill: var(--services-cyan); filter: drop-shadow(0 0 6px var(--services-cyan)) drop-shadow(0 0 12px rgba(56,217,240,0.7)); }
 
+/* Flip cards — un clic (o Enter/Espacio) gira la tarjeta en 3D para revelar
+   la métrica de impacto de ese servicio en el dorso. Ambas caras son cajas
+   absolutas del mismo tamaño dentro de .service-card-inner, que es lo único
+   que realmente rota; el lift/glow de hover vive un nivel más arriba
+   (.service-card-inner) para no pelear con ese rotateY. */
 .service-card{
   position:relative;
   z-index:1;
+  height: 264px;
+  perspective: 1200px;
+  cursor:pointer;
+}
+.service-card:focus-visible{ outline: 2px solid var(--services-cyan); outline-offset:4px; border-radius: var(--radius-lg); }
+.service-card-inner{
+  position:relative; width:100%; height:100%;
+  transform-style: preserve-3d;
+  transition: transform .6s cubic-bezier(0.4,0.15,0.2,1);
+}
+.service-card:hover .service-card-inner{ transform: translateY(-8px); }
+.service-card.is-flipped .service-card-inner{ transform: rotateY(180deg); }
+.service-card.is-flipped:hover .service-card-inner{ transform: translateY(-8px) rotateY(180deg); }
+
+.service-card-face{
+  position:absolute; inset:0;
+  display:flex; flex-direction:column;
   background: var(--services-card);
   border: 1px solid var(--services-line);
   border-radius: var(--radius-lg);
   padding: 28px 24px;
-  transition: transform .5s cubic-bezier(0,0,.2,1), box-shadow .5s cubic-bezier(0,0,.2,1), border-color .5s cubic-bezier(0,0,.2,1);
+  backface-visibility:hidden;
+  transition: border-color .5s cubic-bezier(0,0,.2,1), box-shadow .5s cubic-bezier(0,0,.2,1);
 }
-.service-card:hover{
-  transform: translateY(-8px);
+.service-card:hover .service-card-face{
   border-color: var(--services-line-hover);
   box-shadow: 0 22px 48px rgba(0,0,0,0.35), 0 0 34px rgba(56,217,240,0.35);
 }
+.service-card-back{ transform: rotateY(180deg); align-items:center; justify-content:center; text-align:center; }
+
 .service-card:hover .service-badge{ transform: scale(1.08) rotate(-4deg); box-shadow: 0 0 0 1px rgba(56,217,240,0.5), 0 0 26px rgba(56,217,240,0.55); }
 .service-badge{
   display:inline-flex; align-items:center; justify-content:center;
@@ -664,6 +688,34 @@ p{ margin:0; }
 .service-num{ position:absolute; top:26px; right:24px; font-family: var(--font-mono); font-size:0.8rem; font-weight:600; color: var(--services-ink-soft); }
 .service-card h3{ font-size: 1.05rem; margin-bottom: 8px; padding-right: 34px; color: var(--services-ink); }
 .service-card p{ color: var(--services-ink-soft); font-size: 0.93rem; }
+
+.service-flip-hint{
+  margin-top:auto; padding-top:14px;
+  font-size:0.76rem; font-weight:700; color: var(--services-cyan);
+}
+.service-card-back .service-flip-hint{ margin-top:16px; padding-top:0; opacity:.75; }
+
+.mini-meter{ display:flex; flex-direction:column; align-items:center; gap:10px; }
+.mini-meter-ring-wrap{ position:relative; width:80px; height:80px; }
+.mini-meter-ring{ width:80px; height:80px; }
+.mini-meter-track{ stroke: rgba(56,217,240,0.15); }
+.mini-meter-fill{
+  stroke: var(--services-cyan);
+  stroke-linecap:round;
+  filter: drop-shadow(0 0 6px rgba(56,217,240,0.5));
+  transition: stroke-dashoffset 1s var(--ease);
+}
+.service-card:not(.is-flipped) .mini-meter-fill{ stroke-dashoffset: 213.6 !important; transition:none; }
+.mini-meter-value{
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family: var(--font-body); font-size:1.05rem; font-weight:800; color: var(--services-ink);
+}
+
+.mini-stat{ display:flex; flex-direction:column; align-items:center; gap:10px; }
+.mini-stat-value{ display:inline-flex; align-items:center; gap:6px; font-family: var(--font-body); font-size:1.9rem; font-weight:800; color: var(--services-ink); }
+.mini-stat-arrow{ width:20px; height:20px; color: var(--services-cyan); flex-shrink:0; }
+.mini-stat-label{ font-size:0.82rem; color: var(--services-ink-soft); max-width:190px; line-height:1.4; }
 
 /* ============================================
    Proceso
@@ -712,7 +764,7 @@ p{ margin:0; }
 .tool-tab-title{ display:block; font-weight:700; font-size:0.92rem; color: var(--ink); margin-bottom: 3px; }
 .tool-tab-desc{ display:block; font-size:0.75rem; line-height:1.35; color: var(--ink-soft); }
 
-.tool-body{ position:relative; height: 480px; }
+.tool-body{ position:relative; height: 640px; }
 .tool-panel-content{
   position:absolute; inset:0;
   background: var(--surface);
@@ -725,8 +777,11 @@ p{ margin:0; }
 }
 .tool-panel-content.is-active{ opacity:1; pointer-events:auto; }
 
-/* Agenda — estilo Google Calendar, densa, por ORIGEN + ESTADO */
-.agenda-mock{ position:relative; display:grid; grid-template-columns: 1.4fr 1fr; gap:22px; align-items:start; height:100%; }
+/* Agenda — estilo Google Calendar, densa, por ORIGEN + ESTADO.
+   Vertical: el calendario ocupa todo el ancho arriba, y el bloque de
+   beneficios va debajo como una fila de tarjetas — así el calendario gana
+   espacio en vez de competir por ancho con el panel lateral. */
+.agenda-mock{ position:relative; display:flex; flex-direction:column; gap:28px; }
 .gcal-wrap{ display:flex; flex-direction:column; gap:12px; }
 .gcal{ display:grid; grid-template-columns: 40px repeat(5, 1fr); gap:4px; }
 .gcal-row{ display:contents; }
@@ -752,17 +807,17 @@ p{ margin:0; }
 .gcal-legend .gcal-check, .gcal-legend .gcal-q{ color: var(--ink); font-weight:700; margin-right:4px; margin-left:0; }
 .gcal-legend-sep{ opacity:.5; }
 
-/* Panel de beneficios de la IA — junto a la agenda */
-.agenda-benefit{
+/* Panel de beneficios de la IA — fila de tarjetas debajo de la agenda */
+.agenda-benefit{ display:flex; flex-direction:column; gap:16px; }
+.agenda-benefit-title{ display:flex; align-items:center; gap:8px; font-size:0.92rem; font-weight:700; color: var(--ink); margin:0; }
+.benefit-list{ display:grid; grid-template-columns: repeat(4, 1fr); gap:14px; }
+.benefit-list li{
+  display:flex; flex-direction:column; align-items:flex-start; gap:10px;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
-  padding: 22px;
-  display:flex; flex-direction:column; gap:18px;
+  padding: 16px;
 }
-.agenda-benefit-title{ display:flex; align-items:center; gap:8px; font-size:0.92rem; font-weight:700; color: var(--ink); margin:0; }
-.benefit-list{ display:flex; flex-direction:column; gap:16px; }
-.benefit-list li{ display:flex; gap:12px; align-items:flex-start; }
 .benefit-icon{ width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .benefit-icon svg{ width:17px; height:17px; }
 .benefit-icon.badge-a{ background: var(--badge-a-bg); color: var(--link); }
@@ -770,6 +825,10 @@ p{ margin:0; }
 .benefit-icon.badge-c{ background: var(--badge-c-bg); color: var(--link); }
 .benefit-list strong{ display:block; font-size:0.86rem; font-weight:700; color: var(--ink); margin-bottom:3px; }
 .benefit-list p{ font-size:0.78rem; color: var(--ink-soft); line-height:1.45; margin:0; }
+
+@media (max-width: 960px){
+  .benefit-list{ grid-template-columns: repeat(2, 1fr); }
+}
 
 /* Ficha de cita — panel flotante que aparece al hacer clic en un bloque */
 .appt-detail{
@@ -878,7 +937,7 @@ p{ margin:0; }
   .tool-body{ height: auto; }
   .tool-panel-content{ position:static; display:none; opacity:1; }
   .tool-panel-content.is-active{ display:block; }
-  .agenda-mock{ grid-template-columns: 1fr; height:auto; }
+  .benefit-list{ grid-template-columns: 1fr; }
   .gcal{ min-width: 420px; }
   .gcal-cell{ min-height:34px; }
   .gcal-wrap{ overflow-x:auto; padding-bottom:4px; }
