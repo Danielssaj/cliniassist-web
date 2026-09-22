@@ -802,7 +802,7 @@ p{ margin:0; }
 .tool-tab-title{ display:block; font-weight:700; font-size:0.92rem; color: var(--ink); margin-bottom: 3px; }
 .tool-tab-desc{ display:block; font-size:0.75rem; line-height:1.35; color: var(--ink-soft); }
 
-.tool-body{ position:relative; height: 640px; }
+.tool-body{ position:relative; height: 640px; transition: height .35s var(--ease); }
 .tool-panel-content{
   position:absolute; inset:0;
   background: var(--surface);
@@ -1001,7 +1001,7 @@ p{ margin:0; }
 /* Reseñas — grid 2x2 de 4 testimonios, cada uno en su propia tarjeta */
 .review-panel{ height:100%; display:flex; flex-direction:column; }
 .review-list{ flex:1; display:grid; grid-template-columns: 1fr 1fr; gap:14px; align-content:start; }
-.review-item{ padding:14px 16px; border:1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-alt); }
+.review-item{ padding:24px; border:1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-alt); }
 .review-head{ display:flex; align-items:center; gap:10px; margin-bottom:8px; }
 .review-avatar{ width:32px; height:32px; border-radius:50%; background: var(--badge-c-bg); color: var(--link); font-weight:700; font-size:0.85rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .review-id{ display:flex; flex-direction:column; gap:1px; margin-right:auto; min-width:0; }
@@ -1100,7 +1100,6 @@ p{ margin:0; }
 .plan-price-note{ font-size:0.72rem; color: var(--ink-soft); margin: -4px 0 2px; }
 .plan-maint{ font-size:0.8rem; color: var(--ink); background: var(--surface-alt); border-radius: var(--radius-sm); padding: 9px 11px; margin:0; line-height:1.45; }
 .plan-maint strong{ color: var(--link); }
-.plan-maint span{ display:block; font-size:0.7rem; font-weight:500; color: var(--ink-soft); margin-top:2px; }
 
 .plan-for{ color: var(--ink-soft); font-size: 0.84rem; line-height:1.45; margin:0; }
 .plan-for strong{ color: var(--ink); }

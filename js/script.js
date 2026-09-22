@@ -330,6 +330,46 @@
   if (toolPanel) {
     const tabs = toolPanel.querySelectorAll('.tool-tab');
     const panels = toolPanel.querySelectorAll('.tool-panel-content');
+    const toolBody = toolPanel.querySelector('.tool-body');
+
+    // Cada pestaña tiene contenido de un alto muy distinto (la agenda es
+    // mucho más alta que reseñas o la ficha de paciente). En vez de una
+    // altura fija compartida — que siempre deja a alguna pestaña con
+    // espacio vacío de sobra o con scroll de sobra — .tool-body se mide y
+    // ajusta al contenido real de la pestaña activa cada vez que cambia.
+    //
+    // El panel es position:absolute; inset:0, así que su scrollHeight
+    // normalmente solo refleja la altura que .tool-body YA tenía (varios
+    // de sus hijos usan height:100% para llenar el espacio disponible,
+    // así que "miden" el contenedor en vez de su propio contenido real).
+    // Para leer su alto natural, se lo saca brevemente de position:absolute
+    // (dejando que height:100% colapse a su contenido) y se restaura antes
+    // de que el navegador vuelva a pintar — no hay parpadeo visible.
+    //
+    // Bajo los 720px el propio CSS ya pone .tool-panel-content en
+    // position:static y dueño .tool-body en height:auto (ahí las pestañas
+    // se apilan en flujo normal, sin el truco de crossfade superpuesto que
+    // necesita una altura fija) — un alto en px puesto por JS pisaría ese
+    // auto con un valor fijo y podría recortar contenido. Se detecta ese
+    // caso leyendo el position real calculado y se limpia el alto en línea
+    // para que la regla del media query vuelva a mandar.
+    const syncBodyHeight = (panel) => {
+      if (!toolBody || !panel) return;
+      if (getComputedStyle(panel).position !== 'absolute') {
+        toolBody.style.height = '';
+        return;
+      }
+      const prevPosition = panel.style.position;
+      const prevHeight = panel.style.height;
+      panel.style.position = 'static';
+      panel.style.height = 'auto';
+      const naturalHeight = panel.scrollHeight;
+      panel.style.position = prevPosition;
+      panel.style.height = prevHeight;
+      toolBody.style.height = `${naturalHeight}px`;
+    };
+
+    syncBodyHeight(toolPanel.querySelector('.tool-panel-content.is-active'));
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
@@ -340,10 +380,18 @@
           t.classList.toggle('is-active', t === tab);
           t.setAttribute('aria-selected', String(t === tab));
         });
+        let targetPanel = null;
         panels.forEach(panel => {
-          panel.classList.toggle('is-active', panel.getAttribute('data-panel') === targetId);
+          const isTarget = panel.getAttribute('data-panel') === targetId;
+          panel.classList.toggle('is-active', isTarget);
+          if (isTarget) targetPanel = panel;
         });
+        syncBodyHeight(targetPanel);
       });
+    });
+
+    window.addEventListener('resize', () => {
+      syncBodyHeight(toolPanel.querySelector('.tool-panel-content.is-active'));
     });
   }
 
