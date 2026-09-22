@@ -825,7 +825,7 @@ p{ margin:0; }
 .gcal-row{ display:contents; }
 .gcal-row-head span{ font-size:0.68rem; font-weight:700; color: var(--ink-soft); text-align:center; }
 .gcal-time{ font-family: var(--font-mono); font-size:0.62rem; font-weight:700; color: var(--ink-soft); display:flex; align-items:center; }
-.gcal-cell{ min-height:34px; border-radius:5px; background: var(--surface-alt); display:flex; padding:1px; }
+.gcal-cell{ min-height:28px; border-radius:5px; background: var(--surface-alt); display:flex; padding:1px; }
 .gcal-event{
   flex:1; border:none; border-radius:4px; display:flex; align-items:center; justify-content:center;
   font-family:inherit; font-size:0.8125rem; font-weight:500; color:#fff; text-align:center; line-height:1.2; padding:4px 8px;
@@ -854,7 +854,7 @@ p{ margin:0; }
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
-  padding: 16px;
+  padding: 14px;
 }
 .benefit-icon{ width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .benefit-icon svg{ width:17px; height:17px; }
@@ -913,16 +913,43 @@ p{ margin:0; }
 .patient-id strong{ font-size:0.98rem; color: var(--ink); }
 .patient-id span{ font-size:0.78rem; color: var(--ink-soft); }
 .patient-status{ font-size:0.72rem; font-weight:700; padding:6px 12px; border-radius:999px; background: var(--badge-a-bg); color: var(--link); white-space:nowrap; }
-.patient-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:20px; }
+/* 2 columnas: datos + tags + historial clínico a la izquierda,
+   actividad automática reciente a la derecha — llenan el ancho en vez de
+   dejar un bloque angosto con espacio vacío alrededor. */
+.patient-columns{ display:grid; grid-template-columns: 1.3fr 1fr; gap:28px; margin-bottom:16px; }
+.patient-col-left{ display:flex; flex-direction:column; gap:16px; }
+.patient-col-right{ border-left:1px solid var(--line); padding-left:28px; }
+
+.patient-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
 .patient-grid div{ display:flex; flex-direction:column; gap:4px; }
 .patient-grid span{ font-size:0.74rem; color: var(--ink-soft); }
 .patient-grid strong{ font-size:0.9rem; color: var(--ink); word-break:break-word; }
 
-.patient-history{ display:flex; flex-direction:column; gap:10px; margin-bottom:16px; }
+.patient-tags{ display:flex; flex-wrap:wrap; gap:8px; }
+.patient-tag{ font-size:0.72rem; font-weight:700; padding:5px 12px; border-radius:999px; background: var(--surface-alt); border:1px solid var(--line); color: var(--ink-soft); }
+.patient-tag-ok{ background: var(--badge-a-bg); color: var(--link); border-color:transparent; }
+
+.patient-history{ display:flex; flex-direction:column; gap:10px; }
 .patient-history-row{ display:flex; align-items:flex-start; gap:10px; }
 .patient-history-icon{ flex-shrink:0; font-size:0.95rem; line-height:1.5; }
 .patient-history-row p{ font-size:0.82rem; color: var(--ink-soft); line-height:1.5; margin:0; }
 .patient-history-row strong{ color: var(--ink); font-weight:700; }
+
+.patient-activity-title{ font-size:0.82rem; font-weight:700; color: var(--ink); margin:0 0 14px; }
+.patient-activity{ display:flex; flex-direction:column; gap:14px; }
+.patient-activity li{ display:flex; align-items:flex-start; gap:10px; }
+.patient-activity-date{
+  flex-shrink:0; white-space:nowrap;
+  font-family: var(--font-mono); font-size:0.68rem; font-weight:700;
+  color: var(--link); background: var(--badge-a-bg);
+  padding:3px 7px; border-radius:6px;
+}
+.patient-activity p{ font-size:0.8rem; color: var(--ink-soft); line-height:1.4; margin:0; }
+
+@media (max-width: 720px){
+  .patient-columns{ grid-template-columns: 1fr; gap:20px; }
+  .patient-col-right{ border-left:none; padding-left:0; border-top:1px solid var(--line); padding-top:16px; }
+}
 
 /* Recuadro premium — el valor clave del servicio, destacado a propósito
    con un tratamiento oscuro que contrasta contra el resto de la ficha. */
@@ -971,35 +998,39 @@ p{ margin:0; }
   50%{ box-shadow: 0 0 0 8px transparent; }
 }
 
-/* Reseñas — lista vertical de 3 testimonios, distribuida en todo el alto */
+/* Reseñas — grid 2x2 de 4 testimonios, cada uno en su propia tarjeta */
 .review-panel{ height:100%; display:flex; flex-direction:column; }
-.review-list{ flex:1; display:flex; flex-direction:column; justify-content:space-evenly; gap:14px; }
-.review-item{ padding-bottom:14px; border-bottom:1px solid var(--line); }
-.review-item:last-child{ border-bottom:none; padding-bottom:0; }
-.review-head{ display:flex; align-items:center; gap:12px; margin-bottom:10px; }
-.review-avatar{ width:36px; height:36px; border-radius:50%; background: var(--badge-c-bg); color: var(--link); font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.review-id{ display:flex; flex-direction:column; gap:2px; margin-right:auto; }
-.review-id strong{ font-size:0.9rem; color: var(--ink); }
-.review-stars{ color:#F5A623; font-size:0.82rem; letter-spacing:1px; }
-.review-source{ font-size:0.72rem; font-weight:700; color: var(--ink-soft); }
-.review-quote{ font-size:0.92rem; color: var(--ink); line-height:1.5; margin:0; }
+.review-list{ flex:1; display:grid; grid-template-columns: 1fr 1fr; gap:14px; align-content:start; }
+.review-item{ padding:14px 16px; border:1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-alt); }
+.review-head{ display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.review-avatar{ width:32px; height:32px; border-radius:50%; background: var(--badge-c-bg); color: var(--link); font-weight:700; font-size:0.85rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.review-id{ display:flex; flex-direction:column; gap:1px; margin-right:auto; min-width:0; }
+.review-id strong{ font-size:0.86rem; color: var(--ink); }
+.review-clinic{ font-size:0.7rem; color: var(--ink-soft); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.review-stars{ color:#F5A623; font-size:0.78rem; letter-spacing:1px; }
+.review-source{ font-size:0.68rem; font-weight:700; color: var(--ink-soft); flex-shrink:0; }
+.review-quote{ font-size:0.84rem; color: var(--ink); line-height:1.45; margin:0; }
 .review-footnote{ font-size:0.78rem; color: var(--ink-soft); margin-top:16px; flex-shrink:0; }
+
+@media (max-width: 720px){
+  .review-list{ grid-template-columns: 1fr; }
+}
 
 /* Estadísticas — antes / después con barras animadas, distribuidas en todo el alto */
 .stats-compare{ display:grid; grid-template-columns: 1fr 1fr; gap:16px; height:100%; }
 .stats-col{ border-radius: var(--radius-md); padding: 22px 20px; display:flex; flex-direction:column; }
 .stats-before{ background: linear-gradient(160deg, #2c1216, #180a0c); }
 .stats-after{ background: linear-gradient(160deg, #12603f, #0b4630); }
-.stats-col-label{ font-family: var(--font-mono); font-size:0.75rem; font-weight:600; color: rgba(255,255,255,0.75); margin-bottom:18px; flex-shrink:0; }
+.stats-col-label{ font-family: var(--font-body); font-size:0.78rem; font-weight:700; letter-spacing:0.02em; color: rgba(255,255,255,0.8); margin-bottom:18px; flex-shrink:0; }
 .bar-group{ flex:1; display:flex; flex-direction:column; justify-content:space-evenly; gap:16px; }
 .bar-row{ display:flex; flex-direction:column; gap:8px; }
-.bar-row-label{ font-size:0.8rem; font-weight:600; color: rgba(255,255,255,0.9); display:flex; align-items:center; gap:6px; line-height:1.3; }
-.bar-track{ height:12px; border-radius:999px; background:rgba(255,255,255,0.14); overflow:hidden; }
+.bar-row-label{ font-family: var(--font-body); font-size:0.8rem; font-weight:600; color: rgba(255,255,255,0.9); display:flex; align-items:center; gap:6px; line-height:1.3; }
+.bar-track{ height:12px; border-radius:999px; background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.08); overflow:hidden; }
 .bar-fill{ height:100%; border-radius:999px; width:0; transition: width 1s var(--ease) .1s; }
 .tool-panel-content:not(.is-active) .bar-fill{ width:0 !important; transition:none; }
-.bar-fill-red{ background:#FF6B6B; }
-.bar-fill-green{ background:#4ADE80; }
-.bar-value{ font-family: var(--font-head); font-size:1.4rem; font-weight:600; color:#fff; }
+.bar-fill-red{ background:#FF6B6B; box-shadow: inset 0 0 0 1px rgba(255,107,107,0.35); }
+.bar-fill-green{ background:#4ADE80; box-shadow: inset 0 0 0 1px rgba(74,222,128,0.4), 0 0 10px -1px rgba(74,222,128,0.65); }
+.bar-value{ font-family: var(--font-body); font-size:1.4rem; font-weight:800; color:#fff; }
 
 @media (max-width: 720px){
   .tool-tabs{ grid-template-columns: repeat(2, 1fr); }
