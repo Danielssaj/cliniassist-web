@@ -212,24 +212,70 @@
         <span class="lossgain-badge">Recupera la rentabilidad de cada box médico</span>
 
         <div class="lc-grid">
-          <div class="lc-panel lc-before">
-            <span class="lc-eyebrow">Sin automatización (Realidad promedio)</span>
-            <p class="lc-metric">28<span>%</span></p>
-            <p class="lc-metric-label">de inasistencias</p>
-            <p class="lc-breakdown">8 horas perdidas al mes por box · <strong>~$480.000 CLP</strong> no percibidos mensualmente.</p>
-            <p class="lc-detail">Recepcionistas gastando <strong>12+ horas a la semana</strong> confirmando citas manualmente a mano.</p>
+          <div class="lc-panel lc-before" role="button" tabindex="0" aria-pressed="false">
+            <div class="lc-panel-inner">
+              <div class="lc-panel-face lc-panel-front">
+                <span class="lc-eyebrow">Sin automatización (Realidad promedio)</span>
+                <p class="lc-metric">28<span>%</span></p>
+                <p class="lc-metric-label">de inasistencias</p>
+                <p class="lc-breakdown">8 horas perdidas al mes por box · <strong>~$480.000 CLP</strong> no percibidos mensualmente.</p>
+                <p class="lc-detail">Recepcionistas gastando <strong>12+ horas a la semana</strong> confirmando citas manualmente a mano.</p>
+                <span class="lc-flip-hint">Clic para ver desglose ↺</span>
+              </div>
+              <div class="lc-panel-face lc-panel-back">
+                <div class="lc-flip-stats">
+                  <div class="lc-flip-stat">
+                    <div class="lc-flip-stat-head"><span>Inasistencias mensuales</span><strong>~28%</strong></div>
+                    <div class="lc-flip-bar-track"><div class="lc-flip-bar-fill" style="width:28%"></div></div>
+                  </div>
+                  <div class="lc-flip-stat">
+                    <div class="lc-flip-stat-head"><span>Horas de sillón vacías</span><strong>32 hrs/mes</strong></div>
+                    <div class="lc-flip-bar-track"><div class="lc-flip-bar-fill" style="width:80%"></div></div>
+                  </div>
+                  <div class="lc-flip-stat">
+                    <div class="lc-flip-stat-head"><span>Costo anual en fuga</span><strong>~$5.760.000 CLP</strong></div>
+                    <div class="lc-flip-bar-track"><div class="lc-flip-bar-fill" style="width:92%"></div></div>
+                  </div>
+                </div>
+                <p class="lc-flip-message">Tiempo y dinero irrecuperables para la clínica.</p>
+                <span class="lc-flip-hint">Volver ↺</span>
+              </div>
+            </div>
           </div>
 
           <div class="lc-divider" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
           </div>
 
-          <div class="lc-panel lc-after">
-            <span class="lc-eyebrow">Con ClinIAssist en marcha</span>
-            <p class="lc-metric">96<span>%</span></p>
-            <p class="lc-metric-label">de asistencia lograda</p>
-            <p class="lc-breakdown">Hasta un <strong>92%</strong> de horas recuperadas con recordatorios 48h / 24h / 12h multicanal.</p>
-            <p class="lc-detail">Cupos cancelados <strong>liberados y reasignados en menos de 15 minutos</strong> en piloto automático.</p>
+          <div class="lc-panel lc-after" role="button" tabindex="0" aria-pressed="false">
+            <div class="lc-panel-inner">
+              <div class="lc-panel-face lc-panel-front">
+                <span class="lc-eyebrow">Con ClinIAssist en marcha</span>
+                <p class="lc-metric">96<span>%</span></p>
+                <p class="lc-metric-label">de asistencia lograda</p>
+                <p class="lc-breakdown">Hasta un <strong>92%</strong> de horas recuperadas con recordatorios 48h / 24h / 12h multicanal.</p>
+                <p class="lc-detail">Cupos cancelados <strong>liberados y reasignados en menos de 15 minutos</strong> en piloto automático.</p>
+                <span class="lc-flip-hint">Clic para ver desglose ↺</span>
+              </div>
+              <div class="lc-panel-face lc-panel-back">
+                <div class="lc-flip-stats">
+                  <div class="lc-flip-stat">
+                    <div class="lc-flip-stat-head"><span>Tasa de asistencia alcanzada</span><strong>96%</strong></div>
+                    <div class="lc-flip-bar-track"><div class="lc-flip-bar-fill" style="width:96%"></div></div>
+                  </div>
+                  <div class="lc-flip-stat">
+                    <div class="lc-flip-stat-head"><span>Horas de box recuperadas</span><strong>+92%</strong></div>
+                    <div class="lc-flip-bar-track"><div class="lc-flip-bar-fill" style="width:92%"></div></div>
+                  </div>
+                  <div class="lc-flip-stat">
+                    <div class="lc-flip-stat-head"><span>Retorno mensual promedio</span><strong>+$440.000 CLP</strong></div>
+                    <div class="lc-flip-bar-track"><div class="lc-flip-bar-fill" style="width:88%"></div></div>
+                  </div>
+                </div>
+                <p class="lc-flip-message">Rentabilidad y ocupación aseguradas en piloto automático.</p>
+                <span class="lc-flip-hint">Volver ↺</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -672,21 +718,29 @@
                 </ul>
               </div>
 
-              <div class="appt-detail" id="apptDetail">
-                <div class="appt-detail-card">
-                  <button type="button" class="appt-detail-close" id="apptDetailClose" aria-label="Cerrar">×</button>
-                  <span class="appt-detail-status"><i class="gcal-check">✓</i> Confirmado</span>
-                  <h4>María González</h4>
-                  <dl class="appt-detail-list">
-                    <div><dt>Fecha y hora</dt><dd>Jueves 18 · 10:30 AM</dd></div>
-                    <div><dt>Sucursal</dt><dd>Clínica Providencia</dd></div>
-                    <div><dt>Procedimiento</dt><dd>Limpieza dental profunda</dd></div>
-                    <div><dt>Origen</dt><dd>Agendado por IA (Web)</dd></div>
-                  </dl>
-                  <div class="appt-detail-actions">
-                    <button type="button" class="btn btn-ghost btn-sm">Reagendar cita</button>
-                    <button type="button" class="btn btn-primary btn-sm">Enviar recordatorio manual</button>
-                  </div>
+            </div>
+
+            <!-- Hermano directo de .tool-panel-content, no de .agenda-mock: así
+                 su inset:0 se centra en la ventana visible de 640px (que no
+                 se mueve al hacer scroll interno), no en el alto total del
+                 contenido apilado del calendario + tarjetas. -->
+            <div class="appt-detail" id="apptDetail">
+              <div class="appt-detail-card">
+                <button type="button" class="appt-detail-close" id="apptDetailClose" aria-label="Cerrar">×</button>
+                <span class="appt-detail-status"><i class="gcal-check">✓</i> Confirmado</span>
+                <h4>María González</h4>
+                <dl class="appt-detail-list">
+                  <div><dt>Fecha y hora</dt><dd>Jueves 18 · 10:30 AM</dd></div>
+                  <div><dt>Sucursal</dt><dd>Clínica Providencia</dd></div>
+                  <div><dt>Procedimiento</dt><dd>Limpieza dental profunda</dd></div>
+                  <div><dt>Origen</dt><dd>Agendado por IA (Web)</dd></div>
+                </dl>
+                <div class="appt-detail-actions">
+                  <button type="button" class="btn btn-primary btn-block btn-sm">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.13.82.84-3.05-.2-.31A8.2 8.2 0 1 1 12 20.2Zm4.5-6.15c-.24-.12-1.44-.71-1.66-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.78.96-.14.16-.28.18-.53.06-.24-.12-1.02-.38-1.95-1.2-.72-.64-1.2-1.44-1.35-1.68-.14-.24-.02-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.13 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.44-.59 1.64-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28Z"/></svg>
+                    <span>Enviar recordatorio por WhatsApp</span>
+                  </button>
+                  <button type="button" class="btn btn-ghost btn-block btn-sm">Reagendar cita</button>
                 </div>
               </div>
             </div>
@@ -707,11 +761,20 @@
                 <div><span>Correo</span><strong>maria.perez@email.com</strong></div>
                 <div><span>Última visita</span><strong>Hace 6 meses</strong></div>
                 <div><span>Estado</span><strong>Tratamiento activo: Ortodoncia</strong></div>
-                <div><span>Canal preferido</span><strong>WhatsApp</strong></div>
+              </div>
+              <div class="patient-history">
+                <div class="patient-history-row">
+                  <span class="patient-history-icon" aria-hidden="true">🩺</span>
+                  <p><strong>Última atención:</strong> Limpieza y Profilaxis (Dra. Laura Jiménez) · <strong>Próximo control sugerido:</strong> Evaluación semestral</p>
+                </div>
+                <div class="patient-history-row">
+                  <span class="patient-history-icon" aria-hidden="true">✅</span>
+                  <p><strong>WhatsApp verificado</strong> · Tasa de respuesta a recordatorios: <strong>100%</strong></p>
+                </div>
               </div>
               <div class="patient-auto-note">
-                <span aria-hidden="true">🤖</span>
-                <p>ClinIAssist gestiona el seguimiento de este paciente automáticamente, enviando recordatorios de control cada 3 meses sin intervención manual de tu equipo.</p>
+                <span class="patient-auto-note-icon" aria-hidden="true">⚡</span>
+                <p>ClinIAssist gestiona el seguimiento de este paciente automáticamente, enviando recordatorios de control preventivo cada 3 meses sin intervención de tu personal.</p>
               </div>
               <button type="button" class="patient-cta" id="patientCta">
                 <span class="patient-cta-icon" aria-hidden="true">🤖</span>

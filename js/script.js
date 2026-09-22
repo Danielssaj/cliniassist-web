@@ -308,9 +308,10 @@
     }
   }
 
-  // Tarjetas de servicios con giro 3D: un clic (o Enter/Espacio) revela la
-  // métrica de impacto de ese servicio en el dorso; otro clic la devuelve.
-  document.querySelectorAll('.service-card[role="button"]').forEach(card => {
+  // Tarjetas con giro 3D (servicios + comparativa de pérdidas): un clic (o
+  // Enter/Espacio) revela el dorso con la métrica/desglose de esa tarjeta;
+  // otro clic la devuelve.
+  const makeFlippable = (card) => {
     const toggleFlip = () => {
       const flipped = card.classList.toggle('is-flipped');
       card.setAttribute('aria-pressed', String(flipped));
@@ -321,7 +322,8 @@
       e.preventDefault();
       toggleFlip();
     });
-  });
+  };
+  document.querySelectorAll('.service-card[role="button"], .lc-panel[role="button"]').forEach(makeFlippable);
 
   // Pestañas interactivas de "Una sola herramienta para toda tu clínica"
   const toolPanel = document.querySelector('.tool-panel');

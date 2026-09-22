@@ -542,17 +542,38 @@ p{ margin:0; }
   position:relative;
   display:grid; grid-template-columns: 1fr 1fr; align-items:stretch; gap: 28px;
 }
+/* Flip cards — mismo patrón que las tarjetas de servicios: .lc-panel es el
+   contenedor de perspectiva (altura fija, ambas caras superpuestas), y
+   .lc-panel-inner es lo único que rota + se eleva en hover. */
 .lc-panel{
-  padding: 48px 36px 36px; position:relative;
+  position:relative;
+  height: 380px;
+  perspective: 1200px;
+  cursor:pointer;
+}
+.lc-panel:focus-visible{ outline: 2px solid rgba(59,130,246,0.6); outline-offset:4px; border-radius: var(--radius-lg); }
+.lc-panel-inner{
+  position:relative; width:100%; height:100%;
+  transform-style: preserve-3d;
+  transition: transform .6s cubic-bezier(0.4,0.15,0.2,1);
+}
+.lc-panel:hover .lc-panel-inner{ transform: translateY(-4px); }
+.lc-panel.is-flipped .lc-panel-inner{ transform: rotateY(180deg); }
+.lc-panel.is-flipped:hover .lc-panel-inner{ transform: translateY(-4px) rotateY(180deg); }
+
+.lc-panel-face{
+  position:absolute; inset:0;
+  padding: 48px 36px 36px;
   border: 1px solid rgba(148,163,184,0.35);
   border-radius: var(--radius-lg);
-  transition: transform .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease);
+  backface-visibility:hidden;
+  transition: border-color .3s var(--ease), box-shadow .3s var(--ease);
 }
-.lc-panel:hover{
-  transform: translateY(-4px);
+.lc-panel:hover .lc-panel-face{
   border-color: rgba(59,130,246,0.4);
   box-shadow: 0 0 25px -5px rgba(37,99,235,0.25);
 }
+.lc-panel-back{ transform: rotateY(180deg); display:flex; flex-direction:column; }
 .lc-eyebrow{ display:block; font-size:0.84rem; font-weight:700; margin-bottom:20px; }
 .lc-metric{ font-family: var(--font-body); font-size: clamp(2.6rem, 5vw, 3.6rem); font-weight:700; line-height:1; transform: scale(0.4); }
 .lc-metric span{ font-size:0.5em; font-weight:600; margin-left:2px; }
@@ -566,7 +587,7 @@ p{ margin:0; }
 .lc-breakdown{ font-size:0.95rem; line-height:1.55; margin-bottom:14px; }
 .lc-detail{ font-size:0.86rem; line-height:1.55; }
 
-.lc-before{
+.lc-before .lc-panel-face{
   background: linear-gradient(165deg, #1a2130, #0f141d);
   color:#cbd5e1;
 }
@@ -574,8 +595,11 @@ p{ margin:0; }
 .lc-before .lc-detail{ color: rgba(203,213,225,0.62); }
 .lc-before .lc-breakdown{ color: rgba(203,213,225,0.85); }
 .lc-before .lc-breakdown strong, .lc-before .lc-detail strong{ color:#ffb3bd; }
+.lc-before .lc-flip-hint{ color:#ff6b7d; }
+.lc-before .lc-flip-bar-fill{ background:#ff6b7d; }
+.lc-before .lc-flip-message{ color: rgba(203,213,225,0.85); }
 
-.lc-after{
+.lc-after .lc-panel-face{
   background: linear-gradient(165deg, #0f2333, #0a1522);
   color:#dbeafe;
 }
@@ -583,6 +607,18 @@ p{ margin:0; }
 .lc-after .lc-detail{ color: rgba(219,234,254,0.68); }
 .lc-after .lc-breakdown{ color: rgba(219,234,254,0.9); }
 .lc-after .lc-breakdown strong, .lc-after .lc-detail strong{ color:#7dffc4; }
+.lc-after .lc-flip-hint{ color:#34d399; }
+.lc-after .lc-flip-bar-fill{ background:#34d399; }
+.lc-after .lc-flip-message{ color: rgba(219,234,254,0.9); }
+
+.lc-flip-hint{ margin-top:auto; padding-top:14px; font-size:0.76rem; font-weight:700; }
+.lc-flip-stats{ display:flex; flex-direction:column; gap:16px; }
+.lc-flip-stat-head{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; font-size:0.82rem; margin-bottom:6px; }
+.lc-flip-stat-head strong{ font-weight:700; }
+.lc-flip-bar-track{ height:6px; border-radius:999px; background:rgba(255,255,255,0.12); overflow:hidden; }
+.lc-flip-bar-fill{ height:100%; border-radius:999px; transition: width 1s var(--ease) .1s; }
+.lc-panel:not(.is-flipped) .lc-flip-bar-fill{ width:0 !important; transition:none; }
+.lc-flip-message{ font-size:0.92rem; font-weight:600; line-height:1.5; margin:20px 0 0; }
 
 /* Floats independently on top of the gap between the two cards, so it never
    breaks or shifts with either card's own hover lift. */
@@ -598,6 +634,7 @@ p{ margin:0; }
 
 @media (max-width: 720px){
   .lc-grid{ grid-template-columns: 1fr; gap: 36px; }
+  .lc-panel{ height: 430px; }
   .lc-divider{ transform: translate(-50%,-50%) rotate(90deg); }
   .lossgain-badge{ position:static; transform:none; display:inline-flex; margin-bottom:22px; }
 }
@@ -674,6 +711,7 @@ p{ margin:0; }
 .service-card:hover .service-badge{ transform: scale(1.08) rotate(-4deg); box-shadow: 0 0 0 1px rgba(56,217,240,0.5), 0 0 26px rgba(56,217,240,0.55); }
 .service-badge{
   display:inline-flex; align-items:center; justify-content:center;
+  flex-shrink:0;
   width:44px; height:44px; border-radius: 12px;
   margin-bottom: 16px;
   background: rgba(56,217,240,0.1);
@@ -682,9 +720,9 @@ p{ margin:0; }
   transition: transform .25s var(--ease), box-shadow .3s ease;
 }
 .service-badge svg{ width:22px; height:22px; }
-.service-badge-maps{ width:auto; min-width:44px; gap:2px; flex-direction:column; height:auto; padding:6px 10px 5px; }
-.service-badge-maps svg{ width:18px; height:18px; }
-.service-badge-stars{ font-size:0.5rem; letter-spacing:1px; color:#F5C518; line-height:1; }
+.service-badge-maps{ flex-direction:column; gap:1px; padding:5px 0; }
+.service-badge-maps svg{ width:15px; height:15px; }
+.service-badge-stars{ font-size:0.44rem; letter-spacing:0.5px; color:#F5C518; line-height:1; }
 .service-num{ position:absolute; top:26px; right:24px; font-family: var(--font-mono); font-size:0.8rem; font-weight:600; color: var(--services-ink-soft); }
 .service-card h3{ font-size: 1.05rem; margin-bottom: 8px; padding-right: 34px; color: var(--services-ink); }
 .service-card p{ color: var(--services-ink-soft); font-size: 0.93rem; }
@@ -787,10 +825,10 @@ p{ margin:0; }
 .gcal-row{ display:contents; }
 .gcal-row-head span{ font-size:0.68rem; font-weight:700; color: var(--ink-soft); text-align:center; }
 .gcal-time{ font-family: var(--font-mono); font-size:0.62rem; font-weight:700; color: var(--ink-soft); display:flex; align-items:center; }
-.gcal-cell{ min-height:28px; border-radius:5px; background: var(--surface-alt); display:flex; padding:1px; }
+.gcal-cell{ min-height:34px; border-radius:5px; background: var(--surface-alt); display:flex; padding:1px; }
 .gcal-event{
   flex:1; border:none; border-radius:4px; display:flex; align-items:center; justify-content:center;
-  font-family:inherit; font-size:0.53rem; font-weight:700; color:#fff; text-align:center; line-height:1.1; padding:2px 2px;
+  font-family:inherit; font-size:0.8125rem; font-weight:500; color:#fff; text-align:center; line-height:1.2; padding:4px 8px;
   cursor:pointer; transition: transform .15s ease, filter .15s ease;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
@@ -831,9 +869,15 @@ p{ margin:0; }
 }
 
 /* Ficha de cita — panel flotante que aparece al hacer clic en un bloque */
+/* position:fixed a propósito (no absolute): centra sobre la ventana real
+   sin importar el contenedor posicionado ancestro — en escritorio ese
+   ancestro cambia de tamaño según la altura fija del panel, y en móvil
+   .tool-panel-content pasa a position:static, así que "absolute" no tenía
+   un marco de referencia fiable en ninguno de los dos casos. */
 .appt-detail{
-  position:absolute; inset:0; z-index:20;
+  position:fixed; inset:0; z-index:110;
   display:flex; align-items:center; justify-content:center;
+  padding: 20px;
   background: rgba(19,27,46,0.4);
   opacity:0; pointer-events:none;
   transition: opacity .25s ease;
@@ -841,10 +885,10 @@ p{ margin:0; }
 .appt-detail.is-open{ opacity:1; pointer-events:auto; }
 .appt-detail-card{
   position:relative;
-  width: min(320px, 92%);
+  width: min(400px, 92%);
   background: var(--surface);
   border-radius: var(--radius-lg);
-  padding: 26px 22px 22px;
+  padding: 28px 26px 26px;
   box-shadow: var(--shadow-lg);
   transform: translateY(10px) scale(.96);
   transition: transform .25s var(--ease);
@@ -854,12 +898,12 @@ p{ margin:0; }
 .appt-detail-status{ display:inline-flex; align-items:center; gap:4px; font-size:0.72rem; font-weight:700; color:#166534; background:#DCFCE7; padding:5px 10px; border-radius:999px; margin-bottom:10px; }
 .appt-detail-status .gcal-check{ margin-left:0; }
 .appt-detail-card h4{ font-size:1.1rem; margin-bottom:14px; color: var(--ink); }
-.appt-detail-list{ display:flex; flex-direction:column; gap:10px; margin:0 0 18px; }
+.appt-detail-list{ display:flex; flex-direction:column; gap:10px; margin:0 0 20px; }
 .appt-detail-list div{ display:flex; justify-content:space-between; gap:12px; font-size:0.82rem; }
 .appt-detail-list dt{ color: var(--ink-soft); }
 .appt-detail-list dd{ margin:0; font-weight:700; color: var(--ink); text-align:right; }
-.appt-detail-actions{ display:flex; gap:10px; flex-wrap:wrap; }
-.appt-detail-actions .btn{ flex:1; white-space:nowrap; }
+.appt-detail-actions{ display:flex; flex-direction:column; gap:10px; }
+.appt-detail-actions .btn{ white-space:nowrap; }
 
 /* Ficha paciente — más datos + nota de automatización + CTA */
 .patient-card{ height:100%; display:flex; flex-direction:column; }
@@ -869,18 +913,43 @@ p{ margin:0; }
 .patient-id strong{ font-size:0.98rem; color: var(--ink); }
 .patient-id span{ font-size:0.78rem; color: var(--ink-soft); }
 .patient-status{ font-size:0.72rem; font-weight:700; padding:6px 12px; border-radius:999px; background: var(--badge-a-bg); color: var(--link); white-space:nowrap; }
-.patient-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:16px; }
+.patient-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:20px; }
 .patient-grid div{ display:flex; flex-direction:column; gap:4px; }
 .patient-grid span{ font-size:0.74rem; color: var(--ink-soft); }
 .patient-grid strong{ font-size:0.9rem; color: var(--ink); word-break:break-word; }
+
+.patient-history{ display:flex; flex-direction:column; gap:10px; margin-bottom:16px; }
+.patient-history-row{ display:flex; align-items:flex-start; gap:10px; }
+.patient-history-icon{ flex-shrink:0; font-size:0.95rem; line-height:1.5; }
+.patient-history-row p{ font-size:0.82rem; color: var(--ink-soft); line-height:1.5; margin:0; }
+.patient-history-row strong{ color: var(--ink); font-weight:700; }
+
+/* Recuadro premium — el valor clave del servicio, destacado a propósito
+   con un tratamiento oscuro que contrasta contra el resto de la ficha. */
 .patient-auto-note{
-  display:flex; align-items:flex-start; gap:10px;
-  background: var(--badge-a-bg);
+  position:relative;
+  display:flex; align-items:flex-start; gap:12px;
+  background: linear-gradient(120deg, #1e3a8a, #0f172a);
+  border: 1px solid rgba(96,165,250,0.5);
   border-radius: var(--radius-sm);
-  padding: 12px 14px;
+  padding: 16px 18px;
   margin-bottom:16px;
+  box-shadow: 0 8px 24px -8px rgba(15,23,42,0.5), 0 0 24px -6px rgba(59,130,246,0.45);
 }
-.patient-auto-note p{ font-size:0.78rem; color: var(--ink); line-height:1.45; margin:0; }
+.patient-auto-note-icon{
+  display:flex; align-items:center; justify-content:center;
+  width:32px; height:32px; border-radius:10px; flex-shrink:0;
+  background: rgba(96,165,250,0.25);
+  font-size:1rem;
+  animation: patient-note-pulse 2.2s infinite;
+}
+.patient-auto-note p{ font-size:0.82rem; color:#e2e8f0; line-height:1.5; margin:0; }
+.patient-auto-note strong{ color:#fff; }
+@keyframes patient-note-pulse{
+  0%{ box-shadow: 0 0 0 0 rgba(59,130,246,0.5); }
+  70%{ box-shadow: 0 0 0 8px transparent; }
+  100%{ box-shadow: 0 0 0 0 transparent; }
+}
 .patient-cta{
   margin-top:auto;
   display:flex; align-items:center; justify-content:center; gap:10px;
@@ -938,8 +1007,7 @@ p{ margin:0; }
   .tool-panel-content{ position:static; display:none; opacity:1; }
   .tool-panel-content.is-active{ display:block; }
   .benefit-list{ grid-template-columns: 1fr; }
-  .gcal{ min-width: 420px; }
-  .gcal-cell{ min-height:34px; }
+  .gcal{ min-width: 480px; }
   .gcal-wrap{ overflow-x:auto; padding-bottom:4px; }
   .patient-grid{ grid-template-columns: 1fr; }
   .stats-compare{ grid-template-columns: 1fr; height:auto; }
