@@ -533,15 +533,55 @@
       if (!alreadyActive) {
         chip.classList.add('is-active');
         if (specialtyInput) specialtyInput.value = chip.dataset.specialty;
+        specialtyPicker.classList.remove('has-error');
+        const specialtyErrorEl = document.getElementById('specialtyError');
+        if (specialtyErrorEl) specialtyErrorEl.hidden = true;
       }
     });
   });
 
+  // El formulario no tiene backend propio: en vez de solo mostrar un
+  // "gracias" y no ir a ningún lado, arma el mensaje con los datos
+  // ingresados y abre WhatsApp con todo ya redactado, igual que los demás
+  // botones de WhatsApp del sitio.
   const form = document.getElementById('contactForm');
   const formNote = document.getElementById('formNote');
+  const specialtyError = document.getElementById('specialtyError');
   if (form && formNote) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+
+      // Nombre/Clínica/WhatsApp ya son required en el HTML — reportValidity()
+      // dispara los avisos nativos del navegador sobre el campo que falte.
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const especialidad = specialtyInput ? specialtyInput.value : '';
+      // La especialidad es un input oculto alimentado por los chips, así que
+      // "required" nativo no la cubre (un campo oculto nunca puede recibir foco
+      // para mostrar el aviso) — el error visual se arma a mano acá.
+      if (!especialidad) {
+        if (specialtyPicker) specialtyPicker.classList.add('has-error');
+        if (specialtyError) specialtyError.hidden = false;
+        specialtyPicker?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      if (specialtyPicker) specialtyPicker.classList.remove('has-error');
+      if (specialtyError) specialtyError.hidden = true;
+
+      const nombre = form.nombre.value.trim();
+      const clinica = form.clinica.value.trim();
+      const contacto = form.contacto.value.trim();
+      const mensaje =
+        `Hola ClinIAssist, me gustaría agendar una demostración:\n` +
+        `- Nombre: ${nombre}\n` +
+        `- Clínica: ${clinica}\n` +
+        `- WhatsApp: ${contacto}\n` +
+        `- Especialidad: ${especialidad}`;
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`, '_blank', 'noopener');
+
       formNote.hidden = false;
       form.reset();
       resetSpecialtyPicker();
