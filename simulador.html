@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://cliniassist.online/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="stylesheet" href="assets/simulador/index-yuTMYv79.css">
+<link rel="stylesheet" href="assets/simulador/index-Byh11mb1.css">
 <style>
   /* Matches the simulator's own dark navy background so there is no flash
      of the site's light theme while the bundle loads. */
@@ -42,11 +42,17 @@
     transition: background 0.2s ease, color 0.2s ease;
   }
   .back-to-site:hover { background: rgba(37, 99, 235, 0.25); color: #fff; }
+
+  /* Below md, the simulator's own floating view-toggle occupies this same
+     bottom strip — the site link steps aside; mobile has native back gesture. */
+  @media (max-width: 767px) {
+    .back-to-site { display: none; }
+  }
 </style>
 </head>
 <body>
   <div id="root"></div>
   <a class="back-to-site" href="index.html">⟵ Volver a ClinIAssist.online</a>
-  <script type="module" src="assets/simulador/index-BMLNk-Aq.js"></script>
+  <script type="module" src="assets/simulador/index-BBm5Awux.js"></script>
 </body>
 </html>
