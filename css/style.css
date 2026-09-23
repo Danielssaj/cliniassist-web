@@ -1241,6 +1241,8 @@ p{ margin:0; }
 }
 .cta-submit:hover{ transform: scale(1.01); box-shadow: 0 14px 34px -6px rgba(37,99,235,0.6); }
 .cta-submit .btn-chevron{ width:16px; height:16px; }
+.cta-submit.is-loading{ opacity:0.75; cursor:not-allowed; transform:none; }
+.cta-submit.is-loading:hover{ transform:none; }
 
 .form-note{ text-align:center; font-weight:700; color:#93c5fd; font-size: 0.9rem; }
 

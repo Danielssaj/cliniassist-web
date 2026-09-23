@@ -540,15 +540,28 @@
     });
   });
 
-  // El formulario no tiene backend propio: en vez de solo mostrar un
-  // "gracias" y no ir a ningún lado, arma el mensaje con los datos
-  // ingresados y abre WhatsApp con todo ya redactado, igual que los demás
-  // botones de WhatsApp del sitio.
+  // El formulario envía la solicitud por email vía Formspree (para que
+  // llegue a contacto@cliniassist.online) y, en paralelo, abre WhatsApp con
+  // el mensaje ya redactado — igual que los demás botones de WhatsApp del
+  // sitio. Así, aunque el endpoint de Formspree no esté configurado aún, el
+  // canal de WhatsApp (que sí funciona hoy) nunca deja de capturar el lead.
   const form = document.getElementById('contactForm');
   const formNote = document.getElementById('formNote');
+  const formErrorNote = document.getElementById('formErrorNote');
   const specialtyError = document.getElementById('specialtyError');
+  const submitBtn = form ? form.querySelector('.cta-submit') : null;
+  const submitLabel = submitBtn ? submitBtn.querySelector('.cta-submit-label') : null;
+  const submitLabelDefault = submitLabel ? submitLabel.textContent : '';
+
+  const setSubmitLoading = (isLoading) => {
+    if (!submitBtn) return;
+    submitBtn.disabled = isLoading;
+    submitBtn.classList.toggle('is-loading', isLoading);
+    if (submitLabel) submitLabel.textContent = isLoading ? 'Enviando…' : submitLabelDefault;
+  };
+
   if (form && formNote) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       // Nombre/Clínica/WhatsApp ya son required en el HTML — reportValidity()
@@ -571,9 +584,26 @@
       if (specialtyPicker) specialtyPicker.classList.remove('has-error');
       if (specialtyError) specialtyError.hidden = true;
 
-      const nombre = form.nombre.value.trim();
-      const clinica = form.clinica.value.trim();
-      const contacto = form.contacto.value.trim();
+      const nombre = form.nombre_doctor.value.trim();
+      const clinica = form.nombre_clinica.value.trim();
+      const contacto = form.whatsapp.value.trim();
+
+      formNote.hidden = true;
+      if (formErrorNote) formErrorNote.hidden = true;
+      setSubmitLoading(true);
+
+      let emailOk = false;
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        emailOk = response.ok;
+      } catch {
+        emailOk = false;
+      }
+
       const mensaje =
         `Hola ClinIAssist, me gustaría agendar una demostración:\n` +
         `- Nombre: ${nombre}\n` +
@@ -582,6 +612,8 @@
         `- Especialidad: ${especialidad}`;
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`, '_blank', 'noopener');
 
+      setSubmitLoading(false);
+      if (!emailOk && formErrorNote) formErrorNote.hidden = false;
       formNote.hidden = false;
       form.reset();
       resetSpecialtyPicker();
