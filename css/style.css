@@ -1113,8 +1113,8 @@ p{ margin:0; }
 .plan-card h3{ font-size: 1.08rem; color: var(--ink); margin: 4px 32px 2px 0; }
 
 .plan-price-strike{ font-family: var(--font-mono); font-size: 0.88rem; font-weight:600; color: var(--ink-soft); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--ink-soft) 60%, transparent); opacity:.85; margin:0; }
-.plan-price{ font-family: 'Nunito', var(--font-body); font-size: 2.15rem; font-weight:800; color: var(--link); margin:0; line-height:1.05; font-variant-numeric: tabular-nums; letter-spacing:0; }
-.plan-price span{ font-family: 'Nunito', var(--font-body); font-size: 0.85rem; font-weight:700; color: var(--ink-soft); margin-left: 7px; }
+.plan-price{ font-family: 'Nunito', var(--font-body); font-size: 1.9rem; font-weight:800; color: var(--link); margin:0; line-height:1.05; font-variant-numeric: tabular-nums; letter-spacing:0; }
+.plan-price span{ font-family: 'Nunito', var(--font-body); font-size: 0.78rem; font-weight:700; color: var(--ink-soft); margin-left: 6px; }
 .plan-price-note{ font-size:0.82rem; color: var(--ink-soft); margin: -2px 0 2px; }
 .plan-maint{ font-size:0.86rem; color: var(--ink); background: var(--surface-alt); border-radius: var(--radius-sm); padding: 9px 11px; margin:0; line-height:1.45; }
 .plan-maint strong{ color: var(--link); }
