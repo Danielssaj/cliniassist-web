@@ -1232,6 +1232,8 @@ p{ margin:0; }
 .specialty-chip.is-active{ background: #2563eb; border-color:#2563eb; color:#fff; }
 .specialty-picker.has-error .specialty-chip{ border-color: rgba(248,113,113,0.6); }
 .form-error{ font-size:0.76rem; font-weight:600; color:#f87171; margin-top:2px; }
+.form-error a{ color:#f87171; text-decoration:underline; text-underline-offset:2px; }
+.form-error a:hover{ color:#fca5a5; }
 
 .cta-submit{
   display:flex; align-items:center; justify-content:center; gap:8px;

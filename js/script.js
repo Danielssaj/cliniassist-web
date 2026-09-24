@@ -592,31 +592,54 @@
       if (formErrorNote) formErrorNote.hidden = true;
       setSubmitLoading(true);
 
-      let emailOk = false;
-      try {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { Accept: 'application/json' },
-        });
-        emailOk = response.ok;
-      } catch {
-        emailOk = false;
-      }
-
+      // Los navegadores (sobre todo en móvil y en navegación privada) solo
+      // permiten window.open() cuando se llama de forma síncrona dentro del
+      // gesto de clic del usuario. Si primero esperáramos el fetch a
+      // Formspree, para cuando llegáramos acá el clic original ya "expiró" y
+      // el pop-up de WhatsApp queda bloqueado en silencio — eso era lo que le
+      // pasaba al formulario. Por eso WhatsApp se abre primero, sin await.
       const mensaje =
         `Hola ClinIAssist, me gustaría agendar una demostración:\n` +
         `- Nombre: ${nombre}\n` +
         `- Clínica: ${clinica}\n` +
         `- WhatsApp: ${contacto}\n` +
         `- Especialidad: ${especialidad}`;
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`, '_blank', 'noopener');
+      const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`;
+      // OJO: pasar 'noopener' como feature acá haría que window.open() siempre
+      // devuelva null (incluso cuando SÍ abre la ventana), imposibilitando
+      // detectar un bloqueo real. Se abre sin ese flag para recibir una
+      // referencia real y, si se obtuvo, se le corta la relación con
+      // waWindow.opener = null a mano — mismo efecto de seguridad, sin perder
+      // la forma de saber si el navegador bloqueó el pop-up.
+      const waWindow = window.open(waUrl, '_blank');
+      if (waWindow) {
+        try { waWindow.opener = null; } catch { /* cross-origin: se ignora */ }
+      }
+      const waBlocked = !waWindow || waWindow.closed;
+
+      // El envío a Formspree corre en paralelo, de mejor esfuerzo, para que
+      // el correo llegue a contacto@cliniassist.online cuando el endpoint
+      // esté configurado; no bloquea ni condiciona la confirmación visual,
+      // porque WhatsApp es el canal real que sí funciona hoy.
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      }).catch(() => {});
 
       setSubmitLoading(false);
-      if (!emailOk && formErrorNote) formErrorNote.hidden = false;
-      formNote.hidden = false;
-      form.reset();
-      resetSpecialtyPicker();
+
+      if (!waBlocked) {
+        formNote.hidden = false;
+        form.reset();
+        resetSpecialtyPicker();
+      } else if (formErrorNote) {
+        // El navegador bloqueó el pop-up. Se deja un enlace real (clic
+        // genuino del usuario, no bloqueable) como salida.
+        const waLink = document.getElementById('formErrorWaLink');
+        if (waLink) waLink.href = waUrl;
+        formErrorNote.hidden = false;
+      }
     });
   }
 })();
