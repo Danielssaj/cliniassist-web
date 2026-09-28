@@ -817,41 +817,24 @@ p{ margin:0; }
 .process{ padding: 56px 0; background: var(--surface-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
 .process-head{ max-width: 640px; margin-inline:auto; margin-bottom: 32px; text-align:center; }
 .process-grid{ position:relative; display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 28px; }
-.process-grid::before{
-  content:"";
-  position:absolute;
-  top:15px; left:12.5%; right:12.5%;
-  height:2px;
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--brand-2) 50%, transparent) 12%, color-mix(in srgb, var(--brand-2) 50%, transparent) 88%, transparent);
-  z-index:0;
-}
 .process-step{ transition: transform .25s var(--ease); }
 .process-step:hover{ transform: translateY(-4px); }
 
-/* Conector animado: .process-spark recorre .process-connector (que calca el
-   ::before, mismo left/right/top) en bucle — 2s por tramo, ease-in-out. El
-   número activo se sincroniza vía .step-num.is-glow (ver script.js). */
-.process-connector{ position:absolute; z-index:0; pointer-events:none; top:15px; left:12.5%; right:12.5%; height:2px; }
-.process-spark{
-  position:absolute; top:50%; left:0%;
-  width:10px; height:10px; border-radius:50%;
-  background: var(--brand-2);
-  box-shadow: 0 0 8px var(--brand-2), 0 0 16px color-mix(in srgb, var(--brand-2) 70%, transparent);
-  transform: translate(-50%, -50%);
-}
+/* Ciclo de iluminación secuencial (01→02→03→04→01…, 3s por número, ver
+   script.js): sin línea conectora ni luz viajera, solo el propio número
+   pasa de "apagado" a "encendido" con un fade de opacidad + glow. */
 .step-num{
-  position:relative; z-index:1;
   display:inline-block;
-  background: var(--surface-alt);
-  padding-right:10px;
   font-family: var(--font-mono); font-size: 1.4rem; font-weight:700;
-  color: var(--ink-soft); opacity:.7;
+  color: var(--brand-2);
+  opacity: .35;
+  filter: none;
   margin-bottom: 12px;
-  transition: color .5s ease-in-out, opacity .5s ease-in-out, text-shadow .5s ease-in-out;
+  transition: opacity .4s ease, filter .4s ease;
 }
 .step-num.is-glow{
-  color: var(--brand-2); opacity:1;
-  text-shadow: 0 0 10px color-mix(in srgb, var(--brand-2) 70%, transparent), 0 0 18px color-mix(in srgb, var(--brand-2) 45%, transparent);
+  opacity: 1;
+  filter: drop-shadow(0 0 6px var(--brand-2)) drop-shadow(0 0 14px color-mix(in srgb, var(--brand-2) 70%, transparent));
 }
 .process-step h3{ font-size: 1.02rem; margin-bottom: 8px; color: var(--ink); }
 .process-step p{ color: var(--ink-soft); font-size: 0.92rem; }
@@ -1362,9 +1345,4 @@ p{ margin:0; }
   .main-nav.is-open{ display:flex; position:absolute; top:68px; left:0; right:0; flex-direction:column; background: var(--paper); border-bottom:1px solid var(--line); padding: 20px; gap:18px; }
   .hero{ padding: 40px 0 44px; }
   .process-grid{ grid-template-columns: 1fr; }
-  /* En una sola columna los pasos quedan apilados verticalmente, así que la
-     línea/spark horizontal ya no conecta nada real — se oculta y el glow de
-     cada número (que sigue funcionando) alcanza como indicador de avance. */
-  .process-connector{ display:none; }
-  .process-grid::before{ display:none; }
 }

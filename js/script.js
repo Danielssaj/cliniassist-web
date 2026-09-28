@@ -89,62 +89,25 @@
     startAutoplay();
   })();
 
-  // Línea de tiempo de "Paso a paso": la luz aparece en el número activo,
-  // viaja 2s hasta el siguiente, y AL LLEGAR desaparece mientras ese número
-  // se enciende — ahí se queda una pausa de 3s antes de repetir. Al llegar a
-  // 04, tras su pausa, el encendido pasa a 01 con un crossfade (sin que la
-  // luz recorra visualmente toda la línea de vuelta).
+  // "Paso a paso": ciclo de iluminación secuencial solo sobre los números
+  // (sin línea conectora ni luz viajera) — cada uno queda encendido 3s y
+  // se apaga con fade mientras el siguiente se enciende, en bucle.
   (() => {
-    const spark = document.getElementById('processSpark');
     const steps = Array.from(document.querySelectorAll('.process-step .step-num'));
-    if (!spark || steps.length !== 4) return;
+    if (steps.length !== 4) return;
 
-    const POSITIONS = [0, 100 / 3, 200 / 3, 100]; // % del ancho de .process-connector (4 columnas iguales)
-    const TRAVEL_MS = 2000;
-    const DWELL_MS = 3000;
-    const FADE_MS = 300;
+    const STEP_MS = 3000;
     let index = 0;
-    let timer = null;
 
     const setGlow = (i) => steps.forEach((el, n) => el.classList.toggle('is-glow', n === i));
-    const placeSpark = (i, animate) => {
-      spark.style.transition = animate ? `left ${TRAVEL_MS}ms var(--ease)` : 'none';
-      spark.style.left = `${POSITIONS[i]}%`;
-    };
-    const fadeSpark = (visible) => {
-      spark.style.transition = `opacity ${FADE_MS}ms ease`;
-      spark.style.opacity = visible ? '1' : '0';
-    };
 
-    placeSpark(0, false);
-    spark.style.opacity = '0';
     setGlow(0);
     if (reduceMotion) return; // queda el paso 01 iluminado, sin loop
 
-    const runLeg = () => {
-      const next = (index + 1) % steps.length;
-      if (next === 0) {
-        // Reinicio 04 -> 01: la luz ya estaba oculta desde que llegó a 04 (no
-        // hay que hacerla viajar de vuelta), así que alcanza con el crossfade
-        // del glow que ya tiene .step-num (color/opacity/text-shadow, .5s
-        // ease-in-out) para que se sienta fluido.
-        setGlow(0);
-        index = 0;
-        timer = setTimeout(runLeg, DWELL_MS);
-        return;
-      }
-      // La luz aparece en el paso actual y viaja al siguiente.
-      fadeSpark(true);
-      placeSpark(next, true);
-      timer = setTimeout(() => {
-        // Llegada exacta: desaparece y el número siguiente se enciende.
-        fadeSpark(false);
-        setGlow(next);
-        index = next;
-        timer = setTimeout(runLeg, FADE_MS + DWELL_MS);
-      }, TRAVEL_MS);
-    };
-    timer = setTimeout(runLeg, DWELL_MS); // pausa inicial de 3s en 01 antes de partir
+    setInterval(() => {
+      index = (index + 1) % steps.length;
+      setGlow(index);
+    }, STEP_MS);
   })();
 
   // Navegación entre secciones: scroll con desaceleración progresiva, limpia y
