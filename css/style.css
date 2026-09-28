@@ -650,7 +650,12 @@ p{ margin:0; }
   .lc-grid{ grid-template-columns: 1fr; gap: 36px; }
   .lc-panel{ height: 430px; }
   .lc-divider{ transform: translate(-50%,-50%) rotate(90deg); }
-  .lossgain-badge{ position:static; transform:none; display:inline-flex; margin-bottom:22px; }
+  .lossgain-badge{
+    position:static; transform:none; display:flex;
+    margin-bottom:22px;
+    white-space:normal; text-align:center; justify-content:center;
+    max-width:100%; border-radius: var(--radius-md);
+  }
 }
 
 /* ============================================
