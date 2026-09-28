@@ -27,7 +27,7 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Carrusel de servicios: una ficha centrada a la vez, con flechas, dots y
-  // autoplay (pausa de 3.5s por ficha). Traslada .service-track en X un
+  // autoplay (pausa de 5s por ficha). Traslada .service-track en X un
   // 100% por índice; los dots y las flechas comparten el mismo goTo().
   (() => {
     const carousel = document.getElementById('serviceCarousel');
@@ -66,7 +66,7 @@
     const next = () => goTo(index + 1);
     const prev = () => goTo(index - 1);
 
-    const AUTOPLAY_MS = 3500;
+    const AUTOPLAY_MS = 5000;
     const stopAutoplay = () => { clearInterval(autoplayTimer); autoplayTimer = null; };
     const startAutoplay = () => {
       if (reduceMotion) return; // no autoplay para quien pide menos movimiento
