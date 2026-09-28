@@ -690,7 +690,21 @@ p{ margin:0; }
    como cada .service-card mide flex:0 0 100% del viewport recortado, esto
    siempre deja exactamente una tarjeta visible sin importar el ancho. */
 .service-carousel{ position:relative; display:flex; align-items:center; justify-content:center; gap:18px; }
-.service-carousel-viewport{ overflow-x:hidden; overflow-y:visible; width:100%; max-width: 640px; }
+/* overflow-x:hidden + overflow-y:visible NO funciona como parece: la
+   spec de CSS convierte automáticamente el eje "visible" en "auto" cuando
+   el otro eje no lo es — eso generaba una barra de scroll real cada vez que
+   la tarjeta activa flippeaba (el cálculo de layout durante la rotación 3D
+   crece unos ~30px de alto por un instante, y overflow-y:auto reacciona
+   mostrando scrollbar). Se usa overflow:hidden liso (ambos ejes, sin la
+   conversión) + padding-block/margin-block que se cancelan entre sí: dan
+   espacio vertical de sobra para el hover-lift y ese pico transitorio del
+   flip sin correr la posición ni el tamaño visible del carrusel. */
+.service-carousel-viewport{
+  overflow: hidden;
+  width:100%; max-width: 640px;
+  padding-block: 20px;
+  margin-block: -20px;
+}
 .service-track{ display:flex; transition: transform .55s cubic-bezier(0.4,0.15,0.2,1); will-change: transform; }
 .service-track .service-card{ flex: 0 0 100%; width:100%; }
 
