@@ -1,5 +1,5 @@
 /* ============================================
-   ClinIAssist — Design tokens
+   Cliniassist — Design tokens
    Paleta de marca (azules tecnológicos + rosa cálido)
    equilibrada con neutros para una audiencia amplia y
    un carácter más "tech + salud" que pastel.
@@ -538,7 +538,7 @@ p{ margin:0; }
    Pérdidas vs. resultados — calculadora comparativa
    ============================================ */
 .lossgain{ padding: 96px 0; }
-.lossgain-head{ max-width: 680px; margin-inline:auto; text-align:center; }
+.lossgain-head{ max-width: 860px; margin-inline:auto; text-align:center; }
 .lossgain-kicker{ display:inline-block; font-family: var(--font-mono); font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color: var(--link); margin-bottom:14px; }
 .lossgain-head h2{ font-size: clamp(1.7rem, 3.6vw, 2.5rem); }
 .lossgain-head p{ margin-top:10px; color: var(--ink-soft); }
@@ -690,7 +690,7 @@ p{ margin:0; }
    como cada .service-card mide flex:0 0 100% del viewport recortado, esto
    siempre deja exactamente una tarjeta visible sin importar el ancho. */
 .service-carousel{ position:relative; display:flex; align-items:center; justify-content:center; gap:18px; }
-.service-carousel-viewport{ overflow:hidden; width:100%; max-width: 420px; }
+.service-carousel-viewport{ overflow-x:hidden; overflow-y:visible; width:100%; max-width: 640px; }
 .service-track{ display:flex; transition: transform .55s cubic-bezier(0.4,0.15,0.2,1); will-change: transform; }
 .service-track .service-card{ flex: 0 0 100%; width:100%; }
 
@@ -814,8 +814,8 @@ p{ margin:0; }
 /* ============================================
    Proceso
    ============================================ */
-.process{ padding: 88px 0; background: var(--surface-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-.process-head{ max-width: 640px; margin-inline:auto; text-align:center; }
+.process{ padding: 56px 0; background: var(--surface-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.process-head{ max-width: 640px; margin-inline:auto; margin-bottom: 32px; text-align:center; }
 .process-grid{ position:relative; display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 28px; }
 .process-grid::before{
   content:"";
@@ -859,8 +859,8 @@ p{ margin:0; }
 /* ============================================
    Panel / herramienta — pestañas interactivas
    ============================================ */
-.tool{ padding: 52px 0 88px; }
-.tool-head{ max-width: 640px; margin-inline:auto; margin-bottom: 32px; text-align:center; }
+.tool{ padding: 28px 0 72px; }
+.tool-head{ max-width: 640px; margin-inline:auto; margin-bottom: 24px; text-align:center; }
 .tool-panel{ background: var(--surface-alt); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 18px; }
 
 .tool-tabs{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 18px; }
