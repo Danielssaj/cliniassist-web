@@ -387,18 +387,20 @@
     <div class="services-glow g2" aria-hidden="true"></div>
     <div class="services-glow g3" aria-hidden="true"></div>
     <div class="container">
-      <div class="section-head on-dark reveal">
+      <div class="section-head on-dark services-head reveal">
         <h2>Lo que hacemos por tu clínica</h2>
         <p>9 tareas que ClinIAssist se encarga de resolver para tu clínica.</p>
       </div>
 
-      <div class="service-grid">
-        <svg class="service-connector-svg" id="serviceConnectorSvg" aria-hidden="true">
-          <path class="connector-path"></path>
-          <circle class="connector-spark" r="3.4"></circle>
-        </svg>
+      <div class="service-carousel reveal" id="serviceCarousel">
+        <button type="button" class="carousel-arrow carousel-arrow-prev" id="serviceCarouselPrev" aria-label="Servicio anterior">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
 
-        <article class="service-card reveal" role="button" tabindex="0" aria-pressed="false">
+        <div class="service-carousel-viewport">
+          <div class="service-track" id="serviceTrack">
+
+        <article class="service-card" role="button" tabindex="0" aria-pressed="false">
           <div class="service-card-inner">
             <div class="service-card-face service-card-front">
               <span class="service-badge">
@@ -419,7 +421,7 @@
           </div>
         </article>
 
-        <article class="service-card reveal" role="button" tabindex="0" aria-pressed="false">
+        <article class="service-card" role="button" tabindex="0" aria-pressed="false">
           <div class="service-card-inner">
             <div class="service-card-face service-card-front">
               <span class="service-badge">
@@ -446,7 +448,7 @@
           </div>
         </article>
 
-        <article class="service-card reveal" role="button" tabindex="0" aria-pressed="false">
+        <article class="service-card" role="button" tabindex="0" aria-pressed="false">
           <div class="service-card-inner">
             <div class="service-card-face service-card-front">
               <span class="service-badge">
@@ -473,7 +475,7 @@
           </div>
         </article>
 
-        <article class="service-card reveal" role="button" tabindex="0" aria-pressed="false">
+        <article class="service-card" role="button" tabindex="0" aria-pressed="false">
           <div class="service-card-inner">
             <div class="service-card-face service-card-front">
               <span class="service-badge">
@@ -497,7 +499,7 @@
           </div>
         </article>
 
-        <article class="service-card reveal" role="button" tabindex="0" aria-pressed="false">
+        <article class="service-card" role="button" tabindex="0" aria-pressed="false">
           <div class="service-card-inner">
             <div class="service-card-face service-card-front">
               <span class="service-badge">
@@ -524,7 +526,7 @@
           </div>
         </article>
 
-        <article class="service-card reveal" role="button" tabindex="0" aria-pressed="false">
+        <article class="service-card" role="button" tabindex="0" aria-pressed="false">
           <div class="service-card-inner">
             <div class="service-card-face service-card-front">
               <span class="service-badge">
@@ -545,7 +547,7 @@
           </div>
         </article>
 
-        <article class="service-card reveal" role="button" tabindex="0" aria-pressed="false">
+        <article class="service-card" role="button" tabindex="0" aria-pressed="false">
           <div class="service-card-inner">
             <div class="service-card-face service-card-front">
               <span class="service-badge">
@@ -569,7 +571,7 @@
           </div>
         </article>
 
-        <article class="service-card reveal" role="button" tabindex="0" aria-pressed="false">
+        <article class="service-card" role="button" tabindex="0" aria-pressed="false">
           <div class="service-card-inner">
             <div class="service-card-face service-card-front">
               <span class="service-badge service-badge-maps">
@@ -591,7 +593,7 @@
           </div>
         </article>
 
-        <article class="service-card reveal" role="button" tabindex="0" aria-pressed="false">
+        <article class="service-card" role="button" tabindex="0" aria-pressed="false">
           <div class="service-card-inner">
             <div class="service-card-face service-card-front">
               <span class="service-badge">
@@ -615,6 +617,24 @@
           </div>
         </article>
 
+          </div>
+        </div>
+
+        <button type="button" class="carousel-arrow carousel-arrow-next" id="serviceCarouselNext" aria-label="Siguiente servicio">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <div class="carousel-dots" id="serviceCarouselDots" role="tablist" aria-label="Seleccionar servicio">
+        <button type="button" class="carousel-dot is-active" role="tab" aria-selected="true" aria-label="Ir al servicio 1" data-index="0"></button>
+        <button type="button" class="carousel-dot" role="tab" aria-selected="false" aria-label="Ir al servicio 2" data-index="1"></button>
+        <button type="button" class="carousel-dot" role="tab" aria-selected="false" aria-label="Ir al servicio 3" data-index="2"></button>
+        <button type="button" class="carousel-dot" role="tab" aria-selected="false" aria-label="Ir al servicio 4" data-index="3"></button>
+        <button type="button" class="carousel-dot" role="tab" aria-selected="false" aria-label="Ir al servicio 5" data-index="4"></button>
+        <button type="button" class="carousel-dot" role="tab" aria-selected="false" aria-label="Ir al servicio 6" data-index="5"></button>
+        <button type="button" class="carousel-dot" role="tab" aria-selected="false" aria-label="Ir al servicio 7" data-index="6"></button>
+        <button type="button" class="carousel-dot" role="tab" aria-selected="false" aria-label="Ir al servicio 8" data-index="7"></button>
+        <button type="button" class="carousel-dot" role="tab" aria-selected="false" aria-label="Ir al servicio 9" data-index="8"></button>
       </div>
     </div>
   </section>

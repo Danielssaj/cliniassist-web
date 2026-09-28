@@ -26,83 +26,67 @@
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Conector luminoso entre las 9 tarjetas de servicios: traza una línea por los
-  // centros reales de las tarjetas (recalculada si cambia el layout) y anima una
-  // partícula que viaja por ese trazado. Los tramos que quedan bajo una tarjeta
-  // no se ven, porque el SVG está detrás de las tarjetas (mismo truco que el
-  // conector de la sección "proceso").
+  // Carrusel de servicios: una ficha centrada a la vez, con flechas, dots y
+  // autoplay (pausa de 3.5s por ficha). Traslada .service-track en X un
+  // 100% por índice; los dots y las flechas comparten el mismo goTo().
   (() => {
-    const grid = document.querySelector('.service-grid');
-    const svg = document.getElementById('serviceConnectorSvg');
-    if (!grid || !svg) return;
-    const pathEl = svg.querySelector('.connector-path');
-    const spark = svg.querySelector('.connector-spark');
-    let points = [];
-    let segLengths = [];
-    let totalLength = 0;
+    const carousel = document.getElementById('serviceCarousel');
+    const track = document.getElementById('serviceTrack');
+    if (!carousel || !track) return;
+    const slides = Array.from(track.querySelectorAll('.service-card'));
+    const dots = Array.from(document.querySelectorAll('#serviceCarouselDots .carousel-dot'));
+    const prevBtn = document.getElementById('serviceCarouselPrev');
+    const nextBtn = document.getElementById('serviceCarouselNext');
+    if (!slides.length) return;
 
-    const measure = () => {
-      const cards = Array.from(grid.querySelectorAll('.service-card'));
-      if (!cards.length) return;
-      const gridRect = grid.getBoundingClientRect();
-      svg.setAttribute('viewBox', `0 0 ${gridRect.width} ${gridRect.height}`);
-      points = cards.map(card => {
-        const r = card.getBoundingClientRect();
-        return { x: r.left - gridRect.left + r.width / 2, y: r.top - gridRect.top + r.height / 2 };
+    let index = 0;
+    let autoplayTimer = null;
+
+    const render = () => {
+      track.style.transform = `translateX(-${index * 100}%)`;
+      slides.forEach((slide, i) => {
+        const active = i === index;
+        // Roving tabindex: solo la ficha visible es alcanzable con teclado o
+        // lectores de pantalla — las otras 8 existen en el DOM (translateX
+        // las saca de la vista) pero no deben quedar "enfocables a ciegas".
+        slide.setAttribute('tabindex', active ? '0' : '-1');
+        slide.setAttribute('aria-hidden', active ? 'false' : 'true');
       });
-      const d = points.map((p, i) => (i === 0 ? 'M' : 'L') + p.x.toFixed(1) + ',' + p.y.toFixed(1)).join(' ');
-      pathEl.setAttribute('d', d);
-      segLengths = [];
-      totalLength = 0;
-      for (let i = 1; i < points.length; i++) {
-        const dx = points[i].x - points[i - 1].x;
-        const dy = points[i].y - points[i - 1].y;
-        const len = Math.sqrt(dx * dx + dy * dy);
-        segLengths.push(len);
-        totalLength += len;
-      }
+      dots.forEach((dot, i) => {
+        const active = i === index;
+        dot.classList.toggle('is-active', active);
+        dot.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
     };
 
-    const pointAtDistance = (dist) => {
-      let d = dist;
-      for (let i = 0; i < segLengths.length; i++) {
-        if (d <= segLengths[i] || i === segLengths.length - 1) {
-          const t = segLengths[i] ? Math.min(d / segLengths[i], 1) : 0;
-          const a = points[i], b = points[i + 1];
-          return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t };
-        }
-        d -= segLengths[i];
-      }
-      return points[0] || { x: 0, y: 0 };
+    const goTo = (i) => {
+      index = (i + slides.length) % slides.length;
+      render();
+    };
+    const next = () => goTo(index + 1);
+    const prev = () => goTo(index - 1);
+
+    const AUTOPLAY_MS = 3500;
+    const stopAutoplay = () => { clearInterval(autoplayTimer); autoplayTimer = null; };
+    const startAutoplay = () => {
+      if (reduceMotion) return; // no autoplay para quien pide menos movimiento
+      stopAutoplay();
+      autoplayTimer = setInterval(next, AUTOPLAY_MS);
     };
 
-    let resizeTimer = null;
-    const scheduleMeasure = () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(measure, 200);
-    };
+    prevBtn?.addEventListener('click', () => { prev(); startAutoplay(); });
+    nextBtn?.addEventListener('click', () => { next(); startAutoplay(); });
+    dots.forEach((dot, i) => dot.addEventListener('click', () => { goTo(i); startAutoplay(); }));
 
-    measure();
-    setTimeout(measure, 500); // recalcula tras el ajuste de fuentes/layout
-    window.addEventListener('resize', scheduleMeasure);
+    // Pausa mientras el usuario interactúa (hover o foco por teclado) para no
+    // pelear con alguien que está leyendo o recién dio vuelta una tarjeta.
+    carousel.addEventListener('mouseenter', stopAutoplay);
+    carousel.addEventListener('mouseleave', startAutoplay);
+    carousel.addEventListener('focusin', stopAutoplay);
+    carousel.addEventListener('focusout', startAutoplay);
 
-    if (reduceMotion) {
-      spark.setAttribute('opacity', '0');
-      return;
-    }
-
-    const DURATION = 7000;
-    const start = performance.now();
-    const tick = (now) => {
-      if (totalLength > 0) {
-        const elapsed = (now - start) % DURATION;
-        const p = pointAtDistance((elapsed / DURATION) * totalLength);
-        spark.setAttribute('cx', p.x);
-        spark.setAttribute('cy', p.y);
-      }
-      requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
+    render();
+    startAutoplay();
   })();
 
   // Navegación entre secciones: scroll con desaceleración progresiva, limpia y
