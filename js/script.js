@@ -413,6 +413,56 @@
     });
   }
 
+  // Flip cards de los planes de precios: giran con un botón dedicado en cada
+  // cara ([data-plan-flip]), NUNCA con un clic en cualquier parte de la
+  // tarjeta — a diferencia de las tarjetas de servicios, acá adentro hay un
+  // link CTA real que no debe competir por el clic con el giro.
+  //
+  // Cada cara (y cada plan) tiene una altura natural distinta — el checklist
+  // completo del dorso es más largo en algunos planes que en otros, y el
+  // "Ideal para" también varía. Usar la altura natural de CADA tarjeta por
+  // separado las dejaría de alturas distintas entre sí (se ve desprolijo en
+  // una fila de precios), así que se mide TODO (las 6 caras, 3 tarjetas) y
+  // se aplica la más alta de todas a las 3 por igual — mismo truco que
+  // syncBodyHeight para leer el alto real de contenido position:absolute:
+  // sacarlo brevemente de ese modo para que su scrollHeight no quede
+  // "midiendo" el contenedor en vez de su propio contenido.
+  const planCards = Array.from(document.querySelectorAll('.plan-card'));
+  if (planCards.length) {
+    const measureFace = (face) => {
+      const prevPosition = face.style.position;
+      const prevHeight = face.style.height;
+      face.style.position = 'static';
+      face.style.height = 'auto';
+      const h = face.scrollHeight;
+      face.style.position = prevPosition;
+      face.style.height = prevHeight;
+      return h;
+    };
+    const syncPlanCardHeights = () => {
+      const heights = planCards.flatMap(card => {
+        const front = card.querySelector('.plan-card-front');
+        const back = card.querySelector('.plan-card-back');
+        return front && back ? [measureFace(front), measureFace(back)] : [];
+      });
+      if (!heights.length) return;
+      const tallest = Math.max(...heights);
+      planCards.forEach(card => { card.style.height = `${tallest}px`; });
+    };
+
+    syncPlanCardHeights();
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(syncPlanCardHeights);
+    }
+    window.addEventListener('resize', syncPlanCardHeights);
+
+    planCards.forEach(card => {
+      card.querySelectorAll('[data-plan-flip]').forEach(btn => {
+        btn.addEventListener('click', () => card.classList.toggle('is-flipped'));
+      });
+    });
+  }
+
   // Botón "Enviar recordatorio automático" en la ficha de paciente (simulación visual, sin envío real)
   const patientCta = document.getElementById('patientCta');
   if (patientCta) {

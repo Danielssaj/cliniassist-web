@@ -1154,15 +1154,43 @@ p{ margin:0; }
   color: var(--ink-soft);
   opacity: 0.8;
 }
-.plan-card{ position:relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 30px 24px 26px; display:flex; flex-direction:column; gap:12px; transition: transform .5s cubic-bezier(0,0,.2,1), box-shadow .5s cubic-bezier(0,0,.2,1), border-color .5s cubic-bezier(0,0,.2,1); }
-.plan-card:hover{
-  transform: translateY(-8px);
+/* Flip cards — mismo patrón que las tarjetas de servicios: perspective en el
+   contenedor, .plan-card-inner es lo único que rota (el lift de hover vive
+   ahí también para no pelear con el rotateY), y ambas caras son cajas
+   absolutas del mismo tamaño dentro de .plan-card-inner. A diferencia de las
+   tarjetas de servicios, acá el giro NO se dispara con un clic en cualquier
+   parte de la tarjeta (hay un link CTA real adentro que no debe competir con
+   eso) — solo los botones [data-plan-flip] de cada cara lo activan.
+   La altura es fija en px, calculada por JS (ver script.js) porque el frente
+   (resumen corto) y el dorso (checklist completo de 9 ítems) tienen alturas
+   naturales muy distintas. */
+.plan-card{ position:relative; perspective: 1200px; height: 560px; }
+.plan-card-inner{
+  position:relative; width:100%; height:100%;
+  transform-style: preserve-3d;
+  transition: transform .5s cubic-bezier(0,0,.2,1);
+}
+.plan-card:hover .plan-card-inner{ transform: translateY(-8px); }
+.plan-card.is-flipped .plan-card-inner{ transform: rotateY(180deg); }
+.plan-card.is-flipped:hover .plan-card-inner{ transform: translateY(-8px) rotateY(180deg); }
+
+.plan-card-face{
+  position:absolute; inset:0; z-index:1;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: 30px 24px 26px;
+  display:flex; flex-direction:column; gap:12px;
+  backface-visibility:hidden;
+  transition: border-color .5s cubic-bezier(0,0,.2,1), box-shadow .5s cubic-bezier(0,0,.2,1);
+}
+.plan-card:hover .plan-card-face{
   border-color: #06B6D4;
   box-shadow: var(--shadow-lg), 0 0 30px rgba(6,182,212,0.25);
 }
-.plan-badge{ position:absolute; top:-14px; left:24px; background: var(--accent); color: var(--accent-ink); font-size:0.7rem; font-weight:700; padding:6px 13px; border-radius: 999px; white-space:nowrap; }
+.plan-card-back{ transform: rotateY(180deg); }
+
+.plan-badge{ position:absolute; z-index:2; top:-14px; left:24px; background: var(--accent); color: var(--accent-ink); font-size:0.7rem; font-weight:700; padding:6px 13px; border-radius: 999px; white-space:nowrap; }
 .plan-discount{
-  position:absolute; top:14px; right:14px;
+  position:absolute; z-index:2; top:14px; right:14px;
   background:#16a34a; color:#fff;
   font-family: var(--font-mono);
   font-size:0.72rem; font-weight:700;
@@ -1187,6 +1215,19 @@ p{ margin:0; }
 .plan-features li:not(.is-off)::before{ content:"✓"; color:#16a34a; }
 .plan-features li.is-off{ color: var(--ink-soft); opacity:.55; text-decoration: line-through; }
 .plan-features li.is-off::before{ content:"✕"; color: var(--ink-soft); }
+.plan-features li.plan-features-inherit{ font-weight:700; color: var(--ink); }
+.plan-features li.is-add::before{ content:"+"; color: var(--link); font-weight:800; font-size:0.86rem; }
+
+.plan-flip-btn{
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  background:none; border: 1px dashed var(--line-strong); border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-family: inherit; font-size: 0.8rem; font-weight:700; color: var(--link);
+  cursor:pointer;
+  transition: background .2s ease, border-color .2s ease;
+}
+.plan-flip-btn:hover, .plan-flip-btn:focus-visible{ background: var(--surface-alt); border-color: var(--link); }
+.plan-flip-btn-back{ color: var(--ink-soft); border-style:solid; }
 
 /* ============================================
    FAQ
