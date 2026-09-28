@@ -89,6 +89,60 @@
     startAutoplay();
   })();
 
+  // Línea de tiempo de "Paso a paso": el spark recorre 01→02→03→04 en bucle,
+  // 2s por tramo, ease-in-out, sincronizado con el número que se ilumina
+  // (.step-num.is-glow). Las posiciones son fijas (0/33.33/66.67/100% del
+  // ancho de .process-connector) porque son 4 columnas iguales — no hace
+  // falta medir el DOM como en el conector de servicios que se quitó.
+  (() => {
+    const spark = document.getElementById('processSpark');
+    const steps = Array.from(document.querySelectorAll('.process-step .step-num'));
+    if (!spark || steps.length !== 4) return;
+
+    const POSITIONS = [0, 100 / 3, 200 / 3, 100];
+    const STEP_MS = 2000;
+    const RESET_FADE_MS = 400;
+    let index = 0;
+
+    const setGlow = (i) => steps.forEach((el, n) => el.classList.toggle('is-glow', n === i));
+    const moveSpark = (i, animate) => {
+      spark.style.transition = animate ? 'left 2s var(--ease)' : 'none';
+      spark.style.left = `${POSITIONS[i]}%`;
+    };
+
+    moveSpark(0, false);
+    setGlow(0);
+    if (reduceMotion) return; // queda el paso 01 iluminado, sin loop
+
+    let timer = null;
+    const scheduleNext = () => {
+      const next = (index + 1) % steps.length;
+      if (next === 0) {
+        // Vuelta de 04 a 01: fade-out breve, salto instantáneo de posición y
+        // fade-in — un reinicio suave en vez de un barrido hacia atrás por
+        // toda la línea.
+        spark.style.transition = `opacity ${RESET_FADE_MS}ms ease`;
+        spark.style.opacity = '0';
+        setTimeout(() => {
+          moveSpark(0, false);
+          setGlow(0);
+          requestAnimationFrame(() => {
+            spark.style.transition = `opacity ${RESET_FADE_MS}ms ease`;
+            spark.style.opacity = '1';
+          });
+          index = 0;
+          timer = setTimeout(scheduleNext, STEP_MS);
+        }, RESET_FADE_MS);
+      } else {
+        moveSpark(next, true);
+        setGlow(next);
+        index = next;
+        timer = setTimeout(scheduleNext, STEP_MS);
+      }
+    };
+    timer = setTimeout(scheduleNext, STEP_MS);
+  })();
+
   // Navegación entre secciones: scroll con desaceleración progresiva, limpia y
   // sin rebote (curva cubic-bezier(0.25, 1, 0.5, 1)) + destello de "llegada".
   const cubicBezierEase = (x1, y1, x2, y2) => {
