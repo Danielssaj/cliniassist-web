@@ -108,20 +108,14 @@
 :root[data-theme="dark"] .logo-mark-light{ display:none; }
 :root[data-theme="dark"] .logo-mark-dark{ display:block; }
 
-/* Modo oscuro: fondo general único (body) tipo "mesh gradient" — varias
-   manchas de luz radiales sobre una base en degradado vertical (azul arriba,
-   navy oscuro hacia el centro/abajo), que respira de forma continua detrás
-   de TODAS las secciones (incluidas las que antes tenían su propio fondo
-   plano: servicios/carrusel y "proceso"). Tarjetas, textos y bordes no se
-   tocan acá. */
+/* Modo oscuro: fondo general único (body) en un degradado vertical simple y
+   continuo (sin manchas radiales — se veían como "cortes" al combinarse con
+   los bordes horizontales de sección). Las secciones intermedias quedan sin
+   background NI borde propio, para que el degradado pase 100% liso por
+   detrás de toda la página. Tarjetas y textos no se tocan acá. */
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]) body{
-    background-color: #080c14;
-    background-image:
-      radial-gradient(circle at 10% 20%, rgba(3,101,222,0.28) 0%, transparent 45%),
-      radial-gradient(circle at 85% 50%, rgba(2,69,153,0.35) 0%, transparent 50%),
-      radial-gradient(circle at 20% 80%, rgba(3,101,222,0.2) 0%, transparent 45%),
-      linear-gradient(180deg, #024599 0%, #013a80 20%, #0b132b 55%, #080c14 85%);
+    background: linear-gradient(180deg, #012254 0%, #024599 35%, #0b132b 70%, #080c14 100%);
   }
   :root:not([data-theme="light"]) .hero::before{
     content:"";
@@ -133,13 +127,16 @@
   :root:not([data-theme="light"]) .process,
   :root:not([data-theme="light"]) .services-dark{
     background: transparent;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
   }
   :root:not([data-theme="light"]) .plan-card.is-highlight .plan-card-front{
     background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   }
   :root:not([data-theme="light"]) .plan-card:not(.is-highlight) .plan-card-face{
-    background: #101e3d;
-    border-color: #1e3a8a;
+    background: linear-gradient(145deg, #1a315c, #132446);
+    border-color: rgba(255,255,255,0.12);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   }
   :root:not([data-theme="light"]) .hero-actions .btn-primary{
     background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
@@ -161,12 +158,7 @@
   }
 }
 :root[data-theme="dark"] body{
-  background-color: #080c14;
-  background-image:
-    radial-gradient(circle at 10% 20%, rgba(3,101,222,0.28) 0%, transparent 45%),
-    radial-gradient(circle at 85% 50%, rgba(2,69,153,0.35) 0%, transparent 50%),
-    radial-gradient(circle at 20% 80%, rgba(3,101,222,0.2) 0%, transparent 45%),
-    linear-gradient(180deg, #024599 0%, #013a80 20%, #0b132b 55%, #080c14 85%);
+  background: linear-gradient(180deg, #012254 0%, #024599 35%, #0b132b 70%, #080c14 100%);
 }
 :root[data-theme="dark"] .hero::before{
   content:"";
@@ -178,13 +170,16 @@
 :root[data-theme="dark"] .process,
 :root[data-theme="dark"] .services-dark{
   background: transparent;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
 }
 :root[data-theme="dark"] .plan-card.is-highlight .plan-card-front{
   background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
 }
 :root[data-theme="dark"] .plan-card:not(.is-highlight) .plan-card-face{
-  background: #101e3d;
-  border-color: #1e3a8a;
+  background: linear-gradient(145deg, #1a315c, #132446);
+  border-color: rgba(255,255,255,0.12);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 :root[data-theme="dark"] .hero-actions .btn-primary{
   background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
@@ -255,9 +250,9 @@ p{ margin:0; }
 
 .container{
   width: 100%;
-  max-width: 1440px;
+  max-width: 1280px;
   margin-inline: auto;
-  padding-inline: 32px;
+  padding-inline: clamp(24px, 5vw, 64px);
 }
 
 /* Buttons */
