@@ -1308,12 +1308,22 @@
         <div class="ca-addon-price">
           <div class="ca-addon-amount"><span>Desde</span><b>$360.000</b><span>pago único</span></div>
           <p>o en <strong>6 cuotas desde $60.000/mes</strong> junto a tu mensualidad.</p>
-          <div class="ca-tiers">
-            <div><strong>Base</strong><span>Web de una página</span></div>
-            <div><strong>Pro</strong><span>Más secciones y SEO</span></div>
-            <div><strong>Premium</strong><span>Diseño 100% a medida</span></div>
+          <div class="ca-tiers" role="radiogroup" aria-label="Elige tu web">
+            <button type="button" class="ca-tier" role="radio" aria-checked="false" data-tier="base" data-msg="Hola, me interesa cotizar la web Base con Mateo de Cliniassist (web de una página, desde $360.000)." tabindex="0">
+              <strong>Base</strong><span>Web de una página</span>
+              <svg class="ca-tier-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+            </button>
+            <button type="button" class="ca-tier" role="radio" aria-checked="false" data-tier="pro" data-msg="Hola, me interesa cotizar la web Pro con Mateo de Cliniassist (más secciones y SEO)." tabindex="-1">
+              <strong>Pro</strong><span>Más secciones y SEO</span>
+              <svg class="ca-tier-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+            </button>
+            <button type="button" class="ca-tier" role="radio" aria-checked="false" data-tier="premium" data-msg="Hola, me interesa cotizar la web Premium con Mateo de Cliniassist (diseño 100% a medida)." tabindex="-1">
+              <strong>Premium</strong><span>Diseño 100% a medida</span>
+              <svg class="ca-tier-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+            </button>
           </div>
-          <a href="#" class="ca-btn ca-btn-addon js-whatsapp" data-wa-text="Hola, me interesa cotizar una web con Mateo de Cliniassist." target="_blank" rel="noopener">Cotizar mi web con Mateo</a>
+          <a href="#" class="ca-btn ca-btn-addon" id="caAddonBtn" aria-disabled="true" target="_blank" rel="noopener">Cotizar mi web con Mateo</a>
+          <p class="ca-addon-hint" id="caAddonHint">Elige Base, Pro o Premium para cotizar</p>
         </div>
       </div>
 

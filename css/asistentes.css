@@ -35,7 +35,32 @@
 .ca-panel[hidden]{ display:none; }
 @keyframes caFade{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
 .ca-photo{ position:relative; max-width:340px; width:100%; }
-.ca-photo img{ display:block; width:100%; height:min(420px, 52vh); object-fit:cover; object-position:top; border-radius:24px; border:3px solid var(--c); }
+.ca-photo img{
+  display:block; width:100%; height:min(420px, 52vh); object-fit:cover; object-position:top; border-radius:24px;
+  border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--c) 45%, transparent), 0 0 48px color-mix(in srgb, var(--c) 22%, transparent);
+  animation: caBreathe 5.5s ease-in-out infinite;
+}
+#ca-panel-valentina .ca-photo img{ animation-delay: 0s; }
+#ca-panel-diego .ca-photo img{ animation-delay: 1.2s; }
+#ca-panel-emilia .ca-photo img{ animation-delay: 2.4s; }
+#ca-panel-mateo .ca-photo img{ animation-delay: 3.6s; }
+
+/* Respiración muy leve: escala + elevación sutil, con el resplandor de
+   color subiendo y bajando de intensidad en el mismo ciclo. */
+@keyframes caBreathe{
+  0%, 100%{
+    transform: scale(1) translateY(0);
+    box-shadow: 0 0 18px color-mix(in srgb, var(--c) 45%, transparent), 0 0 48px color-mix(in srgb, var(--c) 22%, transparent);
+  }
+  50%{
+    transform: scale(1.015) translateY(-2px);
+    box-shadow: 0 0 26px color-mix(in srgb, var(--c) 60%, transparent), 0 0 60px color-mix(in srgb, var(--c) 32%, transparent);
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  .ca-photo img, .ca-addon-intro img{ animation:none; }
+}
 .ca-live{ position:absolute; left:16px; bottom:16px; display:flex; align-items:center; gap:6px; padding:5px 10px; border-radius:999px; background:rgba(7,13,31,.86); border:1px solid #2a3a66; font-size:11px; font-weight:600; }
 .ca-live span{ width:7px; height:7px; border-radius:50%; background:#3ddc97; }
 .ca-info{ display:flex; flex-direction:column; gap:12px; }
@@ -54,8 +79,9 @@
 /* Planes */
 .ca-pricing{ padding-top:64px; padding-bottom:112px; }
 .ca-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:24px; align-items:stretch; }
-.ca-card{ position:relative; display:flex; flex-direction:column; gap:22px; padding:28px; border-radius:24px; background:#0e1730; border:1px solid #22305a; transition:transform .25s var(--ease, ease); }
-.ca-card:hover{ transform:translateY(-6px); }
+.ca-card{ position:relative; display:flex; flex-direction:column; gap:22px; padding:28px; border-radius:24px; background:#0e1730; border:1px solid #22305a; transition:transform .3s var(--ease, ease), box-shadow .3s var(--ease, ease); }
+.ca-card:hover{ transform:translateY(-6px); box-shadow: 0 0 0 1px #8fb0ff, 0 0 32px rgba(143,176,255,0.35); }
+.ca-card.is-highlight:hover{ box-shadow: 0 0 0 1px #4d7cff, 0 0 32px rgba(77,124,255,0.35); }
 .ca-card.is-highlight{ background:#1f4fd1; border-color:#4d7cff; }
 .ca-badge{ position:absolute; top:-14px; left:28px; padding:5px 12px; border-radius:999px; background:#ffd9d0; color:#6b1f10; font-size:12px; font-weight:700; }
 .ca-card-title{ display:flex; flex-direction:column; gap:4px; }
@@ -78,7 +104,11 @@
 .ca-team-list{ display:flex; flex-direction:column; gap:18px; }
 .ca-member{ display:flex; flex-direction:column; gap:10px; }
 .ca-member-head{ display:flex; align-items:center; gap:12px; }
-.ca-member-head img{ width:44px; height:44px; border-radius:50%; object-fit:cover; object-position:top; border:2px solid var(--c); }
+.ca-member-head img{
+  width:44px; height:44px; border-radius:50%; object-fit:cover; object-position:top;
+  border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--c) 45%, transparent), 0 0 24px color-mix(in srgb, var(--c) 22%, transparent);
+}
 .ca-member-head div{ display:flex; flex-direction:column; }
 .ca-member-head span{ font-size:13px; color:#a3aecb; }
 .ca-member ul{ list-style:none; margin:0; padding:0 0 0 4px; display:flex; flex-direction:column; gap:6px; }
@@ -98,13 +128,20 @@
 .ca-card.is-highlight .ca-install,
 .ca-card.is-highlight .ca-counter b{ color:#fff; }
 .ca-card.is-highlight .ca-btn{ background:#fff; color:#173a9e; }
-.ca-card.is-highlight .ca-member-head img{ border-color:#fff; }
+.ca-card.is-highlight .ca-member-head img{ border-color: rgba(255,255,255,0.6); box-shadow: 0 0 12px rgba(255,255,255,0.4); }
 .ca-card.is-highlight .ca-member li svg{ color:#fff; }
 
 /* Mateo adicional */
-.ca-addon{ display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:40px; align-items:center; padding:36px; border-radius:28px; background:#0e1730; border:1px solid #33466f; }
+.ca-addon{ display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:40px; align-items:center; padding:36px; border-radius:28px; background:#0e1730; border:1px solid #33466f; transition:transform .3s var(--ease, ease), box-shadow .3s var(--ease, ease); }
+.ca-addon:hover{ transform:translateY(-6px); box-shadow: 0 0 0 1px #9bbf6a, 0 0 32px rgba(155,191,106,0.35); }
 .ca-addon-intro{ display:flex; align-items:center; gap:24px; }
-.ca-addon-intro img{ width:132px; height:132px; border-radius:24px; object-fit:cover; object-position:top; border:3px solid var(--c); flex-shrink:0; }
+.ca-addon-intro img{
+  width:132px; height:132px; border-radius:24px; object-fit:cover; object-position:top; flex-shrink:0;
+  border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--c) 45%, transparent), 0 0 48px color-mix(in srgb, var(--c) 22%, transparent);
+  animation: caBreathe 5.5s ease-in-out infinite;
+  animation-delay: 0.8s;
+}
 .ca-addon-intro > div{ display:flex; flex-direction:column; gap:8px; }
 .ca-addon-intro .ca-mono{ font-size:12px; color:#cfe3b0; }
 .ca-addon-intro h3{ margin:0; font-size:30px; font-weight:800; line-height:1.15; color:#e8edf8; }
@@ -115,10 +152,28 @@
 .ca-addon-amount span{ font-size:15px; color:#a3aecb; }
 .ca-addon-amount b{ font-size:40px; font-weight:800; letter-spacing:-.02em; }
 .ca-tiers{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:10px; }
-.ca-tiers > div{ padding:12px; border-radius:12px; background:#0a1226; border:1px solid #22305a; display:flex; flex-direction:column; gap:2px; }
-.ca-tiers span{ font-size:13px; color:#a3aecb; }
-.ca-btn-addon{ align-self:flex-start; background:var(--c); color:#14210a; }
+.ca-tier{
+  position:relative; min-height:44px; padding:12px; border-radius:12px; background:#0a1226; border:1px solid #22305a;
+  display:flex; flex-direction:column; gap:2px; text-align:left; cursor:pointer;
+  font:inherit; color:inherit; -webkit-appearance:none; appearance:none;
+  transition: transform .2s var(--ease, ease), border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.ca-tier strong{ font-size:14px; font-weight:800; color:#e8edf8; }
+.ca-tier span{ font-size:13px; color:#a3aecb; }
+.ca-tier:hover{ transform:translateY(-3px); border-color:#9bbf6a; box-shadow: 0 0 0 1px #9bbf6a, 0 0 20px rgba(155,191,106,0.3); }
+.ca-tier[aria-checked="true"]{ background:#0e1f12; border-color:#9bbf6a; box-shadow: 0 0 0 1px #9bbf6a, 0 0 24px rgba(155,191,106,0.35); }
+.ca-tier:focus-visible{ outline:2px solid #9bbf6a; outline-offset:2px; }
+.ca-tier-check{
+  position:absolute; top:8px; right:8px; width:18px; height:18px; border-radius:50%;
+  background:#9bbf6a; color:#0a1226; padding:3px; box-sizing:border-box;
+  opacity:0; transform:scale(.5); transition: opacity .2s ease, transform .2s ease;
+}
+.ca-tier[aria-checked="true"] .ca-tier-check{ opacity:1; transform:scale(1); }
+.ca-btn-addon{ align-self:flex-start; background:var(--c); color:#14210a; transition: filter .2s, opacity .2s; }
 .ca-btn-addon:hover{ color:#14210a; }
+.ca-btn-addon[aria-disabled="true"]{ opacity:.45; cursor:not-allowed; pointer-events:none; }
+.ca-addon-hint{ margin:-8px 0 0; font-size:13px; color:#a3aecb; }
+.ca-addon-hint[hidden]{ display:none; }
 .ca-legal{ margin:0; text-align:center; font-size:14px; color:#a3aecb; }
 
 /* Debajo de 800px: foto arriba a ancho completo, info abajo (1 columna) */
@@ -135,4 +190,4 @@
   .ca-tiers{ grid-template-columns:1fr; }
   .ca-btn-addon{ align-self:stretch; }
 }
-@media (prefers-reduced-motion: reduce){ .ca-panel{ animation:none; } .ca-card{ transition:none; } }
+@media (prefers-reduced-motion: reduce){ .ca-panel{ animation:none; } .ca-card, .ca-addon, .ca-tier{ transition:none; } }
