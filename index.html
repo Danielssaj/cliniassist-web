@@ -22,7 +22,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&family=Nunito:wght@700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&family=Nunito:wght@700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 
 <script type="application/ld+json">
@@ -1062,20 +1062,35 @@
         <article class="plan-card reveal">
           <div class="plan-card-inner">
             <div class="plan-card-face plan-card-front">
-              <h3>Plan Esencial</h3>
-              <p class="plan-price">$170.000<span>CLP</span></p>
-              <p class="plan-price-note">Pago único de instalación</p>
-              <p class="plan-maint">Suscripción mensual: <strong>$89.000 CLP/mes</strong></p>
+              <p class="plan-kicker">Plan</p>
+              <h3 class="plan-title">Esencial</h3>
               <p class="plan-for"><strong>Ideal para:</strong> un dentista, psicólogo o médico general que atiende solo y quiere automatizar su WhatsApp y agenda básica.</p>
+              <div class="plan-price-box">
+                <div class="plan-price-row">
+                  <div>
+                    <span class="plan-price-label">Instalación</span>
+                    <span class="plan-price-sublabel">Pago único</span>
+                  </div>
+                  <span class="plan-price-value is-install">$170.000<small>CLP</small></span>
+                </div>
+                <div class="plan-price-row">
+                  <div>
+                    <span class="plan-price-label">Suscripción</span>
+                    <span class="plan-price-sublabel">Mensual</span>
+                  </div>
+                  <span class="plan-price-value is-sub">$89.000<small>CLP/mes</small></span>
+                </div>
+              </div>
+              <a href="#" class="btn btn-primary btn-block js-whatsapp" data-wa-text="Hola, me interesa el Plan Esencial de Cliniassist." target="_blank" rel="noopener">Necesito el servicio</a>
+              <button type="button" class="plan-flip-btn" data-plan-flip aria-label="Ver detalle completo del Plan Esencial">
+                <span>Ver detalle completo</span> <span aria-hidden="true">🔄</span>
+              </button>
+              <span class="plan-features-label">Funciones incluidas</span>
               <ul class="plan-features">
                 <li>Asistente virtual de texto 24/7</li>
                 <li>Agenda, confirmación y reprogramación de citas</li>
                 <li>Sistema anti-inasistencias</li>
               </ul>
-              <button type="button" class="plan-flip-btn" data-plan-flip aria-label="Ver detalle completo del Plan Esencial">
-                <span>Ver detalle completo</span> <span aria-hidden="true">🔄</span>
-              </button>
-              <a href="#" class="btn btn-ghost btn-block js-whatsapp" data-wa-text="Hola, me interesa el Plan Esencial de Cliniassist." target="_blank" rel="noopener">Necesito el servicio</a>
             </div>
             <div class="plan-card-face plan-card-back">
               <h3>Plan Esencial</h3>
@@ -1099,15 +1114,34 @@
           </div>
         </article>
 
-        <article class="plan-card reveal">
+        <article class="plan-card is-highlight reveal">
           <span class="plan-badge">Más popular · Recomendado</span>
           <div class="plan-card-inner">
             <div class="plan-card-face plan-card-front">
-              <h3>Plan Expansión</h3>
-              <p class="plan-price">$290.000<span>CLP</span></p>
-              <p class="plan-price-note">Pago único de instalación</p>
-              <p class="plan-maint">Suscripción mensual: <strong>$169.000 CLP/mes</strong></p>
+              <p class="plan-kicker">Plan</p>
+              <h3 class="plan-title">Expansión</h3>
               <p class="plan-for"><strong>Ideal para:</strong> clínicas que buscan acelerar su crecimiento y escalar su flujo de pacientes aprovechando su capacidad operativa mediante posicionamiento en Google, gestión activa de reputación y captación multicanal.</p>
+              <div class="plan-price-box">
+                <div class="plan-price-row">
+                  <div>
+                    <span class="plan-price-label">Instalación</span>
+                    <span class="plan-price-sublabel">Pago único</span>
+                  </div>
+                  <span class="plan-price-value is-install">$290.000<small>CLP</small></span>
+                </div>
+                <div class="plan-price-row">
+                  <div>
+                    <span class="plan-price-label">Suscripción</span>
+                    <span class="plan-price-sublabel">Mensual</span>
+                  </div>
+                  <span class="plan-price-value is-sub">$169.000<small>CLP/mes</small></span>
+                </div>
+              </div>
+              <a href="#" class="btn btn-primary btn-block js-whatsapp" data-wa-text="Hola, me interesa el Plan Expansión de Cliniassist." target="_blank" rel="noopener">Necesito el servicio</a>
+              <button type="button" class="plan-flip-btn" data-plan-flip aria-label="Ver detalle completo del Plan Expansión">
+                <span>Ver detalle completo</span> <span aria-hidden="true">🔄</span>
+              </button>
+              <span class="plan-features-label">Funciones incluidas</span>
               <ul class="plan-features">
                 <li class="plan-features-inherit">Todo lo incluido en el Plan Esencial</li>
                 <li class="is-add">Automatización integral de canales (WhatsApp, Instagram, Web)</li>
@@ -1115,10 +1149,6 @@
                 <li class="is-add">Google Maps y gestión automática de reputación</li>
                 <li class="is-add">Reactivación de pacientes inactivos</li>
               </ul>
-              <button type="button" class="plan-flip-btn" data-plan-flip aria-label="Ver detalle completo del Plan Expansión">
-                <span>Ver detalle completo</span> <span aria-hidden="true">🔄</span>
-              </button>
-              <a href="#" class="btn btn-ghost btn-block js-whatsapp" data-wa-text="Hola, me interesa el Plan Expansión de Cliniassist." target="_blank" rel="noopener">Necesito el servicio</a>
             </div>
             <div class="plan-card-face plan-card-back">
               <h3>Plan Expansión</h3>
@@ -1145,24 +1175,39 @@
         <article class="plan-card reveal">
           <div class="plan-card-inner">
             <div class="plan-card-face plan-card-front">
-              <h3>Plan Personalizado / Empresa</h3>
-              <p class="plan-price">Desde $490.000<span>CLP</span></p>
-              <p class="plan-price-note">Pago único de instalación, en adelante</p>
-              <p class="plan-maint">Suscripción mensual: <strong>desde $299.000 CLP/mes</strong></p>
+              <p class="plan-kicker">Plan</p>
+              <h3 class="plan-title">Empresa</h3>
               <p class="plan-for"><strong>Ideal para:</strong> centros médicos de alto volumen que necesitan consolidar su operativa y dar el siguiente paso en automatización, gestionando toda su atención, métricas de flujo e indicadores clave desde un panel centralizado.</p>
+              <div class="plan-price-box">
+                <div class="plan-price-row">
+                  <div>
+                    <span class="plan-price-label">Instalación</span>
+                    <span class="plan-price-sublabel">Pago único, en adelante</span>
+                  </div>
+                  <span class="plan-price-value is-install">Desde $490.000<small>CLP</small></span>
+                </div>
+                <div class="plan-price-row">
+                  <div>
+                    <span class="plan-price-label">Suscripción</span>
+                    <span class="plan-price-sublabel">Mensual, desde</span>
+                  </div>
+                  <span class="plan-price-value is-sub">$299.000<small>CLP/mes</small></span>
+                </div>
+              </div>
+              <a href="#" class="btn btn-primary btn-block js-whatsapp" data-wa-text="Hola, me interesa el Plan Empresa de Cliniassist." target="_blank" rel="noopener">Necesito el servicio</a>
+              <button type="button" class="plan-flip-btn" data-plan-flip aria-label="Ver detalle completo del Plan Empresa">
+                <span>Ver detalle completo</span> <span aria-hidden="true">🔄</span>
+              </button>
+              <span class="plan-features-label">Funciones incluidas</span>
               <ul class="plan-features">
                 <li class="plan-features-inherit">Todo lo incluido en el Plan Expansión</li>
                 <li class="is-add">Asistente de voz IA (recepción telefónica automatizada)</li>
                 <li class="is-add">Alertas internas automáticas para recepción</li>
                 <li class="is-add">Web especializada e integración a la medida</li>
               </ul>
-              <button type="button" class="plan-flip-btn" data-plan-flip aria-label="Ver detalle completo del Plan Personalizado / Empresa">
-                <span>Ver detalle completo</span> <span aria-hidden="true">🔄</span>
-              </button>
-              <a href="#" class="btn btn-ghost btn-block js-whatsapp" data-wa-text="Hola, me interesa el Plan Personalizado / Empresa de Cliniassist." target="_blank" rel="noopener">Necesito el servicio</a>
             </div>
             <div class="plan-card-face plan-card-back">
-              <h3>Plan Personalizado / Empresa</h3>
+              <h3>Plan Empresa</h3>
               <ul class="plan-features">
                 <li>Asistente virtual de texto 24/7</li>
                 <li>Agenda, confirmación y reprogramación de citas</li>
@@ -1175,10 +1220,10 @@
                 <li>Alertas internas para recepción</li>
                 <li>Web especializada / Landing médica</li>
               </ul>
-              <button type="button" class="plan-flip-btn plan-flip-btn-back" data-plan-flip aria-label="Volver a la vista simplificada del Plan Personalizado / Empresa">
+              <button type="button" class="plan-flip-btn plan-flip-btn-back" data-plan-flip aria-label="Volver a la vista simplificada del Plan Empresa">
                 <span aria-hidden="true">↺</span> <span>Volver</span>
               </button>
-              <a href="#" class="btn btn-ghost btn-block js-whatsapp" data-wa-text="Hola, me interesa el Plan Personalizado / Empresa de Cliniassist." target="_blank" rel="noopener">Necesito el servicio</a>
+              <a href="#" class="btn btn-ghost btn-block js-whatsapp" data-wa-text="Hola, me interesa el Plan Empresa de Cliniassist." target="_blank" rel="noopener">Necesito el servicio</a>
             </div>
           </div>
         </article>

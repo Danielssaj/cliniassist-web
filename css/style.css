@@ -1128,7 +1128,7 @@ p{ margin:0; }
 /* ============================================
    Precios
    ============================================ */
-.pricing{ padding: 88px 0; background: var(--surface-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.pricing{ padding: 88px 0; background: var(--surface-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); font-family: 'Plus Jakarta Sans', var(--font-body); }
 
 .pricing-grid{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 24px; align-items:stretch; }
 
@@ -1180,14 +1180,29 @@ p{ margin:0; }
 .plan-badge{ position:absolute; z-index:2; top:-14px; left:24px; background: var(--accent); color: var(--accent-ink); font-size:0.7rem; font-weight:700; padding:6px 13px; border-radius: 999px; white-space:nowrap; }
 .plan-card h3{ font-size: 1.08rem; color: var(--ink); margin: 4px 0 2px; }
 
-.plan-price{ font-family: 'Nunito', var(--font-body); font-size: 1.71rem; font-weight:800; color: var(--link); margin:0; line-height:1.05; font-variant-numeric: tabular-nums; letter-spacing:0; }
-.plan-price span{ font-family: 'Nunito', var(--font-body); font-size: 0.7rem; font-weight:700; color: var(--ink-soft); margin-left: 6px; }
-.plan-price-note{ font-size:0.82rem; color: var(--ink-soft); margin: -2px 0 2px; }
-.plan-maint{ font-size:0.86rem; color: var(--ink); background: var(--surface-alt); border-radius: var(--radius-sm); padding: 9px 11px; margin:0; line-height:1.45; }
-.plan-maint strong{ color: var(--link); }
+/* Encabezado de la cara frontal: kicker pequeño "Plan" + título grande y
+   pesado con el nombre solo (Esencial/Expansión/Empresa), tipografía
+   Plus Jakarta Sans en todo el componente. */
+.plan-kicker{ font-size:0.85rem; font-weight:500; color: var(--ink-soft); margin:0; }
+.plan-title{ font-family:'Plus Jakarta Sans', var(--font-body); font-size: clamp(1.65rem, 2.4vw, 1.9rem); font-weight:800; line-height:1.05; color: var(--ink); margin: 2px 0 0; }
+
+/* Caja de precios: instalación + suscripción agrupadas, fondo tenue,
+   separadas visualmente de la lista de funciones. */
+.plan-price-box{ background: var(--surface-alt); border-radius: var(--radius-md); padding: 14px 16px; display:flex; flex-direction:column; gap:10px; margin: 2px 0; }
+.plan-price-row{ display:flex; align-items:flex-end; justify-content:space-between; gap:10px; }
+.plan-price-row > *{ min-width:0; }
+.plan-price-row + .plan-price-row{ padding-top:10px; border-top:1px solid var(--line); }
+.plan-price-label{ display:block; font-size:0.7rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color: var(--ink-soft); }
+.plan-price-sublabel{ display:block; font-size:0.76rem; color: var(--ink-soft); margin-top:1px; }
+.plan-price-value{ font-family:'Nunito', var(--font-body); font-weight:800; color: var(--link); text-align:right; font-variant-numeric: tabular-nums; }
+.plan-price-value.is-install{ font-size:1.3rem; }
+.plan-price-value.is-sub{ font-size:1.05rem; }
+.plan-price-value small{ font-family:'Plus Jakarta Sans', var(--font-body); font-size:0.68em; font-weight:700; opacity:.75; margin-left:3px; }
 
 .plan-for{ color: var(--ink-soft); font-size: 0.88rem; line-height:1.5; margin:0; }
 .plan-for strong{ color: var(--ink); }
+
+.plan-features-label{ font-size:0.7rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color: var(--ink-soft); margin: 4px 0 -2px; }
 .plan-features{ display:flex; flex-direction:column; gap:7px; flex-grow:1; margin: 2px 0 0; }
 .plan-features li{ font-size: 0.86rem; line-height:1.35; padding-left: 20px; position:relative; color: var(--ink); }
 .plan-features li::before{ position:absolute; left:0; top:0; font-weight:700; font-size:0.78rem; }
@@ -1199,14 +1214,42 @@ p{ margin:0; }
 
 .plan-flip-btn{
   display:flex; align-items:center; justify-content:center; gap:6px;
-  background:none; border: 1px dashed var(--line-strong); border-radius: var(--radius-sm);
-  padding: 8px 12px;
-  font-family: inherit; font-size: 0.8rem; font-weight:700; color: var(--link);
+  background:none; border:none;
+  padding: 4px 2px;
+  font-family:'Plus Jakarta Sans', var(--font-body); font-size: 0.8rem; font-weight:600; color: var(--ink-soft);
   cursor:pointer;
-  transition: background .2s ease, border-color .2s ease;
+  transition: color .2s ease;
 }
-.plan-flip-btn:hover, .plan-flip-btn:focus-visible{ background: var(--surface-alt); border-color: var(--link); }
-.plan-flip-btn-back{ color: var(--ink-soft); border-style:solid; }
+.plan-flip-btn:hover, .plan-flip-btn:focus-visible{ color: var(--link); }
+.plan-flip-btn-back{ color: var(--ink-soft); }
+
+/* Tarjeta destacada (Expansión): fondo en degradé de marca + textos e
+   íconos reajustados a blanco/celeste para mantener contraste. La cara
+   trasera (checklist) se deja con el estilo neutro de siempre — el
+   despliegue de "más llamativo" aplica a la vista principal de venta. */
+.plan-card.is-highlight .plan-card-front{
+  background: linear-gradient(160deg, var(--color-azul-oscuro), var(--color-azul-brillante));
+  border-color: transparent;
+}
+.plan-card.is-highlight:hover .plan-card-front{ border-color: transparent; box-shadow: var(--shadow-lg), 0 0 34px rgba(32,162,212,0.45); }
+.plan-card.is-highlight .plan-kicker,
+.plan-card.is-highlight .plan-price-sublabel,
+.plan-card.is-highlight .plan-features-label{ color: rgba(255,255,255,0.72); }
+.plan-card.is-highlight .plan-title,
+.plan-card.is-highlight .plan-price-label,
+.plan-card.is-highlight .plan-for strong,
+.plan-card.is-highlight .plan-features li,
+.plan-card.is-highlight .plan-features li.plan-features-inherit{ color:#fff; }
+.plan-card.is-highlight .plan-for{ color: rgba(255,255,255,0.85); }
+.plan-card.is-highlight .plan-price-box{ background: rgba(255,255,255,0.14); }
+.plan-card.is-highlight .plan-price-row + .plan-price-row{ border-top-color: rgba(255,255,255,0.2); }
+.plan-card.is-highlight .plan-price-value{ color:#fff; }
+.plan-card.is-highlight .plan-features li.is-add::before{ color:#bef1ff; }
+.plan-card.is-highlight .plan-flip-btn{ color: rgba(255,255,255,0.75); }
+.plan-card.is-highlight .plan-flip-btn:hover,
+.plan-card.is-highlight .plan-flip-btn:focus-visible{ color:#fff; }
+.plan-card.is-highlight .btn-primary{ background:#fff; color: var(--color-azul-oscuro); box-shadow:none; }
+.plan-card.is-highlight .btn-primary:hover{ background:#fff; filter:brightness(.96); }
 
 /* ============================================
    FAQ
