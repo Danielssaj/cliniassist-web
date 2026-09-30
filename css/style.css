@@ -1319,7 +1319,7 @@ p{ margin:0; }
 .plan-icon-badge svg{ width:23px; height:23px; }
 .plan-icon-badge-blue{ background: color-mix(in srgb, var(--color-azul-brillante) 16%, transparent); color: var(--color-azul-brillante); }
 .plan-icon-badge-violet{ background: rgba(139,92,246,0.18); color:#7c3aed; }
-.plan-icon-badge-gold{ background: rgba(245,158,11,0.2); color:#b45309; }
+.plan-icon-badge-gold{ background: rgba(212,175,55,0.22); color:#d4af37; }
 
 /* Caja de precios: instalación (secundaria, más pequeña) + suscripción
    mensual (dominante, tamaño grande) — jerarquía invertida respecto al
