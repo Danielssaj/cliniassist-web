@@ -413,10 +413,12 @@
     });
   }
 
-  // Flip cards de los planes de precios: giran con un botón dedicado en cada
-  // cara ([data-plan-flip]), NUNCA con un clic en cualquier parte de la
-  // tarjeta — a diferencia de las tarjetas de servicios, acá adentro hay un
-  // link CTA real que no debe competir por el clic con el giro.
+  // Flip cards de los planes de precios: ahora giran con un clic en
+  // cualquier parte de la tarjeta, salvo sobre el CTA "Contratar [Plan]"
+  // (ese link para la propagación con stopPropagation y sigue su propio
+  // destino de WhatsApp sin girar la tarjeta). El botón "Volver" del dorso
+  // también para la propagación para no girar dos veces (una por su propio
+  // click y otra por el listener de la tarjeta).
   //
   // Cada cara (y cada plan) tiene una altura natural distinta — el checklist
   // completo del dorso es más largo en algunos planes que en otros, y el
@@ -458,7 +460,14 @@
 
     planCards.forEach(card => {
       card.querySelectorAll('[data-plan-flip]').forEach(btn => {
-        btn.addEventListener('click', () => card.classList.toggle('is-flipped'));
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          card.classList.toggle('is-flipped');
+        });
+      });
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.js-whatsapp')) return;
+        card.classList.toggle('is-flipped');
       });
     });
   }
