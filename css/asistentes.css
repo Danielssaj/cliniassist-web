@@ -1,0 +1,124 @@
+/* ============================================
+   Cliniassist — Asistentes IA + Planes
+   Secciones #asistentes y #precios (siempre oscuras).
+   Todas las clases empiezan con "ca-".
+   ============================================ */
+.ca-section{ background:#070d1f; color:#e8edf8; font-family:'Plus Jakarta Sans', var(--font-body, system-ui), sans-serif; padding:96px 0; }
+.ca-section *{ box-sizing:border-box; }
+.ca-team{ padding-bottom:48px; }
+.ca-wrap{ max-width:1200px; margin:0 auto; padding:0 24px; display:flex; flex-direction:column; gap:40px; }
+.ca-head{ display:flex; flex-direction:column; gap:14px; max-width:720px; }
+.ca-head-center{ align-items:center; text-align:center; margin-inline:auto; }
+.ca-head h2{ margin:0; font-size:clamp(32px,5vw,44px); line-height:1.1; font-weight:800; letter-spacing:-.02em; color:#e8edf8; }
+.ca-head p{ margin:0; font-size:18px; line-height:1.6; color:#a3aecb; }
+.ca-eyebrow{ display:flex; align-items:center; gap:12px; font-family:var(--font-mono, monospace); font-size:13px; letter-spacing:.14em; color:#8fb0ff; }
+.ca-eyebrow i{ width:56px; height:1px; background:#2a3a66; }
+.ca-mono{ font-family:var(--font-mono, monospace); font-size:13px; letter-spacing:.14em; color:#a3aecb; }
+
+/* Pestañas de asistentes */
+.ca-tabs{ display:flex; flex-wrap:wrap; gap:10px; }
+.ca-tab{ display:inline-flex; align-items:center; gap:10px; min-height:48px; padding:6px 18px 6px 6px; border-radius:999px; cursor:pointer; font:700 15px 'Plus Jakarta Sans', system-ui, sans-serif; background:#0e1730; color:#e8edf8; border:1px solid #22305a; transition:background .2s, color .2s, border-color .2s; }
+.ca-tab img{ width:32px; height:32px; border-radius:50%; object-fit:cover; object-position:top; }
+.ca-tab:hover{ border-color:var(--c); }
+.ca-tab[aria-selected="true"]{ background:var(--c); border-color:var(--c); color:#070d1f; }
+.ca-tab:focus-visible{ outline:2px solid #8fb0ff; outline-offset:3px; }
+
+.ca-panel{ display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:56px; align-items:center; animation:caFade .35s var(--ease, ease); }
+.ca-panel[hidden]{ display:none; }
+@keyframes caFade{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+.ca-photo{ position:relative; max-width:440px; width:100%; }
+.ca-photo img{ display:block; width:100%; height:auto; aspect-ratio:4/5; object-fit:cover; object-position:top; border-radius:24px; border:3px solid var(--c); }
+.ca-live{ position:absolute; left:16px; bottom:16px; display:flex; align-items:center; gap:8px; padding:8px 14px; border-radius:999px; background:rgba(7,13,31,.86); border:1px solid #2a3a66; font-size:13px; font-weight:600; }
+.ca-live span{ width:8px; height:8px; border-radius:50%; background:#3ddc97; }
+.ca-info{ display:flex; flex-direction:column; gap:20px; }
+.ca-name{ margin:0 0 6px; font-size:clamp(56px,8vw,84px); line-height:.95; font-weight:800; letter-spacing:-.03em; color:var(--c); }
+.ca-role{ font-size:18px; font-weight:600; color:#c9d3ec; }
+.ca-headline{ margin:0; font-size:clamp(24px,3vw,30px); line-height:1.2; font-weight:700; color:#e8edf8; }
+.ca-desc{ margin:0; font-size:17px; line-height:1.6; color:#a3aecb; }
+.ca-skills{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; }
+.ca-skills li{ display:flex; align-items:flex-start; gap:12px; font-size:16px; line-height:1.5; }
+.ca-check{ flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; margin-top:1px; background:#111a33; border:1px solid var(--c); color:var(--c); }
+.ca-check svg{ width:14px; height:14px; }
+.ca-plans{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding-top:12px; border-top:1px solid #1c2748; }
+.ca-plans > span:first-child{ font-size:14px; color:#a3aecb; }
+.ca-chip{ padding:6px 12px; border-radius:999px; background:#111a33; border:1px solid #2a3a66; font-size:13px; font-weight:600; }
+
+/* Planes */
+.ca-pricing{ padding-top:64px; padding-bottom:112px; }
+.ca-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:24px; align-items:stretch; }
+.ca-card{ position:relative; display:flex; flex-direction:column; gap:22px; padding:28px; border-radius:24px; background:#0e1730; border:1px solid #22305a; transition:transform .25s var(--ease, ease); }
+.ca-card:hover{ transform:translateY(-6px); }
+.ca-card.is-highlight{ background:#1f4fd1; border-color:#4d7cff; }
+.ca-badge{ position:absolute; top:-14px; left:28px; padding:5px 12px; border-radius:999px; background:#ffd9d0; color:#6b1f10; font-size:12px; font-weight:700; }
+.ca-card-title{ display:flex; flex-direction:column; gap:4px; }
+.ca-card-title > span{ font-size:14px; color:#a3aecb; }
+.ca-card-title h3{ margin:0; font-size:26px; font-weight:800; color:#e8edf8; }
+.ca-card-title p{ margin:0; font-size:15px; color:#a3aecb; }
+.ca-label{ font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#a3aecb; }
+.ca-price{ display:flex; flex-direction:column; gap:14px; padding:20px; border-radius:16px; background:#0a1226; border:1px solid #1c2748; }
+.ca-price-row{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+.ca-install{ font-size:18px; font-weight:700; color:#8fb0ff; }
+.ca-price-sub{ display:flex; flex-direction:column; gap:2px; padding-top:14px; border-top:1px solid #1c2748; }
+.ca-monthly{ font-size:40px; font-weight:800; letter-spacing:-.02em; color:#e8edf8; }
+.ca-monthly small{ font-size:16px; font-weight:600; color:#a3aecb; }
+.ca-btn{ display:flex; justify-content:center; align-items:center; min-height:52px; padding:0 22px; border-radius:12px; background:#1d2b57; color:#fff; font-weight:700; font-size:16px; text-decoration:none; transition:filter .2s; }
+.ca-btn:hover{ filter:brightness(1.15); color:#fff; }
+.ca-counter{ display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:14px; background:#0a1226; border:1px solid #1c2748; }
+.ca-counter b{ font-size:36px; font-weight:800; line-height:1; color:#8fb0ff; }
+.ca-counter > span{ display:flex; flex-direction:column; font-size:14px; font-weight:600; line-height:1.3; }
+.ca-counter small{ font-size:14px; font-weight:500; color:#a3aecb; }
+.ca-team-list{ display:flex; flex-direction:column; gap:18px; }
+.ca-member{ display:flex; flex-direction:column; gap:10px; }
+.ca-member-head{ display:flex; align-items:center; gap:12px; }
+.ca-member-head img{ width:44px; height:44px; border-radius:50%; object-fit:cover; object-position:top; border:2px solid var(--c); }
+.ca-member-head div{ display:flex; flex-direction:column; }
+.ca-member-head span{ font-size:13px; color:#a3aecb; }
+.ca-member ul{ list-style:none; margin:0; padding:0 0 0 4px; display:flex; flex-direction:column; gap:6px; }
+.ca-member li{ display:flex; align-items:flex-start; gap:8px; font-size:14px; line-height:1.45; }
+.ca-member li svg{ flex-shrink:0; width:14px; height:14px; margin-top:3px; color:var(--c); }
+
+/* Plan destacado */
+.ca-card.is-highlight .ca-card-title > span,
+.ca-card.is-highlight .ca-card-title p,
+.ca-card.is-highlight .ca-label,
+.ca-card.is-highlight .ca-monthly small,
+.ca-card.is-highlight .ca-counter small,
+.ca-card.is-highlight .ca-member-head span{ color:#e8eeff; }
+.ca-card.is-highlight .ca-price,
+.ca-card.is-highlight .ca-counter{ background:#2a5de0; border-color:#5a86ff; }
+.ca-card.is-highlight .ca-price-sub{ border-top-color:#5a86ff; }
+.ca-card.is-highlight .ca-install,
+.ca-card.is-highlight .ca-counter b{ color:#fff; }
+.ca-card.is-highlight .ca-btn{ background:#fff; color:#173a9e; }
+.ca-card.is-highlight .ca-member-head img{ border-color:#fff; }
+.ca-card.is-highlight .ca-member li svg{ color:#fff; }
+
+/* Mateo adicional */
+.ca-addon{ display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:40px; align-items:center; padding:36px; border-radius:28px; background:#0e1730; border:1px solid #33466f; }
+.ca-addon-intro{ display:flex; align-items:center; gap:24px; }
+.ca-addon-intro img{ width:132px; height:132px; border-radius:24px; object-fit:cover; object-position:top; border:3px solid var(--c); flex-shrink:0; }
+.ca-addon-intro > div{ display:flex; flex-direction:column; gap:8px; }
+.ca-addon-intro .ca-mono{ font-size:12px; color:#cfe3b0; }
+.ca-addon-intro h3{ margin:0; font-size:30px; font-weight:800; line-height:1.15; color:#e8edf8; }
+.ca-addon-intro p{ margin:0; font-size:16px; line-height:1.55; color:#a3aecb; }
+.ca-addon-price{ display:flex; flex-direction:column; gap:18px; }
+.ca-addon-price > p{ margin:0; font-size:16px; line-height:1.5; }
+.ca-addon-amount{ display:flex; flex-wrap:wrap; align-items:baseline; gap:10px; }
+.ca-addon-amount span{ font-size:15px; color:#a3aecb; }
+.ca-addon-amount b{ font-size:40px; font-weight:800; letter-spacing:-.02em; }
+.ca-tiers{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:10px; }
+.ca-tiers > div{ padding:12px; border-radius:12px; background:#0a1226; border:1px solid #22305a; display:flex; flex-direction:column; gap:2px; }
+.ca-tiers span{ font-size:13px; color:#a3aecb; }
+.ca-btn-addon{ align-self:flex-start; background:var(--c); color:#14210a; }
+.ca-btn-addon:hover{ color:#14210a; }
+.ca-legal{ margin:0; text-align:center; font-size:14px; color:#a3aecb; }
+
+@media (max-width:600px){
+  .ca-section{ padding:64px 0; }
+  .ca-panel{ gap:28px; }
+  .ca-card, .ca-addon{ padding:22px; }
+  .ca-addon-intro{ flex-direction:column; align-items:flex-start; }
+  .ca-tiers{ grid-template-columns:1fr; }
+  .ca-btn-addon{ align-self:stretch; }
+}
+@media (prefers-reduced-motion: reduce){ .ca-panel{ animation:none; } .ca-card{ transition:none; } }
