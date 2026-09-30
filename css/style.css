@@ -108,15 +108,20 @@
 :root[data-theme="dark"] .logo-mark-light{ display:none; }
 :root[data-theme="dark"] .logo-mark-dark{ display:block; }
 
-/* Modo oscuro: fondo general único (body) en degradado azul sobre negro
-   suave, que "respira" de forma continua detrás de todas las secciones —
-   por eso las secciones ya no llevan su propio color de fondo opaco, para
-   dejar pasar el degradado del body. El hero suma un resplandor radial
-   adicional. Tarjetas, textos y bordes no se tocan acá. */
+/* Modo oscuro: fondo general único (body) tipo "mesh gradient" — varias
+   manchas de luz radiales sobre una base en degradado vertical (azul arriba,
+   navy oscuro hacia el centro/abajo), que respira de forma continua detrás
+   de TODAS las secciones (incluidas las que antes tenían su propio fondo
+   plano: servicios/carrusel y "proceso"). Tarjetas, textos y bordes no se
+   tocan acá. */
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]) body{
     background-color: #080c14;
-    background-image: linear-gradient(180deg, rgba(1,58,128,0.85) 0%, rgba(2,69,153,0.65) 45%, rgba(3,101,222,0.4) 75%, rgba(1,58,128,0.85) 100%);
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(3,101,222,0.28) 0%, transparent 45%),
+      radial-gradient(circle at 85% 50%, rgba(2,69,153,0.35) 0%, transparent 50%),
+      radial-gradient(circle at 20% 80%, rgba(3,101,222,0.2) 0%, transparent 45%),
+      linear-gradient(180deg, #024599 0%, #013a80 20%, #0b132b 55%, #080c14 85%);
   }
   :root:not([data-theme="light"]) .hero::before{
     content:"";
@@ -124,7 +129,9 @@
     background-image: radial-gradient(circle at 50% 20%, rgba(3,101,222,0.25) 0%, transparent 60%);
     pointer-events:none;
   }
-  :root:not([data-theme="light"]) .pricing{
+  :root:not([data-theme="light"]) .pricing,
+  :root:not([data-theme="light"]) .process,
+  :root:not([data-theme="light"]) .services-dark{
     background: transparent;
   }
   :root:not([data-theme="light"]) .plan-card.is-highlight .plan-card-front{
@@ -133,7 +140,11 @@
 }
 :root[data-theme="dark"] body{
   background-color: #080c14;
-  background-image: linear-gradient(180deg, rgba(1,58,128,0.85) 0%, rgba(2,69,153,0.65) 45%, rgba(3,101,222,0.4) 75%, rgba(1,58,128,0.85) 100%);
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(3,101,222,0.28) 0%, transparent 45%),
+    radial-gradient(circle at 85% 50%, rgba(2,69,153,0.35) 0%, transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(3,101,222,0.2) 0%, transparent 45%),
+    linear-gradient(180deg, #024599 0%, #013a80 20%, #0b132b 55%, #080c14 85%);
 }
 :root[data-theme="dark"] .hero::before{
   content:"";
@@ -141,7 +152,9 @@
   background-image: radial-gradient(circle at 50% 20%, rgba(3,101,222,0.25) 0%, transparent 60%);
   pointer-events:none;
 }
-:root[data-theme="dark"] .pricing{
+:root[data-theme="dark"] .pricing,
+:root[data-theme="dark"] .process,
+:root[data-theme="dark"] .services-dark{
   background: transparent;
 }
 :root[data-theme="dark"] .plan-card.is-highlight .plan-card-front{
@@ -200,7 +213,7 @@ p{ margin:0; }
   width: 100%;
   max-width: 1440px;
   margin-inline: auto;
-  padding-inline: 24px;
+  padding-inline: 32px;
 }
 
 /* Buttons */
