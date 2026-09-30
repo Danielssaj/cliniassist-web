@@ -1320,6 +1320,12 @@
           <input type="hidden" name="especialidad" id="fEspecialidad">
           <span class="form-error" id="specialtyError" hidden>Selecciona una especialidad para continuar.</span>
         </div>
+        <div class="form-row form-row-consent">
+          <label class="consent-check">
+            <input type="checkbox" id="fConsent" name="acepto_privacidad" required>
+            <span>He leído y acepto la <a href="/privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a>, y autorizo a Cliniassist a contactarme por los datos provistos.</span>
+          </label>
+        </div>
         <button type="submit" class="btn btn-primary btn-block cta-submit">
           <span class="cta-submit-label">Enviar solicitud y agendar demostración</span>
           <svg class="btn-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1340,6 +1346,10 @@
       <span class="logo-text">Cliniassist</span>
     </span>
     <p class="footer-tag">Automatización con Inteligencia Artificial para clínicas y centros de salud.</p>
+    <nav class="footer-links" aria-label="Legal">
+      <a href="/privacidad.html">Política de privacidad</a>
+      <a href="/terminos.html">Términos y condiciones</a>
+    </nav>
     <p class="footer-copy">© <span id="year"></span> Cliniassist. Todos los derechos reservados.</p>
   </div>
 </footer>
