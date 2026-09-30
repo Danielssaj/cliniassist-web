@@ -545,6 +545,30 @@
     apptButtons.forEach((btn, index) => {
       btn.addEventListener('click', () => openDetail(btn, index));
     });
+
+    // Llenado progresivo de la agenda: arranca vacía (ver .gcal-event en
+    // css/style.css) y, al entrar en viewport, cada bloque de cita aparece
+    // uno por uno con un pequeño scale+fade. Los clics ya están enganchados
+    // arriba sobre los mismos botones, así que siguen funcionando durante y
+    // después de la animación — solo se les suma la clase .is-revealed.
+    const gcalWrap = document.querySelector('.gcal-wrap');
+    if (gcalWrap && apptButtons.length && 'IntersectionObserver' in window) {
+      const revealAppointments = () => {
+        apptButtons.forEach((btn, i) => {
+          setTimeout(() => btn.classList.add('is-revealed'), i * 100);
+        });
+      };
+      const gcalIO = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            revealAppointments();
+            gcalIO.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+      gcalIO.observe(gcalWrap);
+    }
+
     if (apptDetailClose) apptDetailClose.addEventListener('click', closeDetail);
     apptDetail.addEventListener('click', (e) => {
       if (e.target === apptDetail) closeDetail();
