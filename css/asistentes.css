@@ -5,38 +5,46 @@
    ============================================ */
 .ca-section{ background:#070d1f; color:#e8edf8; font-family:'Plus Jakarta Sans', var(--font-body, system-ui), sans-serif; padding:96px 0; }
 .ca-section *{ box-sizing:border-box; }
-.ca-team{ padding-bottom:48px; }
+.ca-team{ padding-top:48px; padding-bottom:40px; }
 .ca-wrap{ max-width:1200px; margin:0 auto; padding:0 24px; display:flex; flex-direction:column; gap:40px; }
 .ca-head{ display:flex; flex-direction:column; gap:14px; max-width:720px; }
 .ca-head-center{ align-items:center; text-align:center; margin-inline:auto; }
 .ca-head h2{ margin:0; font-size:clamp(32px,5vw,44px); line-height:1.1; font-weight:800; letter-spacing:-.02em; color:#e8edf8; }
 .ca-head p{ margin:0; font-size:18px; line-height:1.6; color:#a3aecb; }
+
+/* Compactación exclusiva de #asistentes: .ca-wrap y .ca-head son clases
+   compartidas con #precios, así que todo lo que reduce tamaños/espacios
+   va escopado a #asistentes puntualmente para no afectar los planes. */
+#asistentes .ca-wrap{ gap:24px; }
+#asistentes .ca-head{ gap:8px; }
+#asistentes .ca-head h2{ font-size:clamp(26px,4vw,34px); }
+#asistentes .ca-head p{ font-size:16px; }
 .ca-eyebrow{ display:flex; align-items:center; gap:12px; font-family:var(--font-mono, monospace); font-size:13px; letter-spacing:.14em; color:#8fb0ff; }
 .ca-eyebrow i{ width:56px; height:1px; background:#2a3a66; }
 .ca-mono{ font-family:var(--font-mono, monospace); font-size:13px; letter-spacing:.14em; color:#a3aecb; }
 
 /* Pestañas de asistentes */
 .ca-tabs{ display:flex; flex-wrap:wrap; gap:10px; }
-.ca-tab{ display:inline-flex; align-items:center; gap:10px; min-height:48px; padding:6px 18px 6px 6px; border-radius:999px; cursor:pointer; font:700 15px 'Plus Jakarta Sans', system-ui, sans-serif; background:#0e1730; color:#e8edf8; border:1px solid #22305a; transition:background .2s, color .2s, border-color .2s; }
+.ca-tab{ display:inline-flex; align-items:center; gap:10px; min-height:42px; padding:6px 18px 6px 6px; border-radius:999px; cursor:pointer; font:700 15px 'Plus Jakarta Sans', system-ui, sans-serif; background:#0e1730; color:#e8edf8; border:1px solid #22305a; transition:background .2s, color .2s, border-color .2s; }
 .ca-tab img{ width:32px; height:32px; border-radius:50%; object-fit:cover; object-position:top; }
 .ca-tab:hover{ border-color:var(--c); }
 .ca-tab[aria-selected="true"]{ background:var(--c); border-color:var(--c); color:#070d1f; }
 .ca-tab:focus-visible{ outline:2px solid #8fb0ff; outline-offset:3px; }
 
-.ca-panel{ display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:56px; align-items:center; animation:caFade .35s var(--ease, ease); }
+.ca-panel{ display:grid; grid-template-columns:340px 1fr; gap:48px; align-items:start; animation:caFade .35s var(--ease, ease); }
 .ca-panel[hidden]{ display:none; }
 @keyframes caFade{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
-.ca-photo{ position:relative; max-width:440px; width:100%; }
-.ca-photo img{ display:block; width:100%; height:auto; aspect-ratio:4/5; object-fit:cover; object-position:top; border-radius:24px; border:3px solid var(--c); }
-.ca-live{ position:absolute; left:16px; bottom:16px; display:flex; align-items:center; gap:8px; padding:8px 14px; border-radius:999px; background:rgba(7,13,31,.86); border:1px solid #2a3a66; font-size:13px; font-weight:600; }
-.ca-live span{ width:8px; height:8px; border-radius:50%; background:#3ddc97; }
-.ca-info{ display:flex; flex-direction:column; gap:20px; }
-.ca-name{ margin:0 0 6px; font-size:clamp(56px,8vw,84px); line-height:.95; font-weight:800; letter-spacing:-.03em; color:var(--c); }
-.ca-role{ font-size:18px; font-weight:600; color:#c9d3ec; }
-.ca-headline{ margin:0; font-size:clamp(24px,3vw,30px); line-height:1.2; font-weight:700; color:#e8edf8; }
-.ca-desc{ margin:0; font-size:17px; line-height:1.6; color:#a3aecb; }
-.ca-skills{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; }
-.ca-skills li{ display:flex; align-items:flex-start; gap:12px; font-size:16px; line-height:1.5; }
+.ca-photo{ position:relative; max-width:340px; width:100%; }
+.ca-photo img{ display:block; width:100%; height:min(420px, 52vh); object-fit:cover; object-position:top; border-radius:24px; border:3px solid var(--c); }
+.ca-live{ position:absolute; left:16px; bottom:16px; display:flex; align-items:center; gap:6px; padding:5px 10px; border-radius:999px; background:rgba(7,13,31,.86); border:1px solid #2a3a66; font-size:11px; font-weight:600; }
+.ca-live span{ width:7px; height:7px; border-radius:50%; background:#3ddc97; }
+.ca-info{ display:flex; flex-direction:column; gap:12px; }
+.ca-name{ margin:0 0 6px; font-size:clamp(40px,5vw,56px); line-height:.95; font-weight:800; letter-spacing:-.03em; color:var(--c); }
+.ca-role{ font-size:16px; font-weight:600; color:#c9d3ec; }
+.ca-headline{ margin:0; font-size:clamp(20px,2.4vw,22px); line-height:1.2; font-weight:700; color:#e8edf8; }
+.ca-desc{ margin:0; font-size:15px; line-height:1.55; color:#a3aecb; }
+.ca-skills{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+.ca-skills li{ display:flex; align-items:flex-start; gap:12px; font-size:15px; line-height:1.45; }
 .ca-check{ flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; margin-top:1px; background:#111a33; border:1px solid var(--c); color:var(--c); }
 .ca-check svg{ width:14px; height:14px; }
 .ca-plans{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding-top:12px; border-top:1px solid #1c2748; }
@@ -113,6 +121,12 @@
 .ca-btn-addon:hover{ color:#14210a; }
 .ca-legal{ margin:0; text-align:center; font-size:14px; color:#a3aecb; }
 
+/* Debajo de 800px: foto arriba a ancho completo, info abajo (1 columna) */
+@media (max-width:800px){
+  .ca-panel{ grid-template-columns:1fr; }
+  .ca-photo{ max-width:none; }
+  .ca-photo img{ height:min(360px, 50vh); }
+}
 @media (max-width:600px){
   .ca-section{ padding:64px 0; }
   .ca-panel{ gap:28px; }
