@@ -1228,23 +1228,30 @@ p{ margin:0; }
   background: linear-gradient(160deg, var(--color-azul-oscuro), var(--color-azul-brillante));
   border-color: transparent;
 }
-.plan-card.is-highlight:hover .plan-card-front{ border-color: transparent; box-shadow: var(--shadow-lg), 0 0 34px rgba(32,162,212,0.45); }
-.plan-card.is-highlight .plan-kicker,
-.plan-card.is-highlight .plan-price-sublabel,
-.plan-card.is-highlight .plan-features-label{ color: rgba(255,255,255,0.72); }
-.plan-card.is-highlight .plan-title,
-.plan-card.is-highlight .plan-price-label,
-.plan-card.is-highlight .plan-features li,
-.plan-card.is-highlight .plan-features li.plan-features-inherit{ color:#fff; }
-.plan-card.is-highlight .plan-price-box{ background: rgba(255,255,255,0.14); }
-.plan-card.is-highlight .plan-price-row + .plan-price-row{ border-top-color: rgba(255,255,255,0.2); }
-.plan-card.is-highlight .plan-price-value{ color:#fff; }
-.plan-card.is-highlight .plan-features li.is-add::before{ color:#bef1ff; }
-.plan-card.is-highlight .plan-flip-btn{ color: rgba(255,255,255,0.75); }
-.plan-card.is-highlight .plan-flip-btn:hover,
-.plan-card.is-highlight .plan-flip-btn:focus-visible{ color:#fff; }
-.plan-card.is-highlight .btn-primary{ background:#fff; color: var(--color-azul-oscuro); box-shadow:none; }
-.plan-card.is-highlight .btn-primary:hover{ background:#fff; filter:brightness(.96); }
+/* En hover se mantiene solo la elevación normal (var(--shadow-lg)), sin el
+   brillo cian ambiental que se agregó antes — se veía como una línea
+   iluminada pegada al borde superior de la tarjeta. */
+.plan-card.is-highlight:hover .plan-card-front{ border-color: transparent; box-shadow: var(--shadow-lg); }
+/* Todos los overrides de color van escopados a .plan-card-front — son dos
+   caras hermanas (no una dentro de la otra), así que sin este scope se
+   filtraban también al dorso (checklist), dejando texto blanco sobre su
+   fondo claro e ilegible. */
+.plan-card.is-highlight .plan-card-front .plan-kicker,
+.plan-card.is-highlight .plan-card-front .plan-price-sublabel,
+.plan-card.is-highlight .plan-card-front .plan-features-label{ color: rgba(255,255,255,0.72); }
+.plan-card.is-highlight .plan-card-front .plan-title,
+.plan-card.is-highlight .plan-card-front .plan-price-label,
+.plan-card.is-highlight .plan-card-front .plan-features li,
+.plan-card.is-highlight .plan-card-front .plan-features li.plan-features-inherit{ color:#fff; }
+.plan-card.is-highlight .plan-card-front .plan-price-box{ background: rgba(255,255,255,0.14); }
+.plan-card.is-highlight .plan-card-front .plan-price-row + .plan-price-row{ border-top-color: rgba(255,255,255,0.2); }
+.plan-card.is-highlight .plan-card-front .plan-price-value{ color:#fff; }
+.plan-card.is-highlight .plan-card-front .plan-features li.is-add::before{ color:#bef1ff; }
+.plan-card.is-highlight .plan-card-front .plan-flip-btn{ color: rgba(255,255,255,0.75); }
+.plan-card.is-highlight .plan-card-front .plan-flip-btn:hover,
+.plan-card.is-highlight .plan-card-front .plan-flip-btn:focus-visible{ color:#fff; }
+.plan-card.is-highlight .plan-card-front .btn-primary{ background:#fff; color: var(--color-azul-oscuro); box-shadow:none; }
+.plan-card.is-highlight .plan-card-front .btn-primary:hover{ background:#fff; filter:brightness(.96); }
 
 /* ============================================
    FAQ
