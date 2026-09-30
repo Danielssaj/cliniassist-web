@@ -131,10 +131,10 @@
     border-bottom-color: transparent;
   }
   :root:not([data-theme="light"]) .plan-card.is-highlight .plan-card-front{
-    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   }
   :root:not([data-theme="light"]) .plan-card:not(.is-highlight) .plan-card-face{
-    background: linear-gradient(145deg, #1a315c, #132446);
+    background: linear-gradient(145deg, #1e3a8a, #172554);
     border-color: rgba(255,255,255,0.12);
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   }
@@ -174,10 +174,10 @@
   border-bottom-color: transparent;
 }
 :root[data-theme="dark"] .plan-card.is-highlight .plan-card-front{
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
 }
 :root[data-theme="dark"] .plan-card:not(.is-highlight) .plan-card-face{
-  background: linear-gradient(145deg, #1a315c, #132446);
+  background: linear-gradient(145deg, #1e3a8a, #172554);
   border-color: rgba(255,255,255,0.12);
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
@@ -647,6 +647,8 @@ p{ margin:0; }
   .process-head h2{ font-size: 1.9rem; white-space: nowrap; }
   .lossgain-head{ max-width: 900px; }
   .lossgain-head h2{ font-size: 1.95rem; white-space: nowrap; }
+  .tool-head{ max-width: 860px; }
+  .tool-head h2{ font-size: 1.9rem; white-space: nowrap; }
 }
 .lossgain-badge{
   position:absolute; top:-16px; left:50%; transform:translateX(-50%);
