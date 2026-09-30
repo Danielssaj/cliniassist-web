@@ -1153,7 +1153,7 @@ p{ margin:0; }
    La altura es fija en px, calculada por JS (ver script.js) porque el frente
    (resumen corto) y el dorso (checklist completo de 9 ítems) tienen alturas
    naturales muy distintas. */
-.plan-card{ position:relative; perspective: 1200px; height: 560px; }
+.plan-card{ position:relative; perspective: 1200px; height: 620px; }
 .plan-card-inner{
   position:relative; width:100%; height:100%;
   transform-style: preserve-3d;
@@ -1186,18 +1186,29 @@ p{ margin:0; }
 .plan-kicker{ font-size:0.85rem; font-weight:500; color: var(--ink-soft); margin:0; }
 .plan-title{ font-family:'Plus Jakarta Sans', var(--font-body); font-size: clamp(1.65rem, 2.4vw, 1.9rem); font-weight:800; line-height:1.05; color: var(--ink); margin: 2px 0 0; }
 
-/* Caja de precios: instalación + suscripción agrupadas, fondo tenue,
-   separadas visualmente de la lista de funciones. */
-.plan-price-box{ background: var(--surface-alt); border-radius: var(--radius-md); padding: 14px 16px; display:flex; flex-direction:column; gap:10px; margin: 2px 0; }
+/* Encabezado en fila: kicker+título a la izquierda, ícono de plan en un
+   contenedor de color suave a la derecha (estilo Clinera.io). */
+.plan-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+.plan-icon-badge{ display:flex; align-items:center; justify-content:center; flex-shrink:0; width:46px; height:46px; border-radius: var(--radius-md); }
+.plan-icon-badge svg{ width:23px; height:23px; }
+.plan-icon-badge-blue{ background: color-mix(in srgb, var(--color-azul-brillante) 16%, transparent); color: var(--color-azul-brillante); }
+.plan-icon-badge-violet{ background: rgba(139,92,246,0.18); color:#7c3aed; }
+.plan-icon-badge-gold{ background: rgba(245,158,11,0.2); color:#b45309; }
+
+/* Caja de precios: instalación (secundaria, más pequeña) + suscripción
+   mensual (dominante, tamaño grande) — jerarquía invertida respecto al
+   diseño anterior, poniendo el foco visual en el ingreso recurrente. */
+.plan-price-box{ background: var(--surface-alt); border-radius: 16px; padding: 16px 18px; display:flex; flex-direction:column; gap:12px; margin: 2px 0; }
 .plan-price-row{ display:flex; align-items:flex-end; justify-content:space-between; gap:10px; }
 .plan-price-row > *{ min-width:0; }
-.plan-price-row + .plan-price-row{ padding-top:10px; border-top:1px solid var(--line); }
 .plan-price-label{ display:block; font-size:0.7rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color: var(--ink-soft); }
 .plan-price-sublabel{ display:block; font-size:0.76rem; color: var(--ink-soft); margin-top:1px; }
 .plan-price-value{ font-family:'Nunito', var(--font-body); font-weight:800; color: var(--link); text-align:right; font-variant-numeric: tabular-nums; }
-.plan-price-value.is-install{ font-size:1.3rem; }
-.plan-price-value.is-sub{ font-size:1.05rem; }
+.plan-price-value.is-install{ font-size:1.35rem; font-weight:700; }
+.plan-price-sub-block{ display:flex; flex-direction:column; gap:2px; padding-top:12px; border-top:1px solid var(--line); }
+.plan-price-value.is-sub{ font-size:2.35rem; line-height:1.05; text-align:left; }
 .plan-price-value small{ font-family:'Plus Jakarta Sans', var(--font-body); font-size:0.68em; font-weight:700; opacity:.75; margin-left:3px; }
+.plan-price-value.is-sub small{ font-size:0.4em; }
 
 .plan-features-label{ font-size:0.7rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color: var(--ink-soft); margin: 4px 0 -2px; }
 .plan-features{ display:flex; flex-direction:column; gap:7px; flex-grow:1; margin: 2px 0 0; }
@@ -1244,8 +1255,9 @@ p{ margin:0; }
 .plan-card.is-highlight .plan-card-front .plan-features li,
 .plan-card.is-highlight .plan-card-front .plan-features li.plan-features-inherit{ color:#fff; }
 .plan-card.is-highlight .plan-card-front .plan-price-box{ background: rgba(255,255,255,0.14); }
-.plan-card.is-highlight .plan-card-front .plan-price-row + .plan-price-row{ border-top-color: rgba(255,255,255,0.2); }
+.plan-card.is-highlight .plan-card-front .plan-price-sub-block{ border-top-color: rgba(255,255,255,0.2); }
 .plan-card.is-highlight .plan-card-front .plan-price-value{ color:#fff; }
+.plan-card.is-highlight .plan-card-front .plan-icon-badge-violet{ background:#7c3aed; color:#fff; }
 .plan-card.is-highlight .plan-card-front .plan-features li.is-add::before{ color:#bef1ff; }
 .plan-card.is-highlight .plan-card-front .plan-flip-btn{ color: rgba(255,255,255,0.75); }
 .plan-card.is-highlight .plan-card-front .plan-flip-btn:hover,
