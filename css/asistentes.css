@@ -26,10 +26,22 @@
 /* Pestañas de asistentes */
 .ca-tabs{ display:flex; flex-wrap:wrap; gap:10px; }
 .ca-tab{ display:inline-flex; align-items:center; gap:10px; min-height:42px; padding:6px 18px 6px 6px; border-radius:999px; cursor:pointer; font:700 15px 'Plus Jakarta Sans', system-ui, sans-serif; background:#0e1730; color:#e8edf8; border:1px solid #22305a; transition:background .2s, color .2s, border-color .2s; }
-.ca-tab img{ width:32px; height:32px; border-radius:50%; object-fit:cover; object-position:top; }
 .ca-tab:hover{ border-color:var(--c); }
 .ca-tab[aria-selected="true"]{ background:var(--c); border-color:var(--c); color:#070d1f; }
 .ca-tab:focus-visible{ outline:2px solid #8fb0ff; outline-offset:3px; }
+
+/* Anillo de la ficha, estilo "historia" de Instagram: un pseudo-elemento con
+   degradado cónico gira detrás de la foto, dejando un aro de 2-3px visible
+   alrededor (la foto es más chica que el círculo que lo contiene). */
+.ca-tab-avatar{ position:relative; width:36px; height:36px; border-radius:50%; flex-shrink:0; }
+.ca-tab-avatar::before{
+  content:''; position:absolute; inset:0; border-radius:50%;
+  background: conic-gradient(from 0deg, var(--c), color-mix(in srgb, var(--c) 25%, white) 25%, var(--c) 50%, color-mix(in srgb, var(--c) 25%, white) 75%, var(--c));
+  animation: caRingSpin 7s linear infinite;
+}
+.ca-tab-avatar img{ position:absolute; inset:3px; width:30px; height:30px; border-radius:50%; object-fit:cover; object-position:top; }
+@keyframes caRingSpin{ to{ transform:rotate(360deg); } }
+@media (prefers-reduced-motion: reduce){ .ca-tab-avatar::before{ animation:none; } }
 
 .ca-panel{ display:grid; grid-template-columns:340px 1fr; gap:48px; align-items:start; animation:caFade .35s var(--ease, ease); }
 .ca-panel[hidden]{ display:none; }
@@ -60,8 +72,49 @@
 @media (prefers-reduced-motion: reduce){
   .ca-photo img, .ca-addon-intro img{ animation:none; }
 }
-.ca-live{ position:absolute; left:16px; bottom:16px; display:flex; align-items:center; gap:6px; padding:5px 10px; border-radius:999px; background:rgba(7,13,31,.86); border:1px solid #2a3a66; font-size:11px; font-weight:600; }
+.ca-badges{ position:absolute; left:16px; right:16px; bottom:16px; z-index:2; display:flex; flex-wrap:wrap; align-items:center; gap:8px; pointer-events:none; }
+.ca-live{ display:flex; align-items:center; gap:6px; padding:5px 10px; border-radius:999px; background:rgba(7,13,31,.86); border:1px solid #2a3a66; font-size:11px; font-weight:600; }
 .ca-live span{ width:7px; height:7px; border-radius:50%; background:#3ddc97; }
+
+/* El botón "Ver presentación" es el disparador principal del reproductor:
+   fondo con el color de acento del asistente, texto oscuro para que
+   destaque más que "Disponible 24/7", y un leve brillo periódico (barrido
+   de luz, no box-shadow, para no pelear con el glow del hover) que llama
+   la atención sin ser invasivo. */
+.ca-story-badge{
+  position:relative; overflow:hidden; pointer-events:auto;
+  display:flex; align-items:center; gap:8px; padding:10px 18px; border-radius:999px;
+  background:var(--c); color:#0F1F3D; font:inherit; font-size:13px; font-weight:800;
+  border:none; cursor:pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.ca-story-badge-icon{
+  flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  width:20px; height:20px; border-radius:50%; background:#fff; color:var(--c);
+}
+.ca-story-badge-icon svg{ width:10px; height:10px; margin-left:1px; }
+.ca-story-badge:hover{ transform:translateY(-2px); box-shadow: 0 0 0 1px var(--c), 0 0 20px color-mix(in srgb, var(--c) 55%, transparent); }
+.ca-story-badge:focus-visible{ outline:2px solid #fff; outline-offset:2px; }
+.ca-story-badge::after{
+  content:''; position:absolute; top:0; left:-60%; width:40%; height:100%;
+  background:linear-gradient(115deg, transparent, rgba(255,255,255,0.55), transparent);
+  animation: caBadgeShine 4s ease-in-out infinite;
+}
+@keyframes caBadgeShine{
+  0%{ left:-60%; }
+  18%, 100%{ left:130%; }
+}
+@media (prefers-reduced-motion: reduce){ .ca-story-badge::after{ animation:none; display:none; } }
+
+/* Foto grande: la vista previa en video reemplaza la foto al pasar el
+   mouse (solo con mouse/trackpad real, nunca en táctil, donde "hover" no
+   tiene un significado persistente). Toda la foto es clickeable. */
+.ca-photo{ cursor:pointer; }
+.ca-photo-video{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center top;
+  border-radius:24px; opacity:0; pointer-events:none; transition:opacity .25s ease;
+}
+.ca-photo-video.is-playing-preview{ opacity:1; }
 .ca-info{ display:flex; flex-direction:column; gap:12px; }
 .ca-name{ margin:0 0 6px; font-size:clamp(40px,5vw,56px); line-height:.95; font-weight:800; letter-spacing:-.03em; color:var(--c); }
 .ca-role{ font-size:16px; font-weight:600; color:#c9d3ec; }
@@ -74,6 +127,58 @@
 .ca-plans{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding-top:12px; border-top:1px solid #1c2748; }
 .ca-plans > span:first-child{ font-size:14px; color:#a3aecb; }
 .ca-chip{ padding:6px 12px; border-radius:999px; background:#111a33; border:1px solid #2a3a66; font-size:13px; font-weight:600; }
+
+/* Reproductor tipo "historia": fondo oscuro con blur, video vertical
+   centrado (9:16, hasta 90vh), barra de progreso + cabecera arriba, 3
+   franjas invisibles encima del video para anterior/pausa/siguiente, y la
+   tarjeta de cierre (CTA + siguiente) que aparece al terminar. */
+.ca-story{ position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center; }
+.ca-story[hidden]{ display:none; }
+.ca-story-backdrop{ position:absolute; inset:0; background:rgba(5,8,18,0.82); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+.ca-story-frame{
+  position:relative; z-index:1; width:min(92vw, 90vh * 9 / 16, 506px);
+  aspect-ratio:9/16; border-radius:24px; overflow:hidden; background:#000;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.55);
+}
+.ca-story-progress{ position:absolute; top:12px; left:12px; right:12px; z-index:5; display:flex; gap:5px; }
+.ca-story-bar{ position:relative; flex:1; height:3px; border-radius:999px; background:rgba(255,255,255,0.3); overflow:hidden; }
+.ca-story-bar i{ display:block; height:100%; width:100%; background:#fff; transform-origin:left center; transform:scaleX(0); }
+.ca-story-head{ position:absolute; top:24px; left:12px; right:12px; z-index:5; display:flex; align-items:center; gap:10px; }
+.ca-story-avatar{ width:32px; height:32px; border-radius:50%; object-fit:cover; object-position:top; border:1px solid rgba(255,255,255,0.5); }
+.ca-story-who{ display:flex; flex-direction:column; flex:1; min-width:0; }
+.ca-story-name{ font-size:14px; font-weight:800; color:#fff; line-height:1.2; }
+.ca-story-role{ font-size:12px; color:rgba(255,255,255,0.75); line-height:1.2; }
+.ca-story-close{
+  flex-shrink:0; width:32px; height:32px; border-radius:50%; border:none; cursor:pointer;
+  background:rgba(0,0,0,0.35); color:#fff; display:flex; align-items:center; justify-content:center;
+}
+.ca-story-close svg{ width:16px; height:16px; }
+.ca-story-close:focus-visible{ outline:2px solid #fff; outline-offset:2px; }
+.ca-story-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center top; background:#000; }
+.ca-story-zone{ position:absolute; top:0; bottom:0; width:33.333%; border:none; background:transparent; padding:0; margin:0; cursor:pointer; }
+.ca-story-zone-prev{ left:0; }
+.ca-story-zone-pause{ left:33.333%; }
+.ca-story-zone-next{ right:0; }
+.ca-story-pausedicon{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2; pointer-events:none;
+  width:64px; height:64px; border-radius:50%; background:rgba(0,0,0,0.45); color:#fff;
+  display:flex; align-items:center; justify-content:center;
+}
+.ca-story-pausedicon svg{ width:28px; height:28px; }
+.ca-story-end{
+  position:absolute; inset:0; z-index:4; display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
+  gap:12px; padding:0 20px 28px; background:linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0) 40%);
+}
+.ca-story-cta{
+  display:flex; align-items:center; justify-content:center; width:100%; min-height:52px; padding:0 20px;
+  border-radius:12px; background:#fff; color:#0a1226; font-weight:800; font-size:16px; text-decoration:none; text-align:center;
+}
+.ca-story-next-link{ background:none; border:none; cursor:pointer; color:rgba(255,255,255,0.85); font:inherit; font-size:14px; font-weight:600; text-decoration:underline; padding:4px; }
+.ca-story-next-link:focus-visible, .ca-story-cta:focus-visible{ outline:2px solid #fff; outline-offset:2px; }
+
+@media (max-width:600px){
+  .ca-story-frame{ width:100vw; height:100vh; max-height:none; border-radius:0; aspect-ratio:auto; }
+}
 
 /* Planes */
 .ca-pricing{ padding-top:64px; padding-bottom:112px; }

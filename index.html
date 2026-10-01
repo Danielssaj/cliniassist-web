@@ -1062,26 +1062,33 @@
       </div>
       <div class="ca-tabs" role="tablist" aria-label="Asistentes">
         <button type="button" role="tab" class="ca-tab" id="ca-tab-valentina" aria-controls="ca-panel-valentina" aria-selected="true" tabindex="0" style="--c:#2ec4b6">
-          <img src="assets/equipo/valentina-mini.webp" alt="" width="32" height="32">
+          <span class="ca-tab-avatar"><img src="assets/equipo/valentina-mini.webp" alt="" width="32" height="32"></span>
           <span>Valentina</span>
         </button>
         <button type="button" role="tab" class="ca-tab" id="ca-tab-diego" aria-controls="ca-panel-diego" aria-selected="false" tabindex="-1" style="--c:#5b8cff">
-          <img src="assets/equipo/diego-mini.webp" alt="" width="32" height="32">
+          <span class="ca-tab-avatar"><img src="assets/equipo/diego-mini.webp" alt="" width="32" height="32"></span>
           <span>Diego</span>
         </button>
         <button type="button" role="tab" class="ca-tab" id="ca-tab-emilia" aria-controls="ca-panel-emilia" aria-selected="false" tabindex="-1" style="--c:#ff8a6b">
-          <img src="assets/equipo/emilia-mini.webp" alt="" width="32" height="32">
+          <span class="ca-tab-avatar"><img src="assets/equipo/emilia-mini.webp" alt="" width="32" height="32"></span>
           <span>Emilia</span>
         </button>
         <button type="button" role="tab" class="ca-tab" id="ca-tab-mateo" aria-controls="ca-panel-mateo" aria-selected="false" tabindex="-1" style="--c:#9bbf6a">
-          <img src="assets/equipo/mateo-mini.webp" alt="" width="32" height="32">
+          <span class="ca-tab-avatar"><img src="assets/equipo/mateo-mini.webp" alt="" width="32" height="32"></span>
           <span>Mateo</span>
         </button>
       </div>
       <div class="ca-panel" role="tabpanel" id="ca-panel-valentina" aria-labelledby="ca-tab-valentina" style="--c:#2ec4b6">
-        <div class="ca-photo">
+        <div class="ca-photo" data-story-trigger data-video="videos/valentina.mp4" data-duration-label="0:19" data-duration-seconds="19">
           <img src="assets/equipo/valentina.webp" alt="Retrato de Valentina, recepcionista virtual" width="720" height="894" loading="lazy">
-          <div class="ca-live"><span></span>Disponible 24/7</div>
+          <video class="ca-photo-video" muted loop playsinline preload="none" poster="assets/equipo/valentina.webp" aria-hidden="true" tabindex="-1"></video>
+          <div class="ca-badges">
+            <div class="ca-live"><span></span>Disponible 24/7</div>
+            <button type="button" class="ca-story-badge" aria-label="Ver presentación de Valentina, 19 segundos">
+              <span class="ca-story-badge-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+              Ver presentación · 0:19
+            </button>
+          </div>
         </div>
         <div class="ca-info">
           <div class="ca-mono">01 · WHATSAPP 24/7</div>
@@ -1101,9 +1108,16 @@
         </div>
       </div>
       <div class="ca-panel" role="tabpanel" id="ca-panel-diego" aria-labelledby="ca-tab-diego" style="--c:#5b8cff" hidden>
-        <div class="ca-photo">
+        <div class="ca-photo" data-story-trigger data-video="videos/diego.mp4" data-duration-label="0:17" data-duration-seconds="17">
           <img src="assets/equipo/diego.webp" alt="Retrato de Diego, director de crecimiento" width="720" height="894" loading="lazy">
-          <div class="ca-live"><span></span>Disponible 24/7</div>
+          <video class="ca-photo-video" muted loop playsinline preload="none" poster="assets/equipo/diego.webp" aria-hidden="true" tabindex="-1"></video>
+          <div class="ca-badges">
+            <div class="ca-live"><span></span>Disponible 24/7</div>
+            <button type="button" class="ca-story-badge" aria-label="Ver presentación de Diego, 17 segundos">
+              <span class="ca-story-badge-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+              Ver presentación · 0:17
+            </button>
+          </div>
         </div>
         <div class="ca-info">
           <div class="ca-mono">02 · INSTAGRAM, EMAIL Y WEB</div>
@@ -1123,9 +1137,16 @@
         </div>
       </div>
       <div class="ca-panel" role="tabpanel" id="ca-panel-emilia" aria-labelledby="ca-tab-emilia" style="--c:#ff8a6b" hidden>
-        <div class="ca-photo">
+        <div class="ca-photo" data-story-trigger data-video="videos/emilia.mp4" data-duration-label="0:20" data-duration-seconds="20">
           <img src="assets/equipo/emilia.webp" alt="Retrato de Emilia, recepcionista telefónica" width="720" height="894" loading="lazy">
-          <div class="ca-live"><span></span>Disponible 24/7</div>
+          <video class="ca-photo-video" muted loop playsinline preload="none" poster="assets/equipo/emilia.webp" aria-hidden="true" tabindex="-1"></video>
+          <div class="ca-badges">
+            <div class="ca-live"><span></span>Disponible 24/7</div>
+            <button type="button" class="ca-story-badge" aria-label="Ver presentación de Emilia, 20 segundos">
+              <span class="ca-story-badge-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+              Ver presentación · 0:20
+            </button>
+          </div>
         </div>
         <div class="ca-info">
           <div class="ca-mono">03 · RECEPCIÓN TELEFÓNICA</div>
@@ -1145,9 +1166,16 @@
         </div>
       </div>
       <div class="ca-panel" role="tabpanel" id="ca-panel-mateo" aria-labelledby="ca-tab-mateo" style="--c:#9bbf6a" hidden>
-        <div class="ca-photo">
+        <div class="ca-photo" data-story-trigger data-video="videos/mateo.mp4" data-duration-label="0:19" data-duration-seconds="19">
           <img src="assets/equipo/mateo.webp" alt="Retrato de Mateo, diseñador web" width="720" height="894" loading="lazy">
-          <div class="ca-live"><span></span>Disponible 24/7</div>
+          <video class="ca-photo-video" muted loop playsinline preload="none" poster="assets/equipo/mateo.webp" aria-hidden="true" tabindex="-1"></video>
+          <div class="ca-badges">
+            <div class="ca-live"><span></span>Disponible 24/7</div>
+            <button type="button" class="ca-story-badge" aria-label="Ver presentación de Mateo, 19 segundos">
+              <span class="ca-story-badge-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+              Ver presentación · 0:19
+            </button>
+          </div>
         </div>
         <div class="ca-info">
           <div class="ca-mono">04 · WEB PARA TU CLÍNICA</div>
@@ -1164,6 +1192,34 @@
             <li><span class="ca-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span>Rápida, se ve perfecta en celular, tablet y computador, con agenda online integrada</span></li>
           </ul>
           <div class="ca-plans"><span>Incluido en:</span><span class="ca-chip">Adicional a cualquier plan</span></div>
+        </div>
+      </div>
+
+      <div class="ca-story" id="caStory" role="dialog" aria-modal="true" aria-label="Presentación en video" hidden>
+        <div class="ca-story-backdrop" data-story-close></div>
+        <div class="ca-story-frame">
+          <div class="ca-story-progress" id="caStoryProgress"></div>
+          <div class="ca-story-head">
+            <img class="ca-story-avatar" id="caStoryAvatar" src="" alt="">
+            <div class="ca-story-who">
+              <b class="ca-story-name" id="caStoryName"></b>
+              <span class="ca-story-role" id="caStoryRole"></span>
+            </div>
+            <button type="button" class="ca-story-close" data-story-close aria-label="Cerrar presentación">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+            </button>
+          </div>
+          <video class="ca-story-video" id="caStoryVideo" playsinline preload="none"></video>
+          <button type="button" class="ca-story-zone ca-story-zone-prev" aria-label="Asistente anterior"></button>
+          <button type="button" class="ca-story-zone ca-story-zone-pause" aria-label="Pausar o reanudar"></button>
+          <button type="button" class="ca-story-zone ca-story-zone-next" aria-label="Siguiente asistente"></button>
+          <div class="ca-story-pausedicon" id="caStoryPausedIcon" hidden>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="ca-story-end" id="caStoryEnd" hidden>
+            <a href="#" class="ca-story-cta js-whatsapp" id="caStoryCta" data-wa-text="Hola, necesito el servicio de ClinIAssist." target="_blank" rel="noopener"></a>
+            <button type="button" class="ca-story-next-link" id="caStoryNextLink" data-story-next></button>
+          </div>
         </div>
       </div>
     </div>

@@ -238,3 +238,236 @@
     if (trigger) trigger.focus();
   });
 })();
+
+/* Vista previa en hover de la foto grande: solo en mouse/trackpad real
+   (nunca táctil, donde "hover" no existe como estado persistente). El
+   video no se carga hasta que el mouse entra a la foto. */
+(function(){
+  if (!window.matchMedia) return;
+  if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var photos = Array.prototype.slice.call(document.querySelectorAll('.ca-photo[data-story-trigger]'));
+  if (!photos.length) return;
+
+  photos.forEach(function(photo){
+    var video = photo.querySelector('.ca-photo-video');
+    if (!video) return;
+    var loaded = false;
+
+    photo.addEventListener('mouseenter', function(){
+      if (!loaded) {
+        video.src = photo.getAttribute('data-video');
+        video.load();
+        loaded = true;
+      }
+      try { video.currentTime = 0; } catch (err) {}
+      var p = video.play();
+      if (p && p.catch) p.catch(function(){});
+      video.classList.add('is-playing-preview');
+    });
+
+    photo.addEventListener('mouseleave', function(){
+      video.classList.remove('is-playing-preview');
+      video.pause();
+    });
+  });
+})();
+
+/* Reproductor tipo "historia" de Instagram para los videos de presentación.
+   La lista de asistentes se arma leyendo los propios paneles (mismo
+   nombre, cargo, color y video que ya están en la página), así que no hay
+   datos duplicados a mano. */
+(function(){
+  var WHATSAPP_HEADER_CTA = document.querySelector('.header-cta .js-whatsapp');
+  var modal = document.getElementById('caStory');
+  var videoEl = document.getElementById('caStoryVideo');
+  var progressWrap = document.getElementById('caStoryProgress');
+  if (!modal || !videoEl || !progressWrap) return;
+
+  var avatarEl = document.getElementById('caStoryAvatar');
+  var nameEl = document.getElementById('caStoryName');
+  var roleEl = document.getElementById('caStoryRole');
+  var pausedIcon = document.getElementById('caStoryPausedIcon');
+  var endCard = document.getElementById('caStoryEnd');
+  var ctaLink = document.getElementById('caStoryCta');
+  var nextLink = document.getElementById('caStoryNextLink');
+  var zonePrev = modal.querySelector('.ca-story-zone-prev');
+  var zonePause = modal.querySelector('.ca-story-zone-pause');
+  var zoneNext = modal.querySelector('.ca-story-zone-next');
+
+  var panels = Array.prototype.slice.call(document.querySelectorAll('#asistentes .ca-panel'));
+  var items = panels.map(function(panel){
+    var photo = panel.querySelector('.ca-photo[data-story-trigger]');
+    var img = photo && photo.querySelector('img');
+    var nameNode = panel.querySelector('.ca-name');
+    var roleNode = panel.querySelector('.ca-role');
+    if (!photo || !img || !nameNode) return null;
+    return {
+      panel: panel,
+      photo: photo,
+      triggerBtn: photo.querySelector('.ca-story-badge'),
+      name: nameNode.textContent.trim(),
+      role: roleNode ? roleNode.textContent.trim() : '',
+      video: photo.getAttribute('data-video'),
+      poster: img.getAttribute('src')
+    };
+  }).filter(Boolean);
+  if (!items.length) return;
+
+  // Una barra de progreso por asistente.
+  var bars = items.map(function(){
+    var bar = document.createElement('span');
+    bar.className = 'ca-story-bar';
+    var fill = document.createElement('i');
+    bar.appendChild(fill);
+    progressWrap.appendChild(bar);
+    return fill;
+  });
+
+  var currentIndex = 0;
+  var lastTriggerEl = null;
+  var isOpen = false;
+  var rafId = null;
+
+  function setBar(index, value){
+    bars[index].style.transform = 'scaleX(' + value + ')';
+  }
+  function resetBars(uptoIndex){
+    items.forEach(function(_, i){ setBar(i, i < uptoIndex ? 1 : 0); });
+  }
+
+  function stopProgressLoop(){
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+  }
+  function startProgressLoop(){
+    stopProgressLoop();
+    function tick(){
+      if (videoEl.duration) setBar(currentIndex, Math.min(1, videoEl.currentTime / videoEl.duration));
+      rafId = requestAnimationFrame(tick);
+    }
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function showPausedIcon(show){ pausedIcon.hidden = !show; }
+
+  function selectAssistantTab(panel){
+    var tab = document.getElementById(panel.getAttribute('aria-labelledby'));
+    if (!tab) return;
+    var allTabs = document.querySelectorAll('#asistentes .ca-tab');
+    var allPanels = document.querySelectorAll('#asistentes .ca-panel');
+    allTabs.forEach(function(t){
+      var on = t === tab;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+    });
+    allPanels.forEach(function(p){ p.hidden = (p !== panel); });
+  }
+
+  function loadItem(index, autoplay){
+    currentIndex = index;
+    var item = items[index];
+    endCard.hidden = true;
+    showPausedIcon(false);
+    avatarEl.src = item.poster;
+    nameEl.textContent = item.name;
+    roleEl.textContent = item.role;
+    modal.setAttribute('aria-label', 'Presentación de ' + item.name);
+    resetBars(index);
+    videoEl.pause();
+    videoEl.muted = false;
+    videoEl.src = item.video;
+    videoEl.load();
+    if (autoplay) {
+      var p = videoEl.play();
+      if (p && p.catch) p.catch(function(){});
+    }
+  }
+
+  function goTo(index){
+    stopProgressLoop();
+    var n = items.length;
+    index = ((index % n) + n) % n;
+    loadItem(index, true);
+  }
+
+  function togglePause(){
+    if (videoEl.paused) videoEl.play(); else videoEl.pause();
+  }
+
+  function onKeydown(e){
+    if (e.key === 'Escape') { close(); return; }
+    if (e.key === 'ArrowRight') { goTo(currentIndex + 1); return; }
+    if (e.key === 'ArrowLeft') { goTo(currentIndex - 1); return; }
+    if (e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); togglePause(); }
+  }
+
+  function open(index, triggerEl){
+    lastTriggerEl = triggerEl || null;
+    isOpen = true;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    loadItem(index, true);
+    modal.querySelector('.ca-story-close').focus();
+    document.addEventListener('keydown', onKeydown);
+  }
+
+  function close(){
+    if (!isOpen) return;
+    isOpen = false;
+    stopProgressLoop();
+    videoEl.pause();
+    videoEl.currentTime = 0;
+    videoEl.removeAttribute('src');
+    videoEl.load();
+    modal.hidden = true;
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', onKeydown);
+    // La sección queda mostrando al asistente del último video visto, así
+    // que el foco vuelve a SU botón "Ver presentación" (no al que abrió el
+    // reproductor originalmente: si se navegó a otro asistente, el botón
+    // de ese primero ya quedó oculto al cambiar de panel).
+    var lastItem = items[currentIndex];
+    selectAssistantTab(lastItem.panel);
+    var focusTarget = lastItem.triggerBtn || lastTriggerEl;
+    if (focusTarget) focusTarget.focus();
+  }
+
+  videoEl.addEventListener('play', function(){ showPausedIcon(false); startProgressLoop(); });
+  videoEl.addEventListener('pause', function(){
+    stopProgressLoop();
+    if (!videoEl.ended) showPausedIcon(true);
+  });
+  videoEl.addEventListener('ended', function(){
+    stopProgressLoop();
+    setBar(currentIndex, 1);
+    showPausedIcon(false);
+    var item = items[currentIndex];
+    var isLast = currentIndex === items.length - 1;
+    var nextItem = items[isLast ? 0 : currentIndex + 1];
+    ctaLink.textContent = 'Quiero a ' + item.name + ' en mi clínica';
+    nextLink.textContent = isLast ? ('Volver a ver a ' + nextItem.name) : ('Ver siguiente: ' + nextItem.name);
+    endCard.hidden = false;
+  });
+
+  zonePrev.addEventListener('click', function(){ goTo(currentIndex - 1); });
+  zoneNext.addEventListener('click', function(){ goTo(currentIndex + 1); });
+  zonePause.addEventListener('click', function(){ togglePause(); });
+  nextLink.addEventListener('click', function(){ goTo(currentIndex + 1); });
+
+  Array.prototype.slice.call(modal.querySelectorAll('[data-story-close]')).forEach(function(el){
+    el.addEventListener('click', close);
+  });
+
+  items.forEach(function(item, index){
+    item.photo.addEventListener('click', function(){
+      open(index, item.triggerBtn || item.photo);
+    });
+  });
+
+  // Respaldo por si .js-whatsapp aún no corrió cuando se arma esta IIFE:
+  // el CTA ya comparte el mismo texto/data-wa-text que el botón del header,
+  // así que script.js le da el mismo href automáticamente al cargar.
+  if (WHATSAPP_HEADER_CTA && ctaLink && ctaLink.getAttribute('href') === '#') {
+    ctaLink.href = WHATSAPP_HEADER_CTA.href;
+  }
+})();
