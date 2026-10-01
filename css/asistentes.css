@@ -113,7 +113,12 @@
 .ca-counter > span{ display:flex; flex-direction:column; font-size:14px; font-weight:600; line-height:1.3; }
 .ca-counter small{ font-size:14px; font-weight:500; color:#a3aecb; }
 .ca-team-list{ display:flex; flex-direction:column; gap:18px; }
+.ca-team-sub{ margin:-10px 0 0; font-size:13px; color:#a3aecb; }
 .ca-member{ display:flex; flex-direction:column; gap:10px; }
+/* Miembro sin listado propio (ya incluido en el plan anterior): se agrupan
+   como avatares compactos, con poco aire entre uno y el siguiente en vez
+   del gap:18px normal pensado para separar bloques con su propia lista. */
+.ca-member-compact{ margin-bottom:-8px; }
 .ca-member-head{ display:flex; align-items:center; gap:12px; }
 .ca-member-head img{
   width:44px; height:44px; border-radius:50%; object-fit:cover; object-position:top;
