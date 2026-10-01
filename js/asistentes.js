@@ -64,3 +64,50 @@
     });
   }
 })();
+
+/* Volteo 3D de las tarjetas de plan: el botón "X tareas automatizadas"
+   (y el "Volver" del dorso) giran TODA la tarjeta, mostrando el equipo
+   completo. El alto de las 3 tarjetas se fija según el FRENTE más alto
+   únicamente (no el dorso) — si el dorso de un plan es más largo que ese
+   alto (ej. Empresa con 3 equipos completos), hace scroll interno en vez
+   de agrandar la tarjeta, tal como se pidió. Mismo truco de medición que
+   el resto del sitio: sacar la cara de position:absolute brevemente para
+   leer su alto real, y restaurarla después. */
+(function(){
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.ca-card'));
+  if (!cards.length) return;
+
+  function measureFront(front){
+    var prevPosition = front.style.position;
+    var prevHeight = front.style.height;
+    front.style.position = 'static';
+    front.style.height = 'auto';
+    var h = front.scrollHeight;
+    front.style.position = prevPosition;
+    front.style.height = prevHeight;
+    return h;
+  }
+
+  function syncHeights(){
+    var heights = cards.map(function(card){
+      var front = card.querySelector('.ca-card-front');
+      return front ? measureFront(front) : 0;
+    });
+    var tallest = Math.max.apply(null, heights);
+    if (!tallest) return;
+    cards.forEach(function(card){ card.style.height = tallest + 'px'; });
+  }
+
+  syncHeights();
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(syncHeights); }
+  window.addEventListener('resize', syncHeights);
+
+  cards.forEach(function(card){
+    card.querySelectorAll('[data-plan-flip]').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        card.classList.toggle('is-flipped');
+      });
+    });
+  });
+})();
