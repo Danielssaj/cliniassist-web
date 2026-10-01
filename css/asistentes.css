@@ -38,25 +38,24 @@
 .ca-photo img{
   display:block; width:100%; height:min(420px, 52vh); object-fit:cover; object-position:top; border-radius:24px;
   border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
-  box-shadow: 0 0 18px color-mix(in srgb, var(--c) 45%, transparent), 0 0 48px color-mix(in srgb, var(--c) 22%, transparent);
-  animation: caBreathe 5.5s ease-in-out infinite;
+  box-shadow: 0 0 22px color-mix(in srgb, var(--c) 52%, transparent), 0 0 54px color-mix(in srgb, var(--c) 26%, transparent);
+  animation: caBreathe 5.5s cubic-bezier(.45,0,.55,1) infinite;
+  will-change: transform;
 }
 #ca-panel-valentina .ca-photo img{ animation-delay: 0s; }
 #ca-panel-diego .ca-photo img{ animation-delay: 1.2s; }
 #ca-panel-emilia .ca-photo img{ animation-delay: 2.4s; }
 #ca-panel-mateo .ca-photo img{ animation-delay: 3.6s; }
 
-/* Respiración muy leve: escala + elevación sutil, con el resplandor de
-   color subiendo y bajando de intensidad en el mismo ciclo. */
+/* Respiración muy leve: solo transform (scale + elevación), para que la
+   animación corra 100% en el compositor y se vea perfectamente fluida.
+   El resplandor de color se deja fijo (no se anima el box-shadow): es una
+   propiedad cara de repintar en cada frame y, al compartir el ciclo con el
+   transform, el repintado competía por cuadros y hacía ver el movimiento
+   entrecortado en vez de fluido. */
 @keyframes caBreathe{
-  0%, 100%{
-    transform: scale(1) translateY(0);
-    box-shadow: 0 0 18px color-mix(in srgb, var(--c) 45%, transparent), 0 0 48px color-mix(in srgb, var(--c) 22%, transparent);
-  }
-  50%{
-    transform: scale(1.015) translateY(-2px);
-    box-shadow: 0 0 26px color-mix(in srgb, var(--c) 60%, transparent), 0 0 60px color-mix(in srgb, var(--c) 32%, transparent);
-  }
+  0%, 100%{ transform: scale(1) translateY(0); }
+  50%{ transform: scale(1.015) translateY(-2px); }
 }
 @media (prefers-reduced-motion: reduce){
   .ca-photo img, .ca-addon-intro img{ animation:none; }
@@ -138,9 +137,10 @@
 .ca-addon-intro img{
   width:132px; height:132px; border-radius:24px; object-fit:cover; object-position:top; flex-shrink:0;
   border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
-  box-shadow: 0 0 18px color-mix(in srgb, var(--c) 45%, transparent), 0 0 48px color-mix(in srgb, var(--c) 22%, transparent);
-  animation: caBreathe 5.5s ease-in-out infinite;
+  box-shadow: 0 0 22px color-mix(in srgb, var(--c) 52%, transparent), 0 0 54px color-mix(in srgb, var(--c) 26%, transparent);
+  animation: caBreathe 5.5s cubic-bezier(.45,0,.55,1) infinite;
   animation-delay: 0.8s;
+  will-change: transform;
 }
 .ca-addon-intro > div{ display:flex; flex-direction:column; gap:8px; }
 .ca-addon-intro .ca-mono{ font-size:12px; color:#cfe3b0; }
