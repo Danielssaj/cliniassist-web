@@ -1,4 +1,4 @@
-/* Cliniassist — pestañas de la sección #asistentes */
+/* ClinIAssist — pestañas de la sección #asistentes */
 (function(){
   var tabs = Array.prototype.slice.call(document.querySelectorAll('#asistentes .ca-tab'));
   if (!tabs.length) return;
@@ -21,7 +21,7 @@
   });
 })();
 
-/* Cliniassist — opciones de la web de Mateo (Base/Pro/Premium).
+/* ClinIAssist — opciones de la web de Mateo (Base/Pro/Premium).
    No usa .js-whatsapp: script.js arma esos enlaces una sola vez al cargar
    la página, con un solo texto fijo por botón. Acá el mensaje depende de
    la opción elegida, así que el enlace se arma a mano en cada selección,

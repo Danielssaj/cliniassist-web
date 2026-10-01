@@ -1,5 +1,5 @@
 /* ============================================
-   Cliniassist — Asistentes IA + Planes
+   ClinIAssist — Asistentes IA + Planes
    Secciones #asistentes y #precios (siempre oscuras).
    Todas las clases empiezan con "ca-".
    ============================================ */
@@ -77,8 +77,19 @@
 
 /* Planes */
 .ca-pricing{ padding-top:64px; padding-bottom:112px; }
-.ca-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:24px; align-items:stretch; }
+.ca-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:24px; align-items:stretch; }
 .ca-card{ position:relative; display:flex; flex-direction:column; gap:22px; padding:28px; border-radius:24px; background:#0e1730; border:1px solid #22305a; transition:transform .3s var(--ease, ease), box-shadow .3s var(--ease, ease); }
+/* Título/precio/botón/contador/equipo alineados fila por fila entre las 3
+   tarjetas (la descripción de Empresa ocupa 2 líneas y las otras 1, lo que
+   antes desalineaba todo lo de abajo). Subgrid solo se activa desde 820px,
+   que es el ancho mínimo en el que .ca-grid realmente muestra 3 columnas
+   en una sola fila — por debajo de eso cada tarjeta vuelve a su alto
+   natural (flex-column de siempre), tal como se pidió para celular. */
+.ca-card-title p{ min-height: calc(2 * 1.5em); }
+@media (min-width: 820px){
+  .ca-grid{ grid-template-rows: repeat(5, auto); }
+  .ca-card{ display:grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: subgrid; grid-row: span 5; }
+}
 .ca-card:hover{ transform:translateY(-6px); box-shadow: 0 0 0 1px #8fb0ff, 0 0 32px rgba(143,176,255,0.35); }
 .ca-card.is-highlight:hover{ box-shadow: 0 0 0 1px #4d7cff, 0 0 32px rgba(77,124,255,0.35); }
 .ca-card.is-highlight{ background:#1f4fd1; border-color:#4d7cff; }
@@ -89,7 +100,8 @@
 .ca-card-title p{ margin:0; font-size:15px; color:#a3aecb; }
 .ca-label{ font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#a3aecb; }
 .ca-price{ display:flex; flex-direction:column; gap:14px; padding:20px; border-radius:16px; background:#0a1226; border:1px solid #1c2748; }
-.ca-price-row{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+.ca-price-row{ display:flex; justify-content:space-between; align-items:baseline; gap:8px 12px; flex-wrap:wrap; }
+.ca-price-row > *{ min-width:0; }
 .ca-install{ font-size:18px; font-weight:700; color:#8fb0ff; }
 .ca-price-sub{ display:flex; flex-direction:column; gap:2px; padding-top:14px; border-top:1px solid #1c2748; }
 .ca-monthly{ font-size:40px; font-weight:800; letter-spacing:-.02em; color:#e8edf8; }

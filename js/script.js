@@ -5,7 +5,7 @@
   const WHATSAPP_NUMBER = '56979247572';
 
   document.querySelectorAll('.js-whatsapp').forEach(link => {
-    const text = link.getAttribute('data-wa-text') || 'Hola, necesito el servicio de Cliniassist.';
+    const text = link.getAttribute('data-wa-text') || 'Hola, necesito el servicio de ClinIAssist.';
     link.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
   });
 
@@ -687,7 +687,7 @@
       // el pop-up de WhatsApp queda bloqueado en silencio — eso era lo que le
       // pasaba al formulario. Por eso WhatsApp se abre primero, sin await.
       const mensaje =
-        `Hola Cliniassist, me gustaría agendar una demostración:\n` +
+        `Hola ClinIAssist, me gustaría agendar una demostración:\n` +
         `- Nombre: ${nombre}\n` +
         `- Clínica: ${clinica}\n` +
         `- WhatsApp: ${contacto}\n` +
