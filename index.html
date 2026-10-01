@@ -1189,7 +1189,7 @@
                 <div class="ca-price-sub"><span class="ca-label">Suscripción mensual</span><span class="ca-monthly">$98.000<small> /mes</small></span></div>
               </div>
               <a href="#" class="ca-btn js-whatsapp" data-wa-text="Hola, me interesa el Plan Esencial de ClinIAssist." target="_blank" rel="noopener">Contratar Esencial</a>
-              <button type="button" class="ca-counter" data-plan-flip aria-label="Ver detalle completo del Plan Esencial">
+              <button type="button" class="ca-counter" data-plan-flip aria-expanded="false" aria-label="Ver detalle completo del Plan Esencial">
                 <b>4</b><span>tareas automatizadas<small>1 asistente en tu equipo</small></span>
                 <span class="ca-counter-cta"><span>Ver detalle</span><svg class="ca-flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 1 2.6 6.4M3 12v5h5"/></svg></span>
               </button>
@@ -1248,7 +1248,7 @@
                 <div class="ca-price-sub"><span class="ca-label">Suscripción mensual</span><span class="ca-monthly">$168.000<small> /mes</small></span></div>
               </div>
               <a href="#" class="ca-btn js-whatsapp" data-wa-text="Hola, me interesa el Plan Expansión de ClinIAssist." target="_blank" rel="noopener">Contratar Expansión</a>
-              <button type="button" class="ca-counter" data-plan-flip aria-label="Ver detalle completo del Plan Expansión">
+              <button type="button" class="ca-counter" data-plan-flip aria-expanded="false" aria-label="Ver detalle completo del Plan Expansión">
                 <b>8</b><span>tareas automatizadas<small>2 asistentes en tu equipo</small></span>
                 <span class="ca-counter-cta"><span>Ver detalle</span><svg class="ca-flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 1 2.6 6.4M3 12v5h5"/></svg></span>
               </button>
@@ -1325,7 +1325,7 @@
                 <div class="ca-price-sub"><span class="ca-label">Suscripción mensual</span><span class="ca-monthly">$299.000<small> /mes</small></span></div>
               </div>
               <a href="#" class="ca-btn js-whatsapp" data-wa-text="Hola, me interesa el Plan Empresa de ClinIAssist." target="_blank" rel="noopener">Contratar Empresa</a>
-              <button type="button" class="ca-counter" data-plan-flip aria-label="Ver detalle completo del Plan Empresa">
+              <button type="button" class="ca-counter" data-plan-flip aria-expanded="false" aria-label="Ver detalle completo del Plan Empresa">
                 <b>12</b><span>tareas automatizadas<small>3 asistentes en tu equipo</small></span>
                 <span class="ca-counter-cta"><span>Ver detalle</span><svg class="ca-flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 1 2.6 6.4M3 12v5h5"/></svg></span>
               </button>
@@ -1411,30 +1411,39 @@
 
       <div class="ca-addon reveal" style="--c:#9bbf6a">
         <div class="ca-addon-intro">
-          <img src="assets/equipo/mateo.webp" alt="Mateo, diseñador web" width="132" height="132" loading="lazy">
-          <div>
+          <img src="assets/equipo/mateo.webp" alt="Mateo, diseñador web" width="150" height="150" loading="lazy">
+          <div class="ca-addon-text">
             <span class="ca-mono">ADICIONAL · A CUALQUIER PLAN</span>
             <h3>Suma a Mateo y ten tu web</h3>
             <p>Una web para tu clínica conectada con Valentina, pensada para convertir visitas en citas.</p>
+            <p class="ca-addon-highlight">Desde <b>$360.000</b> con cualquier plan</p>
           </div>
         </div>
         <div class="ca-addon-price">
-          <div class="ca-addon-amount"><span>Desde</span><b>$360.000</b><span>pago único</span></div>
-          <p>o en <strong>6 cuotas desde $60.000/mes</strong> junto a tu mensualidad.</p>
+          <div class="ca-mode-toggle" role="radiogroup" aria-label="Forma de pago para la web">
+            <button type="button" class="ca-mode-btn" role="radio" aria-checked="true" data-mode="plan" tabindex="0">Con un plan ClinIAssist <span class="ca-mode-off">−20%</span></button>
+            <button type="button" class="ca-mode-btn" role="radio" aria-checked="false" data-mode="web" tabindex="-1">Solo la web</button>
+          </div>
+
           <div class="ca-tiers" role="radiogroup" aria-label="Elige tu web">
-            <button type="button" class="ca-tier" role="radio" aria-checked="false" data-tier="base" data-msg="Hola, me interesa cotizar la web Base con Mateo de ClinIAssist (web de una página, desde $360.000)." tabindex="0">
-              <strong>Base</strong><span>Web de una página</span>
+            <button type="button" class="ca-tier" role="radio" aria-checked="false" data-tier="base" tabindex="0">
+              <div class="ca-tier-head"><strong>Base</strong><span>Web de una página</span></div>
+              <div class="ca-tier-price" data-tier-price></div>
               <svg class="ca-tier-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
             </button>
-            <button type="button" class="ca-tier" role="radio" aria-checked="false" data-tier="pro" data-msg="Hola, me interesa cotizar la web Pro con Mateo de ClinIAssist (más secciones y aparecer en Google)." tabindex="-1">
-              <strong>Pro</strong><span>Más secciones y aparecer en Google</span>
+            <button type="button" class="ca-tier" role="radio" aria-checked="false" data-tier="pro" tabindex="-1">
+              <div class="ca-tier-head"><strong>Pro</strong><span>Más secciones y aparecer en Google</span></div>
+              <div class="ca-tier-price" data-tier-price></div>
               <svg class="ca-tier-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
             </button>
-            <button type="button" class="ca-tier" role="radio" aria-checked="false" data-tier="premium" data-msg="Hola, me interesa cotizar la web Premium con Mateo de ClinIAssist (diseño 100% a medida)." tabindex="-1">
-              <strong>Premium</strong><span>Diseño 100% a medida</span>
+            <button type="button" class="ca-tier" role="radio" aria-checked="false" data-tier="premium" tabindex="-1">
+              <div class="ca-tier-head"><strong>Premium</strong><span>Diseño 100% a medida</span></div>
+              <div class="ca-tier-price" data-tier-price></div>
               <svg class="ca-tier-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
             </button>
           </div>
+          <p class="ca-addon-smallprint">Precio normal solo web: Base $450.000 · Pro $675.000 · Premium desde $900.000. Precios netos + IVA.</p>
+
           <a href="#" class="ca-btn ca-btn-addon" id="caAddonBtn" aria-disabled="true" target="_blank" rel="noopener">Cotizar mi web con Mateo</a>
           <p class="ca-addon-hint" id="caAddonHint">Elige Base, Pro o Premium para cotizar</p>
         </div>

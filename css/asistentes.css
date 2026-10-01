@@ -79,24 +79,22 @@
 .ca-pricing{ padding-top:64px; padding-bottom:112px; }
 .ca-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:24px; align-items:stretch; }
 
-/* Tarjetas de plan con volteo 3D: .ca-card es el contenedor de perspectiva
-   (alto fijado por JS a partir del FRENTE más alto de los 3 — ver
-   asistentes.js), .ca-card-inner es lo único que rota, y cada
-   .ca-card-face es una cara superpuesta (position:absolute +
-   backface-visibility:hidden), mismo patrón ya usado en el resto del
-   sitio (agenda, servicios). El dorso usa overflow-y:auto: si su propio
-   contenido es más largo que el alto fijado por el frente, hace scroll
-   interno en vez de agrandar la tarjeta. */
+/* Tarjetas de plan con volteo 3D: .ca-card es el contenedor de perspectiva,
+   .ca-card-inner es lo único que rota y además es un grid: el frente y el
+   dorso comparten la misma celda (grid-area:1/1) en vez de
+   position:absolute, así que la celda (y por lo tanto la tarjeta) toma el
+   alto de la cara más alta de las dos, sin recortar ni hacer scroll. Las 3
+   tarjetas quedan a la misma altura entre sí gracias a align-items:stretch
+   en .ca-grid (misma fila => mismo alto, igual a la tarjeta más alta). */
 .ca-card{ position:relative; perspective:1400px; transition:transform .3s var(--ease, ease); }
 .ca-card:hover{ transform:translateY(-6px); }
-.ca-card-inner{ position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .6s cubic-bezier(0.4,0.15,0.2,1); }
+.ca-card-inner{ position:relative; width:100%; height:100%; display:grid; transform-style:preserve-3d; transition:transform .6s cubic-bezier(0.4,0.15,0.2,1); }
 .ca-card.is-flipped .ca-card-inner{ transform:rotateY(180deg); }
 .ca-card-face{
-  position:absolute; inset:0; backface-visibility:hidden;
+  grid-area:1/1; backface-visibility:hidden;
   display:flex; flex-direction:column; gap:22px; padding:28px;
   border-radius:24px; background:#0e1730; border:1px solid #22305a;
   transition: box-shadow .3s var(--ease, ease);
-  overflow-y:auto;
 }
 .ca-card-back{ transform:rotateY(180deg); }
 .ca-card:hover .ca-card-face{ box-shadow: 0 0 0 1px #8fb0ff, 0 0 32px rgba(143,176,255,0.35); }
@@ -196,35 +194,50 @@
 .ca-card.is-highlight .ca-member-head img{ border-color: rgba(255,255,255,0.6); box-shadow: 0 0 12px rgba(255,255,255,0.4); }
 .ca-card.is-highlight .ca-member li svg{ color:#fff; }
 
-/* Mateo adicional */
-.ca-addon{ display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:40px; align-items:center; padding:36px; border-radius:28px; background:#0e1730; border:1px solid #33466f; transition:transform .3s var(--ease, ease), box-shadow .3s var(--ease, ease); }
+/* Mateo adicional: columna angosta (foto + texto, centrado) a la
+   izquierda y las opciones Base/Pro/Premium a todo el ancho a la derecha. */
+.ca-addon{ display:grid; grid-template-columns:260px 1fr; gap:40px; align-items:start; padding:36px; border-radius:28px; background:#0e1730; border:1px solid #33466f; transition:transform .3s var(--ease, ease), box-shadow .3s var(--ease, ease); }
 .ca-addon:hover{ transform:translateY(-6px); box-shadow: 0 0 0 1px #9bbf6a, 0 0 32px rgba(155,191,106,0.35); }
-.ca-addon-intro{ display:flex; align-items:center; gap:24px; }
+.ca-addon-intro{ display:flex; flex-direction:column; align-items:center; gap:14px; }
 .ca-addon-intro img{
-  width:132px; height:132px; border-radius:24px; object-fit:cover; object-position:top; flex-shrink:0;
+  width:150px; height:150px; border-radius:24px; object-fit:cover; object-position:top; flex-shrink:0;
   border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
   box-shadow: 0 0 22px color-mix(in srgb, var(--c) 52%, transparent), 0 0 54px color-mix(in srgb, var(--c) 26%, transparent);
   animation: caBreathe 5.5s cubic-bezier(.45,0,.55,1) infinite;
   animation-delay: 0.8s;
   will-change: transform;
 }
-.ca-addon-intro > div{ display:flex; flex-direction:column; gap:8px; }
-.ca-addon-intro .ca-mono{ font-size:12px; color:#cfe3b0; }
-.ca-addon-intro h3{ margin:0; font-size:30px; font-weight:800; line-height:1.15; color:#e8edf8; }
-.ca-addon-intro p{ margin:0; font-size:16px; line-height:1.55; color:#a3aecb; }
+.ca-addon-text{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:10px; min-width:0; }
+.ca-addon-text .ca-mono{ font-size:12px; color:#cfe3b0; }
+.ca-addon-text h3{ margin:0; font-size:24px; font-weight:800; line-height:1.2; color:#e8edf8; }
+.ca-addon-text p{ margin:0; font-size:15px; line-height:1.5; color:#a3aecb; }
+.ca-addon-text .ca-addon-highlight{ margin-top:4px; font-size:15px; font-weight:700; color:#e8edf8; }
+.ca-addon-highlight b{ color:#9bbf6a; }
 .ca-addon-price{ display:flex; flex-direction:column; gap:18px; }
-.ca-addon-price > p{ margin:0; font-size:16px; line-height:1.5; }
-.ca-addon-amount{ display:flex; flex-wrap:wrap; align-items:baseline; gap:10px; }
-.ca-addon-amount span{ font-size:15px; color:#a3aecb; }
-.ca-addon-amount b{ font-size:40px; font-weight:800; letter-spacing:-.02em; }
-.ca-tiers{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:10px; }
+
+.ca-mode-toggle{ display:flex; gap:4px; padding:4px; border-radius:14px; background:#0a1226; border:1px solid #22305a; }
+.ca-mode-btn{
+  flex:1; display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap;
+  min-height:44px; padding:8px 12px; border-radius:10px; border:none; background:transparent;
+  font:inherit; font-size:14px; font-weight:700; color:#a3aecb; text-align:center; cursor:pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.ca-mode-btn:hover{ color:#e8edf8; }
+.ca-mode-btn:focus-visible{ outline:2px solid #9bbf6a; outline-offset:2px; }
+.ca-mode-btn[aria-checked="true"]{ background:#9bbf6a; color:#14210a; }
+.ca-mode-btn[aria-checked="true"]:hover{ color:#14210a; }
+.ca-mode-off{ font-size:11px; font-weight:800; padding:1px 6px; border-radius:999px; background:rgba(155,191,106,0.15); color:#9bbf6a; }
+.ca-mode-btn[aria-checked="true"] .ca-mode-off{ background:rgba(10,18,38,0.2); color:#14210a; }
+
+.ca-tiers{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px; }
 .ca-tier{
-  position:relative; min-height:44px; padding:12px; border-radius:12px; background:#0a1226; border:1px solid #22305a;
+  position:relative; min-height:44px; padding:20px; border-radius:12px; background:#0a1226; border:1px solid #22305a;
   display:flex; flex-direction:column; gap:2px; text-align:left; cursor:pointer;
   font:inherit; color:inherit; -webkit-appearance:none; appearance:none;
   transition: transform .2s var(--ease, ease), border-color .2s ease, box-shadow .2s ease, background .2s ease;
 }
-.ca-tier strong{ font-size:14px; font-weight:800; color:#e8edf8; }
+.ca-tier-head{ display:flex; flex-direction:column; gap:2px; padding-right:22px; }
+.ca-tier strong{ font-size:18px; font-weight:800; color:#e8edf8; }
 .ca-tier span{ font-size:13px; color:#a3aecb; }
 .ca-tier:hover{ transform:translateY(-3px); border-color:#9bbf6a; box-shadow: 0 0 0 1px #9bbf6a, 0 0 20px rgba(155,191,106,0.3); }
 .ca-tier[aria-checked="true"]{ background:#0e1f12; border-color:#9bbf6a; box-shadow: 0 0 0 1px #9bbf6a, 0 0 24px rgba(155,191,106,0.35); }
@@ -235,6 +248,23 @@
   opacity:0; transform:scale(.5); transition: opacity .2s ease, transform .2s ease;
 }
 .ca-tier[aria-checked="true"] .ca-tier-check{ opacity:1; transform:scale(1); }
+
+.ca-tier-price{ display:flex; flex-direction:column; gap:7px; margin-top:12px; padding-top:14px; border-top:1px solid #1c2748; transition: opacity .2s ease; }
+.ca-tier-price.is-fading{ opacity:0; }
+.ca-tier-price-plan, .ca-tier-price-web{ display:flex; flex-direction:column; gap:5px; }
+.ca-tier-row-old{ display:flex; align-items:center; gap:6px; }
+.ca-tier-old{ font-size:12px; color:#6b7694; white-space:nowrap; }
+.ca-tier-off{ font-size:11px; font-weight:800; color:#14210a; background:#9bbf6a; padding:1px 6px; border-radius:999px; white-space:nowrap; }
+.ca-tier-desde{ font-size:12px; font-weight:700; color:#a3aecb; }
+.ca-tier-now{ font-size:28px; font-weight:800; color:#e8edf8; line-height:1.15; white-space:nowrap; }
+.ca-tier-cuotas{ font-size:14px; color:#a3aecb; }
+.ca-tier-save{ display:flex; align-items:center; gap:4px; font-size:13px; font-weight:700; color:#9bbf6a; }
+.ca-tier-save svg{ width:12px; height:12px; flex-shrink:0; }
+.ca-tier-unique{ font-size:13px; color:#a3aecb; }
+.ca-tier-suggest{ font-size:13px; color:#6b7694; }
+
+.ca-addon-smallprint{ margin:0; font-size:12px; color:#6b7694; }
+
 .ca-btn-addon{ align-self:flex-start; background:var(--c); color:#14210a; transition: filter .2s, opacity .2s; }
 .ca-btn-addon:hover{ color:#14210a; }
 .ca-btn-addon[aria-disabled="true"]{ opacity:.45; cursor:not-allowed; pointer-events:none; }
@@ -248,12 +278,19 @@
   .ca-photo{ max-width:none; }
   .ca-photo img{ height:min(360px, 50vh); }
 }
+/* Debajo de 900px: Mateo pasa a una fila horizontal (foto chica + texto al
+   lado) arriba, y las opciones Base/Pro/Premium ocupan todo el ancho abajo. */
+@media (max-width:900px){
+  .ca-addon{ grid-template-columns:minmax(0,1fr); }
+  .ca-addon-intro{ flex-direction:row; align-items:center; gap:16px; }
+  .ca-addon-intro img{ width:90px; height:90px; border-radius:16px; }
+  .ca-addon-text{ align-items:flex-start; text-align:left; flex:1; }
+}
 @media (max-width:600px){
   .ca-section{ padding:64px 0; }
   .ca-panel{ gap:28px; }
   .ca-card-face, .ca-addon{ padding:22px; }
-  .ca-addon-intro{ flex-direction:column; align-items:flex-start; }
-  .ca-tiers{ grid-template-columns:1fr; }
+  .ca-tiers{ grid-template-columns:minmax(0,1fr); }
   .ca-btn-addon{ align-self:stretch; }
 }
-@media (prefers-reduced-motion: reduce){ .ca-panel{ animation:none; } .ca-card, .ca-addon, .ca-tier{ transition:none; } }
+@media (prefers-reduced-motion: reduce){ .ca-panel{ animation:none; } .ca-card, .ca-addon, .ca-tier, .ca-mode-btn, .ca-tier-price{ transition:none; } }
