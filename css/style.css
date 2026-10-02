@@ -447,10 +447,18 @@ p{ margin:0; }
   box-shadow: var(--shadow-lg);
   border: 1px solid rgba(255,255,255,0.25);
 }
+.demo-fab-label-short{ display:none; }
 
 @media (max-width: 720px){
   .hero-demo-cta{ display:flex; }
   .demo-fab{ display:inline-flex; }
+}
+
+@media (max-width: 600px){
+  /* Más compacto para que no tape el contenido de abajo: ícono + "Demo". */
+  .demo-fab{ height:44px; padding:0 16px; gap:6px; }
+  .demo-fab-label-full{ display:none; }
+  .demo-fab-label-short{ display:inline; }
 }
 
 /* Phone-on-table scene */
@@ -847,13 +855,6 @@ p{ margin:0; }
 .carousel-dot.is-active{ background: var(--services-cyan); transform: scale(1.25); box-shadow: 0 0 8px rgba(56,217,240,0.6); }
 .carousel-dot:focus-visible{ outline:2px solid var(--services-cyan); outline-offset:3px; }
 
-@media (max-width: 560px){
-  .carousel-arrow{ width:36px; height:36px; }
-  .carousel-arrow svg{ width:16px; height:16px; }
-  .service-carousel{ gap:10px; }
-  .service-carousel-viewport{ max-width: none; }
-}
-
 /* Flip cards — un clic (o Enter/Espacio) gira la tarjeta en 3D para revelar
    la métrica de impacto de ese servicio en el dorso. Ambas caras son cajas
    absolutas del mismo tamaño dentro de .service-card-inner, que es lo único
@@ -891,6 +892,58 @@ p{ margin:0; }
   box-shadow: 0 22px 48px rgba(0,0,0,0.35), 0 0 34px rgba(56,217,240,0.35);
 }
 .service-card-back{ transform: rotateY(180deg); align-items:center; justify-content:center; text-align:center; }
+
+@media (max-width: 600px){
+  /* Más ancho para el texto: el grupo "sangra" fuera del padding normal
+     del .container (24px) hasta dejar solo 16px de margen a cada lado. */
+  .service-carousel-group{
+    margin-inline: calc(-1 * (clamp(24px, 5vw, 64px) - 16px));
+  }
+  .service-carousel-viewport{ max-width: none; }
+
+  /* Las flechas ya no empujan el ancho de la ficha ni se superponen sobre
+     el texto (quedaba tapado): bajan a una fila propia junto a los dots
+     (flecha · dots · flecha), debajo de la ficha. .service-carousel pasa a
+     display:contents para que sus 3 hijos (flecha, viewport, flecha) se
+     acomoden directo en el grid de .service-carousel-group, junto con
+     .carousel-dots (su hermano, antes fuera de .service-carousel). */
+  .service-carousel-group{
+    display:grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "viewport viewport viewport" "prev dots next";
+    align-items:center;
+    column-gap:10px;
+    /* .service-carousel-viewport cancela padding/margin-block en ±20px (ver
+       su comentario) para no mover el layout durante el flip 3D; el grid
+       calcula el alto de la fila "viewport" con ese margen negativo
+       incluido, así que necesita al menos 20px de row-gap para no solapar
+       con la fila de flechas/dots de abajo. */
+    row-gap:22px;
+  }
+  .service-carousel{ display:contents; }
+  .service-carousel-viewport{ grid-area:viewport; }
+  .carousel-arrow-prev{ grid-area:prev; }
+  .carousel-arrow-next{ grid-area:next; }
+  .carousel-dots{ grid-area:dots; margin-top:0; }
+  .carousel-arrow{ width:36px; height:36px; }
+  .carousel-arrow svg{ width:16px; height:16px; }
+
+  /* Alto fijo (264px) + caras absolutas cortaban el texto cuando una ficha
+     necesitaba más alto en una pantalla angosta. Mismo truco que las
+     tarjetas de plan (grid-area:1/1 en ambas caras): la celda toma el alto
+     de la cara más alta de ESA ficha, sin recortar ni hacer scroll; y como
+     .service-track es un flex row con stretch por defecto, las 10 fichas
+     quedan a la altura de la más alta de TODAS, así el carrusel no "salta"
+     al pasar de una a otra. */
+  .service-card{ height:auto; }
+  .service-card-inner{ height:auto; display:grid; }
+  .service-card-face{
+    position:relative; inset:auto; grid-area:1/1;
+    padding:20px;
+  }
+  .service-card h3{ font-size:21px; padding-right:30px; }
+  .service-card p{ font-size:15px; line-height:1.5; }
+}
 
 .service-card:hover .service-badge{ transform: scale(1.08) rotate(-4deg); box-shadow: 0 0 0 1px rgba(56,217,240,0.5), 0 0 26px rgba(56,217,240,0.55); }
 .service-badge{

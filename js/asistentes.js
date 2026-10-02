@@ -177,12 +177,12 @@
 })();
 
 /* Volteo 3D de las tarjetas de plan: el botón "X tareas automatizadas"
-   (y el "Volver" del dorso) giran TODA la tarjeta, mostrando el equipo
-   completo. El alto lo resuelve el CSS solo (grid-area:1/1 en ambas caras
-   + align-items:stretch en .ca-grid — ver asistentes.css), así que acá
-   solo queda manejar el abrir/cerrar: un clic afuera de la tarjeta
-   abierta, o Escape, la vuelve a su posición normal; y abrir otra cierra
-   la anterior, para que nunca haya más de una volteada a la vez. */
+   gira TODA la tarjeta, mostrando el equipo completo. El alto lo resuelve
+   el CSS solo (grid-area:1/1 en ambas caras + align-items:stretch en
+   .ca-grid — ver asistentes.css), así que acá solo queda manejar el
+   abrir/cerrar: tocar o hacer clic en cualquier parte del reverso de esa
+   misma tarjeta la vuelve a su posición normal; y abrir otra cierra la
+   anterior, para que nunca haya más de una volteada a la vez. */
 (function(){
   var cards = Array.prototype.slice.call(document.querySelectorAll('.ca-card'));
   if (!cards.length) return;
@@ -220,19 +220,19 @@
         toggleCard(card);
       });
     });
-  });
-
-  document.addEventListener('pointerdown', function(e){
-    var openCardEl = document.querySelector('.ca-card.is-flipped');
-    if (!openCardEl) return;
-    if (e.target.closest('.ca-card') === openCardEl) return;
-    closeCard(openCardEl);
+    var back = card.querySelector('.ca-card-back');
+    if (back) {
+      back.addEventListener('click', function(){
+        closeCard(card);
+      });
+    }
   });
 
   document.addEventListener('keydown', function(e){
     if (e.key !== 'Escape') return;
     var openCardEl = document.querySelector('.ca-card.is-flipped');
     if (!openCardEl) return;
+    if (!openCardEl.contains(document.activeElement)) return;
     closeCard(openCardEl);
     var trigger = getTrigger(openCardEl);
     if (trigger) trigger.focus();

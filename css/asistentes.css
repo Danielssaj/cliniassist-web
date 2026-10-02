@@ -201,7 +201,8 @@
   border-radius:24px; background:#0e1730; border:1px solid #22305a;
   transition: box-shadow .3s var(--ease, ease);
 }
-.ca-card-back{ transform:rotateY(180deg); }
+.ca-card-back{ transform:rotateY(180deg); cursor:pointer; }
+.ca-card-back a, .ca-card-back button{ cursor:pointer; }
 .ca-card:hover .ca-card-face{ box-shadow: 0 0 0 1px #8fb0ff, 0 0 32px rgba(143,176,255,0.35); }
 .ca-card.is-highlight .ca-card-face{ background:#1f4fd1; border-color:#4d7cff; }
 .ca-card.is-highlight:hover .ca-card-face{ box-shadow: 0 0 0 1px #4d7cff, 0 0 32px rgba(77,124,255,0.35); }
@@ -377,6 +378,47 @@
 .ca-addon-hint[hidden]{ display:none; }
 .ca-legal{ margin:0; text-align:center; font-size:14px; color:#a3aecb; }
 
+/* Línea discreta de capacidad en el frente de cada tarjeta de plan */
+.ca-capacity-line{ display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:0; font-size:13px; color:#a3aecb; }
+.ca-capacity-line span{ display:inline-flex; align-items:center; gap:5px; }
+.ca-capacity-sep{ opacity:.5; }
+.ca-mini-icon{ width:14px; height:14px; flex-shrink:0; color:#8fb0ff; }
+.ca-card.is-highlight .ca-capacity-line{ color:#e8eeff; }
+.ca-card.is-highlight .ca-mini-icon{ color:#bcd0ff; }
+
+/* Bloque "Capacidad del plan" en el reverso de cada tarjeta */
+.ca-capacity-block{ display:flex; flex-direction:column; gap:10px; padding:16px; border-radius:14px; background:#0a1226; border:1px solid #1c2748; }
+.ca-capacity-list{ display:flex; flex-direction:column; gap:8px; margin:0; padding:0; list-style:none; }
+.ca-capacity-list li{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-size:14px; }
+.ca-capacity-list li span{ color:#a3aecb; }
+.ca-capacity-list li b{ color:#e8edf8; font-weight:700; white-space:nowrap; }
+.ca-card.is-highlight .ca-capacity-block{ background:#2a5de0; border-color:#5a86ff; }
+.ca-card.is-highlight .ca-capacity-list li span{ color:#e8eeff; }
+.ca-card.is-highlight .ca-capacity-list li b{ color:#fff; }
+
+/* "¿Necesitas más? Suma packs cuando quieras" al final del reverso */
+.ca-capacity-more{ margin:0; font-size:13px; text-align:center; color:#a3aecb; }
+.ca-capacity-more a{ color:#8fb0ff; font-weight:700; text-decoration:underline; text-underline-offset:2px; cursor:pointer; }
+.ca-capacity-more a:hover, .ca-capacity-more a:focus-visible{ color:#bcd0ff; }
+.ca-card.is-highlight .ca-capacity-more{ color:rgba(255,255,255,0.75); }
+.ca-card.is-highlight .ca-capacity-more a{ color:#fff; }
+
+/* Sección "Escala cuando lo necesites" (packs / add-ons) */
+.ca-packs{ padding-top:64px; }
+.ca-packs-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:24px; }
+.ca-pack-card{
+  display:flex; flex-direction:column; gap:14px; padding:28px;
+  border-radius:24px; background:#0e1730; border:1px solid #22305a;
+  transition: transform .3s var(--ease, ease), box-shadow .3s var(--ease, ease);
+}
+.ca-pack-card:hover{ transform:translateY(-6px); box-shadow: 0 0 0 1px #8fb0ff, 0 0 32px rgba(143,176,255,0.35); }
+.ca-pack-card h3{ margin:0; font-size:20px; font-weight:800; color:#e8edf8; }
+.ca-pack-price{ margin:0; font-size:32px; font-weight:800; letter-spacing:-.02em; color:#8fb0ff; }
+.ca-pack-price small{ font-size:15px; font-weight:600; color:#a3aecb; }
+.ca-pack-sub{ margin:0; flex:1; font-size:14px; color:#a3aecb; }
+.ca-btn-pack{ min-height:46px; font-size:15px; }
+.ca-packs-note{ margin:0; text-align:center; font-size:14px; color:#a3aecb; }
+
 /* Debajo de 800px: foto arriba a ancho completo, info abajo (1 columna) */
 @media (max-width:800px){
   .ca-panel{ grid-template-columns:1fr; }
@@ -397,5 +439,6 @@
   .ca-card-face, .ca-addon{ padding:22px; }
   .ca-tiers{ grid-template-columns:minmax(0,1fr); }
   .ca-btn-addon{ align-self:stretch; }
+  .ca-packs-grid{ grid-template-columns:minmax(0,1fr); }
 }
-@media (prefers-reduced-motion: reduce){ .ca-panel{ animation:none; } .ca-card, .ca-addon, .ca-tier, .ca-mode-btn, .ca-tier-price{ transition:none; } }
+@media (prefers-reduced-motion: reduce){ .ca-panel{ animation:none; } .ca-card, .ca-addon, .ca-tier, .ca-mode-btn, .ca-tier-price, .ca-pack-card{ transition:none; } }

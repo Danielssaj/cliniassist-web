@@ -85,6 +85,41 @@
     carousel.addEventListener('focusin', stopAutoplay);
     carousel.addEventListener('focusout', startAutoplay);
 
+    // Swipe táctil: un umbral de 40px distingue un deslizar (cambia de
+    // ficha) de un tap (que gira la ficha activa vía makeFlippable más
+    // abajo) — si hubo swipe, se bloquea en captura el click sintético
+    // que el navegador dispara al soltar, para que no gire la tarjeta.
+    const SWIPE_THRESHOLD = 40;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touching = false;
+    let justSwiped = false;
+
+    track.addEventListener('touchstart', (e) => {
+      const t = e.touches[0];
+      touchStartX = t.clientX;
+      touchStartY = t.clientY;
+      touching = true;
+    }, { passive: true });
+
+    track.addEventListener('touchend', (e) => {
+      if (!touching) return;
+      touching = false;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - touchStartX;
+      const dy = t.clientY - touchStartY;
+      if (Math.abs(dx) >= SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
+        justSwiped = true;
+        if (dx < 0) next(); else prev();
+        startAutoplay();
+        setTimeout(() => { justSwiped = false; }, 300);
+      }
+    }, { passive: true });
+
+    track.addEventListener('click', (e) => {
+      if (justSwiped) { e.stopPropagation(); e.preventDefault(); }
+    }, true);
+
     render();
     startAutoplay();
   })();
