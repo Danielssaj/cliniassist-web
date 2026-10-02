@@ -176,66 +176,37 @@
   }
 })();
 
-/* Volteo 3D de las tarjetas de plan: el botón "X tareas automatizadas"
-   gira TODA la tarjeta, mostrando el equipo completo. El alto lo resuelve
-   el CSS solo (grid-area:1/1 en ambas caras + align-items:stretch en
-   .ca-grid — ver asistentes.css), así que acá solo queda manejar el
-   abrir/cerrar: tocar o hacer clic en cualquier parte del reverso de esa
-   misma tarjeta la vuelve a su posición normal; y abrir otra cierra la
-   anterior, para que nunca haya más de una volteada a la vez. */
+/* Volteo 3D de las tarjetas de plan: cada tarjeta gira de forma
+   independiente (se pueden tener las 3 volteadas a la vez para comparar).
+   El alto lo resuelve el CSS solo (grid-area:1/1 en ambas caras +
+   align-items:stretch en .ca-grid — ver asistentes.css). Tocar o hacer
+   clic en cualquier parte del frente o del reverso gira esa tarjeta,
+   excepto los botones "Contratar…" y el link de complementos, que
+   conservan su propia acción (WhatsApp / scroll a #packs) sin voltear. */
 (function(){
   var cards = Array.prototype.slice.call(document.querySelectorAll('.ca-card'));
   if (!cards.length) return;
 
-  function getTrigger(card){
-    return card.querySelector('.ca-counter[data-plan-flip]');
-  }
-
-  function closeCard(card){
-    card.classList.remove('is-flipped');
-    var trigger = getTrigger(card);
-    if (trigger) trigger.setAttribute('aria-expanded', 'false');
-  }
-
-  function openCard(card){
-    cards.forEach(function(c){
-      if (c !== card && c.classList.contains('is-flipped')) closeCard(c);
-    });
-    card.classList.add('is-flipped');
-    var trigger = getTrigger(card);
-    if (trigger) trigger.setAttribute('aria-expanded', 'true');
+  function isExcluded(target){
+    return !!target.closest('.ca-btn, .ca-capacity-more a');
   }
 
   function toggleCard(card){
-    if (card.classList.contains('is-flipped')) closeCard(card);
-    else openCard(card);
+    var flipped = card.classList.toggle('is-flipped');
+    card.setAttribute('aria-pressed', String(flipped));
   }
 
   cards.forEach(function(card){
-    var trigger = getTrigger(card);
-    if (trigger) trigger.setAttribute('aria-expanded', 'false');
-    card.querySelectorAll('[data-plan-flip]').forEach(function(btn){
-      btn.addEventListener('click', function(e){
-        e.stopPropagation();
-        toggleCard(card);
-      });
+    card.addEventListener('click', function(e){
+      if (isExcluded(e.target)) return;
+      toggleCard(card);
     });
-    var back = card.querySelector('.ca-card-back');
-    if (back) {
-      back.addEventListener('click', function(){
-        closeCard(card);
-      });
-    }
-  });
-
-  document.addEventListener('keydown', function(e){
-    if (e.key !== 'Escape') return;
-    var openCardEl = document.querySelector('.ca-card.is-flipped');
-    if (!openCardEl) return;
-    if (!openCardEl.contains(document.activeElement)) return;
-    closeCard(openCardEl);
-    var trigger = getTrigger(openCardEl);
-    if (trigger) trigger.focus();
+    card.addEventListener('keydown', function(e){
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      if (isExcluded(e.target)) return;
+      e.preventDefault();
+      toggleCard(card);
+    });
   });
 })();
 

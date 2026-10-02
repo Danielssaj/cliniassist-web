@@ -1061,7 +1061,7 @@ p{ margin:0; }
 }
 .tool-panel{ background: var(--surface-alt); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 18px; }
 
-.tool-tabs{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 18px; }
+.tool-tabs{ display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; margin-bottom: 18px; }
 .tool-tab{
   text-align:left;
   background: var(--surface);
@@ -1109,14 +1109,20 @@ p{ margin:0; }
 .gcal-event{
   flex:1; border:none; border-radius:4px; display:flex; align-items:center; justify-content:center;
   font-family:inherit; font-size:0.8125rem; font-weight:500; color:#fff; text-align:center; line-height:1.2; padding:3px 8px;
-  cursor:pointer; transition: transform .2s ease, filter .15s ease, opacity .3s ease;
+  cursor:pointer; transition: transform .2s var(--ease), filter .15s ease, opacity .3s var(--ease);
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   opacity:0; transform:scale(0.95);
+  will-change: opacity, transform;
 }
 .gcal-event.is-revealed{ opacity:1; transform:scale(1); }
 .gcal-event:hover{ transform: scale(1.07); filter: brightness(1.1); z-index:1; }
-.gcal-event.tag-green{ background:#16a34a; }
-.gcal-event.tag-blue{ background: var(--brand-2); color: var(--on-brand-2); }
+/* Agendado por IA: entrada corta y casi instantánea. Agendado por
+   Recepción: entrada notoriamente más lenta — ver el intervalo entre
+   citas (0.5× / 2.5× el intervalo base) en script.js. La curva var(--ease)
+   (la misma que usa el resto del sitio) le da a toda la secuencia un
+   movimiento fluido y consistente en vez de un "ease" genérico. */
+.gcal-event.tag-blue{ background: var(--brand-2); color: var(--on-brand-2); transition: transform .25s var(--ease), filter .15s ease, opacity .25s var(--ease); }
+.gcal-event.tag-green{ background:#16a34a; transition: transform .7s var(--ease), filter .15s ease, opacity .7s var(--ease); }
 .gcal-event.is-confirmed{ box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4); }
 .gcal-event.is-pending{ box-shadow: inset 0 0 0 1px dashed rgba(255,255,255,0.7); }
 .gcal-event.is-revealed.is-pending{ opacity:.62; }
@@ -1189,117 +1195,6 @@ p{ margin:0; }
 .appt-detail-actions{ display:flex; flex-direction:column; gap:10px; }
 .appt-detail-actions .btn{ white-space:nowrap; }
 
-/* Ficha paciente — más datos + nota de automatización + CTA */
-.patient-card{ height:100%; display:flex; flex-direction:column; }
-.patient-card-head{ display:flex; align-items:flex-start; gap:12px; padding-bottom:16px; margin-bottom:16px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
-.patient-avatar{ width:42px; height:42px; border-radius:50%; background: var(--badge-a-bg); color: var(--link); font-weight:700; font-size:0.85rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.patient-id{ display:flex; flex-direction:column; gap:2px; margin-right:auto; }
-.patient-id strong{ font-size:0.98rem; color: var(--ink); }
-.patient-id span{ font-size:0.78rem; color: var(--ink-soft); }
-.patient-status{ font-size:0.72rem; font-weight:700; padding:6px 12px; border-radius:999px; background: var(--badge-a-bg); color: var(--link); white-space:nowrap; }
-/* 2 columnas: datos + tags + historial clínico a la izquierda,
-   actividad automática reciente a la derecha — llenan el ancho en vez de
-   dejar un bloque angosto con espacio vacío alrededor. */
-.patient-columns{ display:grid; grid-template-columns: 1.3fr 1fr; gap:28px; margin-bottom:16px; }
-.patient-col-left{ display:flex; flex-direction:column; gap:16px; }
-.patient-col-right{ border-left:1px solid var(--line); padding-left:28px; }
-
-.patient-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
-.patient-grid div{ display:flex; flex-direction:column; gap:4px; }
-.patient-grid span{ font-size:0.74rem; color: var(--ink-soft); }
-.patient-grid strong{ font-size:0.9rem; color: var(--ink); word-break:break-word; }
-
-.patient-tags{ display:flex; flex-wrap:wrap; gap:8px; }
-.patient-tag{ font-size:0.72rem; font-weight:700; padding:5px 12px; border-radius:999px; background: var(--surface-alt); border:1px solid var(--line); color: var(--ink-soft); }
-.patient-tag-ok{ background: var(--badge-a-bg); color: var(--link); border-color:transparent; }
-
-.patient-history{ display:flex; flex-direction:column; gap:10px; }
-.patient-history-row{ display:flex; align-items:flex-start; gap:10px; }
-.patient-history-icon{ flex-shrink:0; font-size:0.95rem; line-height:1.5; }
-.patient-history-row p{ font-size:0.82rem; color: var(--ink-soft); line-height:1.5; margin:0; }
-.patient-history-row strong{ color: var(--ink); font-weight:700; }
-
-.patient-activity-title{ font-size:0.82rem; font-weight:700; color: var(--ink); margin:0 0 14px; }
-.patient-activity{ display:flex; flex-direction:column; gap:14px; }
-.patient-activity li{ display:flex; align-items:flex-start; gap:10px; }
-.patient-activity-date{
-  flex-shrink:0; white-space:nowrap;
-  font-family: var(--font-mono); font-size:0.68rem; font-weight:700;
-  color: var(--link); background: var(--badge-a-bg);
-  padding:3px 7px; border-radius:6px;
-}
-.patient-activity p{ font-size:0.8rem; color: var(--ink-soft); line-height:1.4; margin:0; }
-
-@media (max-width: 720px){
-  .patient-columns{ grid-template-columns: 1fr; gap:20px; }
-  .patient-col-right{ border-left:none; padding-left:0; border-top:1px solid var(--line); padding-top:16px; }
-}
-
-/* Recuadro premium — el valor clave del servicio, destacado a propósito
-   con un tratamiento oscuro que contrasta contra el resto de la ficha. */
-.patient-auto-note{
-  position:relative;
-  display:flex; align-items:flex-start; gap:12px;
-  background: linear-gradient(120deg, #1e3a8a, #0f172a);
-  border: 1px solid rgba(96,165,250,0.5);
-  border-radius: var(--radius-sm);
-  padding: 16px 18px;
-  margin-bottom:16px;
-  box-shadow: 0 8px 24px -8px rgba(15,23,42,0.5), 0 0 24px -6px rgba(59,130,246,0.45);
-}
-.patient-auto-note-icon{
-  display:flex; align-items:center; justify-content:center;
-  width:32px; height:32px; border-radius:10px; flex-shrink:0;
-  background: rgba(96,165,250,0.25);
-  font-size:1rem;
-  animation: patient-note-pulse 2.2s infinite;
-}
-.patient-auto-note p{ font-size:0.82rem; color:#e2e8f0; line-height:1.5; margin:0; }
-.patient-auto-note strong{ color:#fff; }
-@keyframes patient-note-pulse{
-  0%{ box-shadow: 0 0 0 0 rgba(59,130,246,0.5); }
-  70%{ box-shadow: 0 0 0 8px transparent; }
-  100%{ box-shadow: 0 0 0 0 transparent; }
-}
-.patient-cta{
-  margin-top:auto;
-  display:flex; align-items:center; justify-content:center; gap:10px;
-  width:100%;
-  padding: 14px 18px;
-  border:none; border-radius: 10px;
-  background: linear-gradient(135deg, var(--color-azul-oscuro), color-mix(in srgb, var(--color-azul-oscuro) 75%, var(--color-azul-brillante) 25%));
-  color:#fff;
-  font-family:inherit; font-weight:700; font-size:0.88rem;
-  cursor:pointer;
-  box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand-2) 45%, transparent);
-  animation: cta-glow 2.6s ease-in-out infinite;
-  transition: transform .2s var(--ease);
-}
-.patient-cta:hover{ transform: translateY(-2px); }
-.patient-cta.is-sent{ background: linear-gradient(135deg, #12603f, #0b4630); animation:none; }
-@keyframes cta-glow{
-  0%,100%{ box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand-2) 45%, transparent); }
-  50%{ box-shadow: 0 0 0 8px transparent; }
-}
-
-/* Reseñas — grid 2x2 de 4 testimonios, cada uno en su propia tarjeta */
-.review-panel{ height:100%; display:flex; flex-direction:column; }
-.review-list{ flex:1; display:grid; grid-template-columns: 1fr 1fr; gap:14px; align-content:start; }
-.review-item{ padding:24px; border:1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-alt); }
-.review-head{ display:flex; align-items:center; gap:10px; margin-bottom:8px; }
-.review-avatar{ width:32px; height:32px; border-radius:50%; background: var(--badge-c-bg); color: var(--link); font-weight:700; font-size:0.85rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.review-id{ display:flex; flex-direction:column; gap:1px; margin-right:auto; min-width:0; }
-.review-id strong{ font-size:0.86rem; color: var(--ink); }
-.review-clinic{ font-size:0.7rem; color: var(--ink-soft); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.review-stars{ color:#F5A623; font-size:0.78rem; letter-spacing:1px; }
-.review-source{ font-size:0.68rem; font-weight:700; color: var(--ink-soft); flex-shrink:0; }
-.review-quote{ font-size:0.84rem; color: var(--ink); line-height:1.45; margin:0; }
-.review-footnote{ font-size:0.78rem; color: var(--ink-soft); margin-top:16px; flex-shrink:0; }
-
-@media (max-width: 720px){
-  .review-list{ grid-template-columns: 1fr; }
-}
-
 /* Estadísticas — antes / después con barras animadas, distribuidas en todo el alto */
 .stats-compare{ display:grid; grid-template-columns: 1fr 1fr; gap:16px; height:100%; }
 .stats-col{ border-radius: var(--radius-md); padding: 22px 20px; display:flex; flex-direction:column; }
@@ -1317,14 +1212,12 @@ p{ margin:0; }
 .bar-value{ font-family: var(--font-body); font-size:1.4rem; font-weight:800; color:#fff; }
 
 @media (max-width: 720px){
-  .tool-tabs{ grid-template-columns: repeat(2, 1fr); }
   .tool-body{ height: auto; }
   .tool-panel-content{ position:static; display:none; opacity:1; }
   .tool-panel-content.is-active{ display:block; }
   .benefit-list{ grid-template-columns: 1fr; }
   .gcal{ min-width: 480px; }
   .gcal-wrap{ overflow-x:auto; padding-bottom:4px; }
-  .patient-grid{ grid-template-columns: 1fr; }
   .stats-compare{ grid-template-columns: 1fr; height:auto; }
   .stats-col{ min-height:220px; }
 }
@@ -1488,8 +1381,8 @@ p{ margin:0; }
 .cta-section{ padding: 88px 0 110px; }
 
 /* Card deliberadamente oscura a propósito (no usa las variables de tema
-   claro/oscuro del sitio) — mismo criterio que .patient-auto-note: un
-   "spotlight" premium consistente sin importar el tema del visitante. */
+   claro/oscuro del sitio): un "spotlight" premium consistente sin importar
+   el tema del visitante. */
 .cta-inner{
   position:relative;
   display:grid; grid-template-columns: 1fr 1fr; gap: 48px;

@@ -181,7 +181,9 @@
 }
 
 /* Planes */
-.ca-pricing{ padding-top:64px; padding-bottom:112px; }
+.ca-pricing{ padding-top:64px; padding-bottom:64px; }
+.ca-pricing-addon{ padding-top:56px; padding-bottom:64px; }
+.ca-pricing-addon .ca-wrap{ gap:20px; }
 .ca-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:24px; align-items:stretch; }
 
 /* Tarjetas de plan con volteo 3D: .ca-card es el contenedor de perspectiva,
@@ -191,13 +193,14 @@
    alto de la cara más alta de las dos, sin recortar ni hacer scroll. Las 3
    tarjetas quedan a la misma altura entre sí gracias a align-items:stretch
    en .ca-grid (misma fila => mismo alto, igual a la tarjeta más alta). */
-.ca-card{ position:relative; perspective:1400px; transition:transform .3s var(--ease, ease); }
+.ca-card{ position:relative; perspective:1400px; transition:transform .3s var(--ease, ease); cursor:pointer; }
 .ca-card:hover{ transform:translateY(-6px); }
+.ca-card:focus-visible{ outline:2px solid #8fb0ff; outline-offset:4px; border-radius:24px; }
 .ca-card-inner{ position:relative; width:100%; height:100%; display:grid; transform-style:preserve-3d; transition:transform .6s cubic-bezier(0.4,0.15,0.2,1); }
 .ca-card.is-flipped .ca-card-inner{ transform:rotateY(180deg); }
 .ca-card-face{
   grid-area:1/1; backface-visibility:hidden;
-  display:flex; flex-direction:column; gap:22px; padding:28px;
+  display:flex; flex-direction:column; gap:14px; padding:24px;
   border-radius:24px; background:#0e1730; border:1px solid #22305a;
   transition: box-shadow .3s var(--ease, ease);
 }
@@ -223,50 +226,25 @@
 .ca-monthly small{ font-size:16px; font-weight:600; color:#a3aecb; }
 .ca-btn{ display:flex; justify-content:center; align-items:center; min-height:52px; padding:0 22px; border-radius:12px; background:#1d2b57; color:#fff; font-weight:700; font-size:16px; text-decoration:none; transition:filter .2s; }
 .ca-btn:hover{ filter:brightness(1.15); color:#fff; }
-.ca-counter{
-  display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:14px;
-  background:#0a1226; border:1px solid #1c2748; width:100%; text-align:left;
-  font:inherit; color:inherit; cursor:pointer;
-  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+.ca-team-meta{ font-size:13px; font-weight:700; letter-spacing:.04em; color:#a3aecb; }
+.ca-team-list{ display:flex; flex-direction:column; gap:14px; }
+.ca-team-sub{ margin:-8px 0 0; font-size:13px; color:#a3aecb; }
+.ca-flip-cue{
+  margin:0; display:flex; align-items:center; justify-content:center; gap:6px;
+  font-size:13px; font-weight:600; color:#8fb0ff; text-align:center;
 }
-.ca-counter b{ transition: transform .2s ease; }
-.ca-counter:hover, .ca-counter:focus-visible{
-  transform: translateY(-3px);
-  border-color:#8fb0ff;
-  box-shadow: 0 0 0 1px #8fb0ff, 0 0 20px rgba(143,176,255,0.35);
-}
-.ca-counter:hover b, .ca-counter:focus-visible b{ transform:scale(1.05); }
-.ca-counter:focus-visible{ outline:2px solid #8fb0ff; outline-offset:2px; }
-.ca-card.is-highlight .ca-counter:hover,
-.ca-card.is-highlight .ca-counter:focus-visible{
-  border-color:#bcd0ff;
-  box-shadow: 0 0 0 1px #bcd0ff, 0 0 20px rgba(188,208,255,0.4);
-}
-.ca-counter-cta{ display:flex; align-items:center; gap:6px; margin-left:auto; flex-shrink:0; font-size:13px; font-weight:600; color:#8fb0ff; }
-.ca-card.is-highlight .ca-counter-cta{ color:#bcd0ff; }
-.ca-flip-icon{ width:14px; height:14px; transition: transform .3s ease; }
-.ca-counter:hover .ca-flip-icon, .ca-counter:focus-visible .ca-flip-icon{ transform: rotate(180deg); }
-.ca-counter b{ font-size:36px; font-weight:800; line-height:1; color:#8fb0ff; }
-.ca-counter > span{ display:flex; flex-direction:column; font-size:14px; font-weight:600; line-height:1.3; }
-.ca-counter small{ font-size:14px; font-weight:500; color:#a3aecb; }
-.ca-team-list{ display:flex; flex-direction:column; gap:18px; }
-.ca-team-sub{ margin:-10px 0 0; font-size:13px; color:#a3aecb; }
+.ca-flip-cue-icon{ width:14px; height:14px; flex-shrink:0; }
+.ca-card.is-highlight .ca-flip-cue{ color:#bcd0ff; }
 .ca-back-close{
   display:flex; align-items:center; gap:6px; align-self:flex-start;
-  background:none; border:none; padding:4px 2px; margin:0 0 -8px;
-  cursor:pointer; font:inherit; font-size:13px; font-weight:600; color:#a3aecb;
-  transition: color .2s ease;
+  padding:4px 2px; margin:0 0 -8px;
+  font-size:13px; font-weight:600; color:#a3aecb;
 }
 .ca-back-close svg{ width:16px; height:16px; }
-.ca-back-close:hover, .ca-back-close:focus-visible{ color:#e8edf8; }
 .ca-back-title{ margin:0; font-size:20px; font-weight:800; color:#e8edf8; }
-.ca-back-sub{ margin:-14px 0 0; font-size:13px; color:#a3aecb; }
-.ca-back-team{ flex:1; }
 .ca-card.is-highlight .ca-back-close{ color:rgba(255,255,255,0.75); }
-.ca-card.is-highlight .ca-back-close:hover,
-.ca-card.is-highlight .ca-back-close:focus-visible{ color:#fff; }
+.ca-card.is-highlight .ca-team-meta{ color:#e8eeff; }
 .ca-card.is-highlight .ca-back-title{ color:#fff; }
-.ca-card.is-highlight .ca-back-sub{ color:rgba(255,255,255,0.72); }
 .ca-member{ display:flex; flex-direction:column; gap:10px; }
 /* Miembro sin listado propio (ya incluido en el plan anterior): se agrupan
    como avatares compactos, con poco aire entre uno y el siguiente en vez
@@ -289,13 +267,10 @@
 .ca-card.is-highlight .ca-card-title p,
 .ca-card.is-highlight .ca-label,
 .ca-card.is-highlight .ca-monthly small,
-.ca-card.is-highlight .ca-counter small,
 .ca-card.is-highlight .ca-member-head span{ color:#e8eeff; }
-.ca-card.is-highlight .ca-price,
-.ca-card.is-highlight .ca-counter{ background:#2a5de0; border-color:#5a86ff; }
+.ca-card.is-highlight .ca-price{ background:#2a5de0; border-color:#5a86ff; }
 .ca-card.is-highlight .ca-price-sub{ border-top-color:#5a86ff; }
-.ca-card.is-highlight .ca-install,
-.ca-card.is-highlight .ca-counter b{ color:#fff; }
+.ca-card.is-highlight .ca-install{ color:#fff; }
 .ca-card.is-highlight .ca-btn{ background:#fff; color:#173a9e; }
 .ca-card.is-highlight .ca-member-head img{ border-color: rgba(255,255,255,0.6); box-shadow: 0 0 12px rgba(255,255,255,0.4); }
 .ca-card.is-highlight .ca-member li svg{ color:#fff; }
@@ -378,6 +353,42 @@
 .ca-addon-hint[hidden]{ display:none; }
 .ca-legal{ margin:0; text-align:center; font-size:14px; color:#a3aecb; }
 
+/* Franja debajo de las 3 tarjetas de plan, con link a #mateo */
+.ca-mateo-strip{
+  display:flex; align-items:center; gap:16px; padding:16px 20px;
+  border-radius:16px; background:#0b1a17; border:1px solid #4f6b33;
+  text-decoration:none; color:#e8edf8;
+  box-shadow: 0 0 24px rgba(155,191,106,0.1);
+  transition: transform .2s var(--ease, ease), box-shadow .2s var(--ease, ease);
+}
+.ca-mateo-strip:hover{ transform:translateY(-3px); box-shadow: 0 0 0 1px #9bbf6a, 0 0 28px rgba(155,191,106,0.3); }
+.ca-mateo-strip:focus-visible{ outline:2px solid #9bbf6a; outline-offset:3px; }
+.ca-mateo-strip-photo{
+  width:48px; height:48px; border-radius:50%; object-fit:cover; object-position:top; flex-shrink:0;
+  border:1px solid rgba(155,191,106,0.6);
+  box-shadow: 0 0 10px rgba(155,191,106,0.5), 0 0 22px rgba(155,191,106,0.25);
+}
+.ca-mateo-strip-text{ flex:1; min-width:0; font-size:15px; line-height:1.4; color:#c9d3ec; }
+.ca-mateo-strip-text strong{ color:#e8edf8; }
+.ca-mateo-strip-pill{
+  flex-shrink:0; display:inline-flex; align-items:center; padding:10px 18px; border-radius:999px;
+  background:#9bbf6a; color:#14210a; font-weight:800; font-size:14px; white-space:nowrap;
+}
+@media (max-width:600px){
+  .ca-mateo-strip{ flex-wrap:wrap; }
+  .ca-mateo-strip-pill{ flex-basis:100%; justify-content:center; }
+}
+
+/* Al llegar a #mateo desde la franja, el recuadro brilla en verde ~1.2s para
+   que el ojo lo encuentre. #mateo.section-focus ya lo agrega script.js al
+   navegar a cualquier ancla "#...", así que no hace falta JS nuevo acá. */
+#mateo.section-focus .ca-addon{ animation: caMateoGlow 1.2s ease; }
+@keyframes caMateoGlow{
+  0%, 100%{ box-shadow: none; }
+  35%{ box-shadow: 0 0 0 2px #9bbf6a, 0 0 50px rgba(155,191,106,0.65); }
+}
+@media (prefers-reduced-motion: reduce){ #mateo.section-focus .ca-addon{ animation:none; } }
+
 /* Línea discreta de capacidad en el frente de cada tarjeta de plan */
 .ca-capacity-line{ display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:0; font-size:13px; color:#a3aecb; }
 .ca-capacity-line span{ display:inline-flex; align-items:center; gap:5px; }
@@ -397,14 +408,14 @@
 .ca-card.is-highlight .ca-capacity-list li b{ color:#fff; }
 
 /* "¿Necesitas más? Suma packs cuando quieras" al final del reverso */
-.ca-capacity-more{ margin:0; font-size:13px; text-align:center; color:#a3aecb; }
+.ca-capacity-more{ margin:auto 0 0; font-size:13px; text-align:center; color:#a3aecb; }
 .ca-capacity-more a{ color:#8fb0ff; font-weight:700; text-decoration:underline; text-underline-offset:2px; cursor:pointer; }
 .ca-capacity-more a:hover, .ca-capacity-more a:focus-visible{ color:#bcd0ff; }
 .ca-card.is-highlight .ca-capacity-more{ color:rgba(255,255,255,0.75); }
 .ca-card.is-highlight .ca-capacity-more a{ color:#fff; }
 
 /* Sección "Escala cuando lo necesites" (packs / add-ons) */
-.ca-packs{ padding-top:64px; }
+.ca-packs{ padding-top:56px; }
 .ca-packs-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:24px; }
 .ca-pack-card{
   display:flex; flex-direction:column; gap:14px; padding:28px;

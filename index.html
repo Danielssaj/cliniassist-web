@@ -710,19 +710,11 @@
 
       <div class="tool-panel reveal">
         <div class="tool-tabs" role="tablist">
-          <button class="tool-tab is-active" type="button" data-tab="agenda" role="tab" aria-selected="true">
+          <button class="tool-tab is-active" type="button" id="toolTabAgenda" data-tab="agenda" role="tab" aria-selected="true" aria-controls="toolPanelAgenda" tabindex="0">
             <span class="tool-tab-title">Agenda</span>
             <span class="tool-tab-desc">Tus pacientes reservan solos, sin llamadas</span>
           </button>
-          <button class="tool-tab" type="button" data-tab="ficha" role="tab" aria-selected="false">
-            <span class="tool-tab-title">Ficha paciente</span>
-            <span class="tool-tab-desc">Historial y seguimiento siempre a mano</span>
-          </button>
-          <button class="tool-tab" type="button" data-tab="resenas" role="tab" aria-selected="false">
-            <span class="tool-tab-title">Reseñas</span>
-            <span class="tool-tab-desc">La IA las pide sola, tras cada consulta</span>
-          </button>
-          <button class="tool-tab" type="button" data-tab="stats" role="tab" aria-selected="false">
+          <button class="tool-tab" type="button" id="toolTabStats" data-tab="stats" role="tab" aria-selected="false" aria-controls="toolPanelStats" tabindex="-1">
             <span class="tool-tab-title">Estadísticas</span>
             <span class="tool-tab-desc">Resultados medibles, mes a mes</span>
           </button>
@@ -730,7 +722,7 @@
 
         <div class="tool-body">
 
-          <div class="tool-panel-content is-active" data-panel="agenda" role="tabpanel">
+          <div class="tool-panel-content is-active" id="toolPanelAgenda" data-panel="agenda" role="tabpanel" aria-labelledby="toolTabAgenda">
             <div class="agenda-mock">
               <div class="gcal-wrap">
                 <div class="gcal">
@@ -891,114 +883,7 @@
             </div>
           </div>
 
-          <div class="tool-panel-content" data-panel="ficha" role="tabpanel">
-            <div class="patient-card">
-              <div class="patient-card-head">
-                <span class="patient-avatar">MP</span>
-                <div class="patient-id">
-                  <strong>María Pérez</strong>
-                  <span>Providencia, Santiago · Paciente desde 2022</span>
-                </div>
-                <span class="patient-status">Tratamiento activo: Ortodoncia</span>
-              </div>
-              <div class="patient-columns">
-                <div class="patient-col-left">
-                  <div class="patient-grid">
-                    <div><span>Teléfono</span><strong>+56 9 1234 5678</strong></div>
-                    <div><span>Correo</span><strong>maria.perez@email.com</strong></div>
-                    <div><span>Última visita</span><strong>Hace 6 meses</strong></div>
-                    <div><span>Estado</span><strong>Tratamiento activo: Ortodoncia</strong></div>
-                  </div>
-                  <div class="patient-tags">
-                    <span class="patient-tag">Ortodoncia</span>
-                    <span class="patient-tag patient-tag-ok">Control al día</span>
-                  </div>
-                  <div class="patient-history">
-                    <div class="patient-history-row">
-                      <span class="patient-history-icon" aria-hidden="true">🩺</span>
-                      <p><strong>Última atención:</strong> Limpieza y Profilaxis (Dra. Laura Jiménez) · <strong>Próximo control sugerido:</strong> Evaluación semestral</p>
-                    </div>
-                    <div class="patient-history-row">
-                      <span class="patient-history-icon" aria-hidden="true">✅</span>
-                      <p><strong>WhatsApp verificado</strong> · Tasa de respuesta a recordatorios: <strong>100%</strong></p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="patient-col-right">
-                  <h5 class="patient-activity-title">Actividad automática reciente</h5>
-                  <ul class="patient-activity">
-                    <li>
-                      <span class="patient-activity-date">14 Sep</span>
-                      <p>Confirmación de cita vía WhatsApp (11:30 hrs)</p>
-                    </li>
-                    <li>
-                      <span class="patient-activity-date">02 Jun</span>
-                      <p>Recordatorio preventivo semestral enviado</p>
-                    </li>
-                    <li>
-                      <span class="patient-activity-date">18 Ene</span>
-                      <p>Reseña 5★ registrada en Google Maps</p>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="patient-auto-note">
-                <span class="patient-auto-note-icon" aria-hidden="true">⚡</span>
-                <p>ClinIAssist gestiona el seguimiento de este paciente automáticamente, enviando recordatorios de control preventivo cada 3 meses sin intervención de tu personal.</p>
-              </div>
-              <button type="button" class="patient-cta" id="patientCta">
-                <span class="patient-cta-icon" aria-hidden="true">🤖</span>
-                <span class="patient-cta-label">Enviar recordatorio automático por WhatsApp ahora</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="tool-panel-content" data-panel="resenas" role="tabpanel">
-            <div class="review-panel">
-              <div class="review-list">
-                <div class="review-item">
-                  <div class="review-head">
-                    <span class="review-avatar">C</span>
-                    <div class="review-id"><strong>Carla M.</strong><span class="review-stars">★★★★★</span></div>
-                    <span class="review-source">Google Reviews</span>
-                  </div>
-                  <p class="review-quote">"¡Increíble la rapidez! Me atendieron por WhatsApp un domingo a las 10 PM y agendé mi hora en segundos sin llamar a nadie. La confirmación me llegó de inmediato con la ubicación."</p>
-                </div>
-                <div class="review-item">
-                  <div class="review-head">
-                    <span class="review-avatar">D</span>
-                    <div class="review-id"><strong>Diego R.</strong><span class="review-stars">★★★★★</span></div>
-                    <span class="review-source">Google Reviews</span>
-                  </div>
-                  <p class="review-quote">"Pude reagendar mi cita súper cómodo y rápido por chat sin esperar al teléfono. Da gusto lo moderno que funciona la clínica y el recordatorio previo me sirvió muchísimo."</p>
-                </div>
-                <div class="review-item">
-                  <div class="review-head">
-                    <span class="review-avatar">M</span>
-                    <div class="review-id"><strong>María P.</strong><span class="review-stars">★★★★★</span></div>
-                    <span class="review-source">Google Reviews</span>
-                  </div>
-                  <p class="review-quote">"Excelente atención, muy puntuales y los recordatorios automáticos por WhatsApp me salvaron de olvidar mi control. Se nota la diferencia de tecnología frente a otras clínicas."</p>
-                </div>
-                <div class="review-item">
-                  <div class="review-head">
-                    <span class="review-avatar">A</span>
-                    <div class="review-id">
-                      <strong>Dra. Andrea Morales</strong>
-                      <span class="review-clinic">Clínica Odontológica Norte</span>
-                      <span class="review-stars">★★★★★</span>
-                    </div>
-                    <span class="review-source">Google Reviews</span>
-                  </div>
-                  <p class="review-quote">"Redujimos los no-shows casi a cero desde el primer mes. Mis pacientes destacan la comodidad del canal de WhatsApp y mi equipo de recepción ya no vive colapsado en llamadas."</p>
-                </div>
-              </div>
-              <p class="review-footnote">Reseñas pedidas automáticamente por ClinIAssist justo después de la consulta.</p>
-            </div>
-          </div>
-
-          <div class="tool-panel-content" data-panel="stats" role="tabpanel">
+          <div class="tool-panel-content" id="toolPanelStats" data-panel="stats" role="tabpanel" aria-labelledby="toolTabStats">
             <div class="stats-compare">
               <div class="stats-col stats-before">
                 <span class="stats-col-label">Antes de ClinIAssist</span>
@@ -1230,11 +1115,12 @@
   <section class="ca-section ca-pricing" id="precios">
     <div class="ca-wrap">
       <div class="ca-head ca-head-center reveal">
+        <div class="ca-eyebrow"><span>1 · PLANES</span><i></i></div>
         <h2>Planes diseñados para tu clínica</h2>
         <p>Pago único de implementación + suscripción mensual. Cada plan suma asistentes a tu equipo.</p>
       </div>
       <div class="ca-grid">
-        <article class="ca-card reveal">
+        <article class="ca-card reveal" role="button" tabindex="0" aria-pressed="false">
           <div class="ca-card-inner">
             <div class="ca-card-face ca-card-front">
               <div class="ca-card-title">
@@ -1252,12 +1138,8 @@
                 <span><svg class="ca-mini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.5a8 8 0 0 1-8.4 8 8.8 8.8 0 0 1-3.4-.7L4 20l1.1-3.9a8 8 0 1 1 15.4-4.6Z"/></svg>350 conversaciones/mes</span>
               </p>
               <a href="#" class="ca-btn js-whatsapp" data-wa-text="Hola, me interesa el Plan Esencial de ClinIAssist." target="_blank" rel="noopener">Contratar Esencial</a>
-              <button type="button" class="ca-counter" data-plan-flip aria-expanded="false" aria-label="Ver detalle completo del Plan Esencial">
-                <b>4</b><span>tareas automatizadas<small>1 asistente en tu equipo</small></span>
-                <span class="ca-counter-cta"><span>Ver detalle</span><svg class="ca-flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 1 2.6 6.4M3 12v5h5"/></svg></span>
-              </button>
               <div class="ca-team-list">
-                <span class="ca-label">Tu equipo</span>
+                <span class="ca-team-meta">TU EQUIPO · 1 asistente · 4 tareas automatizadas</span>
                 <div class="ca-member" style="--c:#2ec4b6">
                   <div class="ca-member-head">
                     <img src="assets/equipo/valentina-mini.webp" alt="" width="44" height="44">
@@ -1271,14 +1153,17 @@
                   </ul>
                 </div>
               </div>
+              <p class="ca-flip-cue">
+                <svg class="ca-flip-cue-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 1 2.6 6.4M3 12v5h5"/></svg>
+                Más detalle: toca para dar vuelta
+              </p>
             </div>
             <div class="ca-card-face ca-card-back">
-              <button type="button" class="ca-back-close" data-plan-flip aria-label="Volver a la vista simplificada del Plan Esencial">
+              <span class="ca-back-close" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 1 2.6 6.4M3 12v5h5"/></svg>
                 <span>Volver</span>
-              </button>
+              </span>
               <h3 class="ca-back-title">Plan Esencial</h3>
-              <p class="ca-back-sub">Tu equipo y todas sus tareas automatizadas:</p>
               <div class="ca-capacity-block">
                 <span class="ca-label">Capacidad del plan</span>
                 <ul class="ca-capacity-list">
@@ -1288,26 +1173,12 @@
                   <li><span>Recordatorios/mes</span><b>400</b></li>
                 </ul>
               </div>
-              <div class="ca-team-list ca-back-team">
-                <div class="ca-member" style="--c:#2ec4b6">
-                  <div class="ca-member-head">
-                    <img src="assets/equipo/valentina-mini.webp" alt="" width="44" height="44">
-                    <div><strong>Valentina</strong><span>Recepcionista virtual · WhatsApp</span></div>
-                  </div>
-                  <ul>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>WhatsApp 24/7: entiende textos, audios y fotos</span></li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Agenda según la duración de cada tratamiento</span></li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Sincroniza Google Calendar y otros calendarios</span></li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Recordatorios anti-inasistencias</span></li>
-                  </ul>
-                </div>
-              </div>
-              <p class="ca-capacity-more">¿Necesitas más? <a href="#packs" data-plan-flip>Suma packs cuando quieras</a></p>
+              <p class="ca-capacity-more">¿Necesitas más? <a href="#packs">Suma complementos cuando quieras</a></p>
               <a href="#" class="ca-btn js-whatsapp" data-wa-text="Hola, me interesa el Plan Esencial de ClinIAssist." target="_blank" rel="noopener">Contratar Esencial</a>
             </div>
           </div>
         </article>
-        <article class="ca-card is-highlight reveal">
+        <article class="ca-card is-highlight reveal" role="button" tabindex="0" aria-pressed="false">
           <span class="ca-badge">Más popular · Recomendado</span>
           <div class="ca-card-inner">
             <div class="ca-card-face ca-card-front">
@@ -1326,12 +1197,8 @@
                 <span><svg class="ca-mini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.5a8 8 0 0 1-8.4 8 8.8 8.8 0 0 1-3.4-.7L4 20l1.1-3.9a8 8 0 1 1 15.4-4.6Z"/></svg>700 conversaciones/mes</span>
               </p>
               <a href="#" class="ca-btn js-whatsapp" data-wa-text="Hola, me interesa el Plan Expansión de ClinIAssist." target="_blank" rel="noopener">Contratar Expansión</a>
-              <button type="button" class="ca-counter" data-plan-flip aria-expanded="false" aria-label="Ver detalle completo del Plan Expansión">
-                <b>8</b><span>tareas automatizadas<small>2 asistentes en tu equipo</small></span>
-                <span class="ca-counter-cta"><span>Ver detalle</span><svg class="ca-flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 1 2.6 6.4M3 12v5h5"/></svg></span>
-              </button>
               <div class="ca-team-list">
-                <span class="ca-label">Tu equipo</span>
+                <span class="ca-team-meta">TU EQUIPO · 2 asistentes · 8 tareas automatizadas</span>
                 <p class="ca-team-sub">Todo lo del plan Esencial, más:</p>
                 <div class="ca-member ca-member-compact" style="--c:#2ec4b6">
                   <div class="ca-member-head">
@@ -1352,14 +1219,17 @@
                   </ul>
                 </div>
               </div>
+              <p class="ca-flip-cue">
+                <svg class="ca-flip-cue-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 1 2.6 6.4M3 12v5h5"/></svg>
+                Más detalle: toca para dar vuelta
+              </p>
             </div>
             <div class="ca-card-face ca-card-back">
-              <button type="button" class="ca-back-close" data-plan-flip aria-label="Volver a la vista simplificada del Plan Expansión">
+              <span class="ca-back-close" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 1 2.6 6.4M3 12v5h5"/></svg>
                 <span>Volver</span>
-              </button>
+              </span>
               <h3 class="ca-back-title">Plan Expansión</h3>
-              <p class="ca-back-sub">Tu equipo y todas sus tareas automatizadas:</p>
               <div class="ca-capacity-block">
                 <span class="ca-label">Capacidad del plan</span>
                 <ul class="ca-capacity-list">
@@ -1370,38 +1240,12 @@
                   <li><span>Mensajes de reactivación/mes</span><b>200</b></li>
                 </ul>
               </div>
-              <div class="ca-team-list ca-back-team">
-                <div class="ca-member" style="--c:#2ec4b6">
-                  <div class="ca-member-head">
-                    <img src="assets/equipo/valentina-mini.webp" alt="" width="44" height="44">
-                    <div><strong>Valentina</strong><span>Recepcionista virtual · WhatsApp</span></div>
-                  </div>
-                  <ul>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>WhatsApp 24/7: entiende textos, audios y fotos</span></li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Agenda según la duración de cada tratamiento</span></li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Sincroniza Google Calendar y otros calendarios</span></li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Recordatorios anti-inasistencias</span></li>
-                  </ul>
-                </div>
-                <div class="ca-member" style="--c:#5b8cff">
-                  <div class="ca-member-head">
-                    <img src="assets/equipo/diego-mini.webp" alt="" width="44" height="44">
-                    <div><strong>+ Diego</strong><span>Director de crecimiento · Instagram, Email y Web</span></div>
-                  </div>
-                  <ul>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Instagram, Email y chat web, junto a Valentina</span></li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Clasificación y derivación IA de pacientes</span></li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Reseñas y reputación en Google Maps</span></li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Reactivación de pacientes inactivos</span></li>
-                  </ul>
-                </div>
-              </div>
-              <p class="ca-capacity-more">¿Necesitas más? <a href="#packs" data-plan-flip>Suma packs cuando quieras</a></p>
+              <p class="ca-capacity-more">¿Necesitas más? <a href="#packs">Suma complementos cuando quieras</a></p>
               <a href="#" class="ca-btn js-whatsapp" data-wa-text="Hola, me interesa el Plan Expansión de ClinIAssist." target="_blank" rel="noopener">Contratar Expansión</a>
             </div>
           </div>
         </article>
-        <article class="ca-card reveal">
+        <article class="ca-card reveal" role="button" tabindex="0" aria-pressed="false">
           <div class="ca-card-inner">
             <div class="ca-card-face ca-card-front">
               <div class="ca-card-title">
@@ -1417,16 +1261,10 @@
                 <span><svg class="ca-mini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 19.5c0-3.6 3.4-6.2 7.5-6.2s7.5 2.6 7.5 6.2"/></svg>Hasta 8 doctores</span>
                 <span class="ca-capacity-sep">·</span>
                 <span><svg class="ca-mini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.5a8 8 0 0 1-8.4 8 8.8 8.8 0 0 1-3.4-.7L4 20l1.1-3.9a8 8 0 1 1 15.4-4.6Z"/></svg>1.300 conversaciones/mes</span>
-                <span class="ca-capacity-sep">·</span>
-                <span>200 min de voz</span>
               </p>
               <a href="#" class="ca-btn js-whatsapp" data-wa-text="Hola, me interesa el Plan Empresa de ClinIAssist." target="_blank" rel="noopener">Contratar Empresa</a>
-              <button type="button" class="ca-counter" data-plan-flip aria-expanded="false" aria-label="Ver detalle completo del Plan Empresa">
-                <b>12</b><span>tareas automatizadas<small>3 asistentes en tu equipo</small></span>
-                <span class="ca-counter-cta"><span>Ver detalle</span><svg class="ca-flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 1 2.6 6.4M3 12v5h5"/></svg></span>
-              </button>
               <div class="ca-team-list">
-                <span class="ca-label">Tu equipo</span>
+                <span class="ca-team-meta">TU EQUIPO · 3 asistentes · 12 tareas automatizadas</span>
                 <p class="ca-team-sub">Todo lo del plan Expansión, más:</p>
                 <div class="ca-member ca-member-compact" style="--c:#2ec4b6">
                   <div class="ca-member-head">
@@ -1453,14 +1291,17 @@
                   </ul>
                 </div>
               </div>
+              <p class="ca-flip-cue">
+                <svg class="ca-flip-cue-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 1 2.6 6.4M3 12v5h5"/></svg>
+                Más detalle: toca para dar vuelta
+              </p>
             </div>
             <div class="ca-card-face ca-card-back">
-              <button type="button" class="ca-back-close" data-plan-flip aria-label="Volver a la vista simplificada del Plan Empresa">
+              <span class="ca-back-close" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 1 2.6 6.4M3 12v5h5"/></svg>
                 <span>Volver</span>
-              </button>
+              </span>
               <h3 class="ca-back-title">Plan Empresa</h3>
-              <p class="ca-back-sub">Tu equipo y todas sus tareas automatizadas:</p>
               <div class="ca-capacity-block">
                 <span class="ca-label">Capacidad del plan</span>
                 <ul class="ca-capacity-list">
@@ -1472,85 +1313,26 @@
                   <li><span>Minutos de voz IA/mes</span><b>200</b></li>
                 </ul>
               </div>
-              <div class="ca-team-list ca-back-team">
-                <div class="ca-member" style="--c:#2ec4b6">
-                  <div class="ca-member-head">
-                    <img src="assets/equipo/valentina-mini.webp" alt="" width="44" height="44">
-                    <div><strong>Valentina</strong><span>Recepcionista virtual · WhatsApp</span></div>
-                  </div>
-                  <ul>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>WhatsApp 24/7: entiende textos, audios y fotos</span></li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Agenda según la duración de cada tratamiento</span></li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Sincroniza Google Calendar y otros calendarios</span></li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Recordatorios anti-inasistencias</span></li>
-                  </ul>
-                </div>
-                <div class="ca-member" style="--c:#5b8cff">
-                  <div class="ca-member-head">
-                    <img src="assets/equipo/diego-mini.webp" alt="" width="44" height="44">
-                    <div><strong>+ Diego</strong><span>Director de crecimiento · Instagram, Email y Web</span></div>
-                  </div>
-                  <ul>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Instagram, Email y chat web, junto a Valentina</span></li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Clasificación y derivación IA de pacientes</span></li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Reseñas y reputación en Google Maps</span></li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Reactivación de pacientes inactivos</span></li>
-                  </ul>
-                </div>
-                <div class="ca-member" style="--c:#ff8a6b">
-                  <div class="ca-member-head">
-                    <img src="assets/equipo/emilia-mini.webp" alt="" width="44" height="44">
-                    <div><strong>+ Emilia</strong><span>Recepcionista telefónica · voz IA</span></div>
-                  </div>
-                  <ul>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Contesta llamadas 24/7 con voz natural</span></li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Agenda y reprograma por teléfono</span></li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Llamadas de confirmación del día siguiente</span></li>
-                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Alertas internas a recepción</span></li>
-                  </ul>
-                </div>
-              </div>
-              <p class="ca-capacity-more">¿Necesitas más? <a href="#packs" data-plan-flip>Suma packs cuando quieras</a></p>
+              <p class="ca-capacity-more">¿Necesitas más? <a href="#packs">Suma complementos cuando quieras</a></p>
               <a href="#" class="ca-btn js-whatsapp" data-wa-text="Hola, me interesa el Plan Empresa de ClinIAssist." target="_blank" rel="noopener">Contratar Empresa</a>
             </div>
           </div>
         </article>
       </div>
+
+      <a href="#mateo" class="ca-mateo-strip reveal">
+        <img src="assets/equipo/mateo-mini.webp" alt="" class="ca-mateo-strip-photo">
+        <span class="ca-mateo-strip-text">¿Tu clínica necesita web? <strong>Mateo</strong> la diseña conectada con Valentina · desde <strong>$360.000</strong> con tu plan (−20%)</span>
+        <span class="ca-mateo-strip-pill">Ver opciones ↓</span>
+      </a>
     </div>
   </section>
 
-  <section class="ca-section ca-packs" id="packs">
+  <section class="ca-section ca-pricing-addon" id="mateo">
     <div class="ca-wrap">
       <div class="ca-head ca-head-center reveal">
-        <div class="ca-eyebrow"><span>ADD-ONS</span><i></i></div>
-        <h2>Escala cuando lo necesites</h2>
+        <div class="ca-eyebrow"><span>2 · TU WEB CON MATEO</span><i></i></div>
       </div>
-      <div class="ca-packs-grid">
-        <article class="ca-pack-card reveal">
-          <h3>+200 conversaciones</h3>
-          <p class="ca-pack-price">$20.000</p>
-          <p class="ca-pack-sub">Recarga del mes en curso · todos los planes</p>
-          <a href="#" class="ca-btn ca-btn-pack js-whatsapp" data-wa-text="Hola, quiero agregar el Pack +200 conversaciones ($20.000) a mi plan de ClinIAssist." target="_blank" rel="noopener">Pedir por WhatsApp</a>
-        </article>
-        <article class="ca-pack-card reveal">
-          <h3>+100 minutos de voz IA</h3>
-          <p class="ca-pack-price">$30.000</p>
-          <p class="ca-pack-sub">Recarga del mes · solo plan Empresa</p>
-          <a href="#" class="ca-btn ca-btn-pack js-whatsapp" data-wa-text="Hola, quiero agregar el Pack +100 minutos de voz IA ($30.000) a mi plan de ClinIAssist." target="_blank" rel="noopener">Pedir por WhatsApp</a>
-        </article>
-        <article class="ca-pack-card reveal">
-          <h3>Doctor extra</h3>
-          <p class="ca-pack-price">$15.000<small> pago único</small></p>
-          <p class="ca-pack-sub">Suma un profesional a tu agenda y a tus asistentes. Pago único, sin cambiar de plan.</p>
-          <a href="#" class="ca-btn ca-btn-pack js-whatsapp" data-wa-text="Hola, quiero agregar un Doctor extra ($15.000, pago único) a mi plan de ClinIAssist." target="_blank" rel="noopener">Pedir por WhatsApp</a>
-        </article>
-      </div>
-      <p class="ca-packs-note">Te avisamos al 80% de tu plan. Nunca dejamos a tu clínica sin atender.</p>
-    </div>
-  </section>
-
-  <section class="ca-section ca-pricing-addon">
-    <div class="ca-wrap">
       <div class="ca-addon reveal" style="--c:#9bbf6a">
         <div class="ca-addon-intro">
           <img src="assets/equipo/mateo.webp" alt="Mateo, diseñador web" width="150" height="150" loading="lazy">
@@ -1590,7 +1372,36 @@
           <p class="ca-addon-hint" id="caAddonHint">Elige Base, Pro o Premium para cotizar</p>
         </div>
       </div>
+    </div>
+  </section>
 
+  <section class="ca-section ca-packs" id="packs">
+    <div class="ca-wrap">
+      <div class="ca-head ca-head-center reveal">
+        <div class="ca-eyebrow"><span>3 · COMPLEMENTOS</span><i></i></div>
+        <h2>Escala cuando lo necesites</h2>
+      </div>
+      <div class="ca-packs-grid">
+        <article class="ca-pack-card reveal">
+          <h3>+200 conversaciones</h3>
+          <p class="ca-pack-price">$20.000</p>
+          <p class="ca-pack-sub">Recarga del mes en curso · todos los planes</p>
+          <a href="#" class="ca-btn ca-btn-pack js-whatsapp" data-wa-text="Hola, quiero agregar el Pack +200 conversaciones ($20.000) a mi plan de ClinIAssist." target="_blank" rel="noopener">Pedir por WhatsApp</a>
+        </article>
+        <article class="ca-pack-card reveal">
+          <h3>+100 minutos de voz IA</h3>
+          <p class="ca-pack-price">$30.000</p>
+          <p class="ca-pack-sub">Recarga del mes · solo plan Empresa</p>
+          <a href="#" class="ca-btn ca-btn-pack js-whatsapp" data-wa-text="Hola, quiero agregar el Pack +100 minutos de voz IA ($30.000) a mi plan de ClinIAssist." target="_blank" rel="noopener">Pedir por WhatsApp</a>
+        </article>
+        <article class="ca-pack-card reveal">
+          <h3>Doctor extra</h3>
+          <p class="ca-pack-price">$15.000<small> pago único</small></p>
+          <p class="ca-pack-sub">Suma un profesional a tu agenda y a tus asistentes, sin cambiar de plan.</p>
+          <a href="#" class="ca-btn ca-btn-pack js-whatsapp" data-wa-text="Hola, quiero agregar un Doctor extra ($15.000, pago único) a mi plan de ClinIAssist." target="_blank" rel="noopener">Pedir por WhatsApp</a>
+        </article>
+      </div>
+      <p class="ca-packs-note">Te avisamos al 80% de tu plan. Nunca dejamos a tu clínica sin atender.</p>
       <p class="ca-legal">Precios netos + IVA. Los cargos de mensajería de WhatsApp (Meta) se cobran directamente a la cuenta de la clínica.</p>
     </div>
   </section>

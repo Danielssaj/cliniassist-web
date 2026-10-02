@@ -26,6 +26,12 @@
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Asignada más abajo, junto con el resto de la lógica de la agenda: deja
+  // que el bloque de pestañas de .tool-panel (que corre antes en el archivo)
+  // dispare el reinicio de la animación al volver a la pestaña Agenda sin
+  // tener que reordenar ambos bloques.
+  let resetAndPlayAgenda = () => {};
+
   // Carrusel de servicios: una ficha centrada a la vez, con flechas, dots y
   // autoplay (pausa de 5s por ficha). Traslada .service-track en X un
   // 100% por índice; los dots y las flechas comparten el mismo goTo().
@@ -424,22 +430,38 @@
       });
     }
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const targetId = tab.getAttribute('data-tab');
-        if (tab.classList.contains('is-active')) return;
+    const tabsArr = Array.from(tabs);
+    const selectTab = (tab, focus) => {
+      const targetId = tab.getAttribute('data-tab');
+      if (tab.classList.contains('is-active')) {
+        if (focus) tab.focus();
+        return;
+      }
 
-        tabs.forEach(t => {
-          t.classList.toggle('is-active', t === tab);
-          t.setAttribute('aria-selected', String(t === tab));
-        });
-        let targetPanel = null;
-        panels.forEach(panel => {
-          const isTarget = panel.getAttribute('data-panel') === targetId;
-          panel.classList.toggle('is-active', isTarget);
-          if (isTarget) targetPanel = panel;
-        });
-        syncBodyHeight(targetPanel);
+      tabs.forEach(t => {
+        const on = t === tab;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+      });
+      let targetPanel = null;
+      panels.forEach(panel => {
+        const isTarget = panel.getAttribute('data-panel') === targetId;
+        panel.classList.toggle('is-active', isTarget);
+        if (isTarget) targetPanel = panel;
+      });
+      syncBodyHeight(targetPanel);
+      if (focus) tab.focus();
+      // Volver a Agenda desde Estadísticas reinicia y vuelve a reproducir
+      // el llenado de la agenda, para que no se vea "ya lista" de golpe.
+      if (targetId === 'agenda') resetAndPlayAgenda();
+    };
+
+    tabsArr.forEach((tab, i) => {
+      tab.addEventListener('click', () => selectTab(tab, false));
+      tab.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); selectTab(tabsArr[(i + 1) % tabsArr.length], true); }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); selectTab(tabsArr[(i - 1 + tabsArr.length) % tabsArr.length], true); }
       });
     });
 
@@ -507,26 +529,6 @@
     });
   }
 
-  // Botón "Enviar recordatorio automático" en la ficha de paciente (simulación visual, sin envío real)
-  const patientCta = document.getElementById('patientCta');
-  if (patientCta) {
-    const label = patientCta.querySelector('.patient-cta-label');
-    const icon = patientCta.querySelector('.patient-cta-icon');
-    const originalText = label ? label.textContent : '';
-    const originalIcon = icon ? icon.textContent : '';
-    patientCta.addEventListener('click', () => {
-      if (patientCta.classList.contains('is-sent')) return;
-      patientCta.classList.add('is-sent');
-      if (label) label.textContent = 'Recordatorio enviado';
-      if (icon) icon.textContent = '✅';
-      setTimeout(() => {
-        patientCta.classList.remove('is-sent');
-        if (label) label.textContent = originalText;
-        if (icon) icon.textContent = originalIcon;
-      }, 2500);
-    });
-  }
-
   // Ficha de cita: se abre al hacer clic en cualquier bloque de la agenda,
   // con el contenido de la celda que realmente se clickeó — antes el modal
   // era estático (siempre "María González · Jueves 18 · 10:30 AM") sin
@@ -583,25 +585,75 @@
 
     // Llenado progresivo de la agenda: arranca vacía (ver .gcal-event en
     // css/style.css) y, al entrar en viewport, cada bloque de cita aparece
-    // uno por uno con un pequeño scale+fade. Los clics ya están enganchados
-    // arriba sobre los mismos botones, así que siguen funcionando durante y
+    // por DÍA (lunes a viernes, de 09:00 a 17:00 dentro de cada día) y en
+    // dos tandas por color: primero TODAS las celestes (IA), y recién
+    // después TODAS las verdes (Recepción) — dentro de cada tanda se
+    // conserva el orden por día, así que el martes verde siempre aparece
+    // antes que el jueves verde. Los clics ya están enganchados arriba
+    // sobre los mismos botones, así que siguen funcionando durante y
     // después de la animación — solo se les suma la clase .is-revealed.
     const gcalWrap = document.querySelector('.gcal-wrap');
-    if (gcalWrap && apptButtons.length && 'IntersectionObserver' in window) {
-      const revealAppointments = () => {
-        apptButtons.forEach((btn, i) => {
-          setTimeout(() => btn.classList.add('is-revealed'), i * 100);
+    if (gcalWrap && apptButtons.length) {
+      const gcalRows = Array.from(gcalWrap.querySelectorAll('.gcal-row:not(.gcal-row-head)'));
+      const byDay = (a, b) => a.day - b.day || a.rowIndex - b.rowIndex;
+      const withPosition = apptButtons.map(btn => {
+        const row = btn.closest('.gcal-row');
+        const cell = btn.closest('.gcal-cell');
+        const cellsInRow = row ? Array.from(row.querySelectorAll('.gcal-cell')) : [];
+        return { btn, day: cellsInRow.indexOf(cell), rowIndex: gcalRows.indexOf(row) };
+      });
+      const bluePhase = withPosition.filter(a => a.btn.classList.contains('tag-blue')).sort(byDay);
+      const greenPhase = withPosition.filter(a => !a.btn.classList.contains('tag-blue')).sort(byDay);
+      const allAppts = bluePhase.concat(greenPhase);
+
+      // Intervalo base = 100ms original × 1.3 (30% más lento en general).
+      // Celestes (IA) aparecen a 0.5× ese intervalo — casi instantáneo;
+      // verdes (Recepción) a 2.5× — notoriamente más lento. La duración de
+      // la propia animación de entrada sigue la misma idea vía
+      // .gcal-event.tag-blue/.tag-green en css/style.css (~250ms / ~700ms).
+      const BASE_INTERVAL = 130;
+      const BLUE_INTERVAL = BASE_INTERVAL * 0.5;
+      const GREEN_INTERVAL = BASE_INTERVAL * 2.5;
+
+      let revealTimers = [];
+      const clearRevealTimers = () => { revealTimers.forEach(clearTimeout); revealTimers = []; };
+
+      const playAgendaAnimation = () => {
+        clearRevealTimers();
+        if (reduceMotion) {
+          allAppts.forEach(({ btn }) => btn.classList.add('is-revealed'));
+          return;
+        }
+        let elapsed = 0;
+        bluePhase.forEach(({ btn }) => {
+          elapsed += BLUE_INTERVAL;
+          revealTimers.push(setTimeout(() => btn.classList.add('is-revealed'), elapsed));
+        });
+        greenPhase.forEach(({ btn }) => {
+          elapsed += GREEN_INTERVAL;
+          revealTimers.push(setTimeout(() => btn.classList.add('is-revealed'), elapsed));
         });
       };
-      const gcalIO = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            revealAppointments();
-            gcalIO.disconnect();
-          }
-        });
-      }, { threshold: 0.3 });
-      gcalIO.observe(gcalWrap);
+
+      resetAndPlayAgenda = () => {
+        clearRevealTimers();
+        apptButtons.forEach(btn => btn.classList.remove('is-revealed'));
+        playAgendaAnimation();
+      };
+
+      if ('IntersectionObserver' in window) {
+        const gcalIO = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              playAgendaAnimation();
+              gcalIO.disconnect();
+            }
+          });
+        }, { threshold: 0.3 });
+        gcalIO.observe(gcalWrap);
+      } else {
+        playAgendaAnimation();
+      }
     }
 
     if (apptDetailClose) apptDetailClose.addEventListener('click', closeDetail);
