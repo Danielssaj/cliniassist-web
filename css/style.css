@@ -1368,13 +1368,20 @@ p{ margin:0; }
    FAQ
    ============================================ */
 .faq{ padding: 88px 0; }
-.faq-list{ display:flex; flex-direction:column; max-width: 720px; border-top:1px solid var(--line); }
-.faq-item{ border-bottom: 1px solid var(--line); padding: 4px 0; }
-.faq-item summary{ cursor:pointer; padding: 18px 0; font-weight:700; font-size: 1rem; list-style:none; display:flex; align-items:center; justify-content:space-between; gap: 16px; color: var(--ink); }
+.faq-head{ text-align:center; max-width: 640px; margin-inline:auto; }
+.faq-head p{ color: var(--ink-soft); margin-top: 8px; }
+.faq-list{ display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px 18px; align-items:start; margin-top: 36px; }
+.faq-item{ background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 0 22px; transition: border-color .2s ease, box-shadow .2s ease; }
+.faq-item:hover{ border-color: var(--line-strong); }
+.faq-item[open]{ border-color: var(--link); box-shadow: 0 10px 28px -14px rgba(37,99,235,.35); }
+.faq-item summary{ cursor:pointer; padding: 20px 0; font-weight:700; font-size: 0.98rem; line-height:1.4; list-style:none; display:flex; align-items:center; justify-content:space-between; gap: 16px; color: var(--ink); }
 .faq-item summary::-webkit-details-marker{ display:none; }
-.faq-item summary::after{ content:"+"; font-size:1.3rem; color: var(--link); flex-shrink:0; }
+.faq-item summary::after{ content:"+"; font-size:1.3rem; line-height:1; color: var(--link); flex-shrink:0; width:28px; height:28px; border-radius:50%; display:grid; place-items:center; background: color-mix(in srgb, var(--link) 12%, transparent); }
 .faq-item[open] summary::after{ content:"–"; }
-.faq-item p{ color: var(--ink-soft); padding-bottom: 18px; font-size:0.95rem; max-width: 62ch; }
+.faq-item p{ color: var(--ink-soft); padding: 0 0 20px; font-size:0.93rem; line-height:1.6; }
+.faq-more{ text-align:center; margin-top: 28px; color: var(--ink-soft); }
+.faq-more a{ color: var(--link); font-weight:700; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 760px){ .faq-list{ grid-template-columns: 1fr; } .faq{ padding: 64px 0; } }
 
 /* ============================================
    CTA / Contact
@@ -1499,6 +1506,8 @@ p{ margin:0; }
 .footer-links a{ color: var(--ink-soft); }
 .footer-links a:hover{ color: var(--link); }
 .footer-copy{ color: var(--ink-soft); font-size:0.8rem; }
+.footer-copy a{ color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.footer-copy a:hover{ color: var(--link); }
 
 /* ============================================
    Páginas legales (Política de privacidad / Términos)
@@ -1533,7 +1542,7 @@ p{ margin:0; }
    ============================================ */
 @media (max-width: 960px){
   .hero-inner{ grid-template-columns: 1fr; }
-  .hero-visual{ order:-1; }
+  .hero-visual{ order:0; }
   .process-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); gap: 32px; }
   .lossgain-grid{ grid-template-columns: 1fr; }
   .pricing-grid{ grid-template-columns: 1fr; }

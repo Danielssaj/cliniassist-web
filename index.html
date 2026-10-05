@@ -85,34 +85,42 @@
     },
     {
       "@type": "Question",
-      "name": "¿Necesito conocimientos técnicos para usar ClinIAssist?",
+      "name": "¿Qué pasa con mi recepcionista actual?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Nosotros configuramos e integramos todo el sistema. Tu equipo solo recibe la agenda y las conversaciones ya organizadas."
+        "text": "No la reemplazamos: la potenciamos. Tu recepcionista deja de responder mensajes y llamadas repetitivas para enfocarse en la atención presencial, los cobros y los casos que necesitan a una persona."
       }
     },
     {
       "@type": "Question",
-      "name": "¿Qué pasa con mi recepcionista actual al contratar ClinIAssist?",
+      "name": "¿Quién responde si un paciente necesita hablar con una persona?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No la reemplazamos: la potenciamos. Tu recepcionista deja de atender llamadas y mensajes repetitivos para enfocarse en la atención presencial, cobros y casos clínicos complejos. ClinIAssist absorbe el colapso digital 24/7 y además capacitamos a tu equipo desde el Día 1."
+        "text": "La IA detecta cuando un caso necesita a tu equipo o cuando el paciente lo pide, y te deriva la conversación al instante con todo el contexto, para que nadie tenga que repetir la información."
       }
     },
     {
       "@type": "Question",
-      "name": "¿Quién responde si un paciente necesita hablar con un humano?",
+      "name": "¿Tengo que firmar un plazo mínimo? ¿Puedo cancelar?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "La IA detecta automáticamente casos atípicos o solicitudes expresas y deriva la conversación de inmediato a tu equipo con una notificación directa, transfiriendo todo el contexto previo para que no haya que repetir información."
+        "text": "Cada plan tiene un período inicial: 3 meses en Esencial y 6 meses en Expansión y Empresa, porque la IA necesita un tiempo de ajuste para dar resultados reales. Después sigue mes a mes y puedes cancelar avisando con 30 días, pagando el cargo de desinstalación de $90.000 + IVA."
       }
     },
     {
       "@type": "Question",
-      "name": "¿Cuánto tiempo toma implementarlo?",
+      "name": "¿Qué pasa con los datos de mis pacientes?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Entre 6 a 10 días hábiles, según la cantidad de profesionales y canales que active tu clínica. Dejamos todo configurado, probado y listo para operar sin interrumpir la atención diaria."
+        "text": "Tu clínica es la dueña de sus datos. Solo los usamos para prestar el servicio: no los vendemos, no los compartimos y nuestro equipo no accede a ellos salvo que tú lo autorices. Si terminas el servicio, te entregamos una copia y los eliminamos dentro de 30 días."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué pasa si la IA se equivoca o hay una urgencia?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La IA responde solo con la información y las reglas de tu clínica, y nunca entrega diagnósticos. Ante una urgencia con riesgo vital indica llamar al 131 (SAMU) y avisa a tu equipo al instante. Si detectas un error, lo corregimos dentro de 24 a 48 horas hábiles."
       }
     }
   ]
@@ -223,9 +231,9 @@
         </h1>
 
         <p class="hero-sub reveal">
-          Tu clínica atendida por IA las 24 horas. Automatizamos la agenda de WhatsApp,
-          los recordatorios y el seguimiento de pacientes para eliminar las sillas
-          vacías y potenciar tus ingresos.
+          Tu recepción funcionando las 24 horas, en automático: la IA responde a tus
+          pacientes por WhatsApp, teléfono, Instagram y correo, agenda sus horas y les
+          recuerda la cita para que lleguen.
         </p>
 
         <div class="hero-actions reveal">
@@ -239,10 +247,6 @@
           </a>
         </div>
 
-        <a href="/simulador/" class="btn btn-lg hero-demo-cta reveal">
-          <span>⚡ Probar Simulador en Vivo <em>(Demo Interactiva)</em></span>
-          <svg class="btn-chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
 
         <p class="hero-trust reveal">
           Pensado para clínicas dentales, estéticas, veterinarias, fisioterapia y
@@ -291,15 +295,15 @@
                   </div>
 
                   <div class="chat-mock-body">
-                    <div class="bubble in bubble-visible">Hola, ¿tienen algún hueco para una limpieza dental esta semana?</div>
+                    <div class="bubble in bubble-visible">Hola, ¿tienen hora para una limpieza dental esta semana?</div>
 
                     <div class="typing-indicator out" hidden><span></span><span></span><span></span></div>
-                    <div class="bubble out" hidden>¡Hola! Soy el asistente de la clínica. Claro que sí, tenemos espacio este jueves a las 10:00 AM o a las 4:00 PM. ¿Cuál te va mejor?</div>
+                    <div class="bubble out" hidden>¡Hola! Soy Valentina, la asistente virtual de la clínica. Sí, tengo hora este jueves a las 10:00 o a las 16:00. ¿Cuál te acomoda?</div>
 
-                    <div class="bubble in" hidden>El jueves a las 4:00 PM por favor.</div>
+                    <div class="bubble in" hidden>El jueves a las 16:00, por favor.</div>
 
                     <div class="typing-indicator out" hidden><span></span><span></span><span></span></div>
-                    <div class="bubble out" hidden>¡Perfecto! Ya quedó agendado en el sistema. Te enviaremos un recordatorio 24 horas antes.</div>
+                    <div class="bubble out" hidden>¡Listo! Tu hora quedó agendada para el jueves a las 16:00. Te enviaré un recordatorio 24 horas antes.</div>
                   </div>
 
                   <div class="chat-mock-input" aria-hidden="true">
@@ -449,7 +453,7 @@
               </span>
               <span class="service-num">01</span>
               <h3>Asistente virtual de texto 24/7</h3>
-              <p>IA conversacional entrenada con las preguntas frecuentes de tu clínica: precios, horarios, ubicación y seguros médicos aceptados.</p>
+              <p>IA conversacional entrenada con las preguntas frecuentes de tu clínica: precios, horarios, ubicación, convenios, Fonasa e Isapres.</p>
               <span class="service-flip-hint">Ver métrica ↺</span>
             </div>
             <div class="service-card-face service-card-back">
@@ -545,7 +549,7 @@
               </span>
               <span class="service-num">05</span>
               <h3>Derivación y Clasificación IA de pacientes</h3>
-              <p>Cuestionario inteligente previo a la consulta que recopila síntomas del paciente y entrega una ficha ordenada directamente al especialista correspondiente.</p>
+              <p>Identifica qué necesita cada paciente (tratamiento, control o primera consulta) y lo deriva al profesional que corresponde, con la conversación ordenada. No entrega diagnósticos: los temas clínicos siempre pasan a tu equipo.</p>
               <span class="service-flip-hint">Ver métrica ↺</span>
             </div>
             <div class="service-card-face service-card-back">
@@ -984,7 +988,7 @@
       <div class="ca-head reveal">
         <div class="ca-eyebrow"><span>ASISTENTES CLINIASSIST</span><i></i></div>
         <h2>Los asistentes que tu clínica necesita</h2>
-        <p>Cada asistente domina un área de tu clínica y trabaja coordinado con los demás. Tu plan define cuántos se suman a tu equipo.</p>
+        <p>Son asistentes virtuales de inteligencia artificial: cada uno domina un área de tu clínica y trabaja coordinado con los demás. Tu plan define cuántos se suman a tu equipo.</p>
       </div>
       <div class="ca-tabs" role="tablist" aria-label="Asistentes">
         <button type="button" role="tab" class="ca-tab" id="ca-tab-valentina" aria-controls="ca-panel-valentina" aria-selected="true" tabindex="0" style="--c:#2ec4b6">
@@ -1168,8 +1172,8 @@
                 <p>Nunca más un mensaje sin respuesta.</p>
               </div>
               <div class="ca-price">
-                <div class="ca-price-row"><span class="ca-label">Implementación · pago único</span><span class="ca-install">$290.000</span></div>
-                <div class="ca-price-sub"><span class="ca-label">Suscripción mensual</span><span class="ca-monthly">$98.000<small> /mes</small></span></div>
+                <div class="ca-price-row"><span class="ca-label">Implementación · pago único</span><span class="ca-install">$290.000<small> + IVA</small></span></div>
+                <div class="ca-price-sub"><span class="ca-label">Suscripción mensual</span><span class="ca-monthly">$98.000<small> /mes + IVA</small></span></div>
               </div>
               <p class="ca-capacity-line">
                 <span><svg class="ca-mini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 19.5c0-3.6 3.4-6.2 7.5-6.2s7.5 2.6 7.5 6.2"/></svg>Hasta 2 doctores</span>
@@ -1238,8 +1242,8 @@
                 <p>Atiende, trae y recupera pacientes.</p>
               </div>
               <div class="ca-price">
-                <div class="ca-price-row"><span class="ca-label">Implementación · pago único</span><span class="ca-install">$290.000</span></div>
-                <div class="ca-price-sub"><span class="ca-label">Suscripción mensual</span><span class="ca-monthly">$178.000<small> /mes</small></span></div>
+                <div class="ca-price-row"><span class="ca-label">Implementación · pago único</span><span class="ca-install">$290.000<small> + IVA</small></span></div>
+                <div class="ca-price-sub"><span class="ca-label">Suscripción mensual</span><span class="ca-monthly">$178.000<small> /mes + IVA</small></span></div>
               </div>
               <p class="ca-capacity-line">
                 <span><svg class="ca-mini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 19.5c0-3.6 3.4-6.2 7.5-6.2s7.5 2.6 7.5 6.2"/></svg>Hasta 4 doctores</span>
@@ -1319,8 +1323,8 @@
                 <p>El equipo completo: texto, voz y crecimiento.</p>
               </div>
               <div class="ca-price">
-                <div class="ca-price-row"><span class="ca-label">Implementación · pago único</span><span class="ca-install">$290.000</span></div>
-                <div class="ca-price-sub"><span class="ca-label">Suscripción mensual</span><span class="ca-monthly">$299.000<small> /mes</small></span></div>
+                <div class="ca-price-row"><span class="ca-label">Implementación · pago único</span><span class="ca-install">$290.000<small> + IVA</small></span></div>
+                <div class="ca-price-sub"><span class="ca-label">Suscripción mensual</span><span class="ca-monthly">$299.000<small> /mes + IVA</small></span></div>
               </div>
               <p class="ca-capacity-line">
                 <span><svg class="ca-mini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 19.5c0-3.6 3.4-6.2 7.5-6.2s7.5 2.6 7.5 6.2"/></svg>Hasta 8 doctores</span>
@@ -1493,32 +1497,39 @@
   <!-- FAQ -->
   <section class="faq" id="faq">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="section-head faq-head reveal">
         <h2>Preguntas frecuentes</h2>
+        <p>Lo que más nos preguntan las clínicas antes de empezar.</p>
       </div>
 
       <div class="faq-list">
-        <details class="faq-item reveal" open>
+        <details class="faq-item reveal">
           <summary>¿Funciona con mi número de WhatsApp actual?</summary>
           <p>Sí. Podemos integrar ClinIAssist con el número que ya usa tu clínica, o darte uno nuevo dedicado solo a la IA, según lo que prefieras.</p>
         </details>
         <details class="faq-item reveal">
-          <summary>¿Necesito conocimientos técnicos para usar ClinIAssist?</summary>
-          <p>No. Nosotros configuramos e integramos todo el sistema. Tu equipo solo recibe la agenda y las conversaciones ya organizadas.</p>
+          <summary>¿Qué pasa con mi recepcionista actual?</summary>
+          <p>No la reemplazamos: la potenciamos. Tu recepcionista deja de responder mensajes y llamadas repetitivas para enfocarse en la atención presencial, los cobros y los casos que necesitan a una persona.</p>
         </details>
         <details class="faq-item reveal">
-          <summary>¿Qué pasa con mi recepcionista actual al contratar ClinIAssist?</summary>
-          <p>No la reemplazamos: la potenciamos. Tu recepcionista deja de atender llamadas y mensajes repetitivos para enfocarse en la atención presencial, cobros y casos clínicos complejos. ClinIAssist absorbe el colapso digital 24/7 y además capacitamos a tu equipo desde el Día 1.</p>
+          <summary>¿Quién responde si un paciente necesita hablar con una persona?</summary>
+          <p>La IA detecta cuando un caso necesita a tu equipo o cuando el paciente lo pide, y te deriva la conversación al instante con todo el contexto, para que nadie tenga que repetir la información.</p>
         </details>
         <details class="faq-item reveal">
-          <summary>¿Quién responde si un paciente necesita hablar con un humano?</summary>
-          <p>La IA detecta automáticamente casos atípicos o solicitudes expresas y deriva la conversación de inmediato a tu equipo con una notificación directa, transfiriendo todo el contexto previo para que no haya que repetir información.</p>
+          <summary>¿Tengo que firmar un plazo mínimo? ¿Puedo cancelar?</summary>
+          <p>Cada plan tiene un período inicial: 3 meses en Esencial y 6 meses en Expansión y Empresa, porque la IA necesita un tiempo de ajuste para dar resultados reales. Después sigue mes a mes y puedes cancelar avisando con 30 días, pagando el cargo de desinstalación de $90.000 + IVA.</p>
         </details>
         <details class="faq-item reveal">
-          <summary>¿Cuánto tiempo toma implementarlo?</summary>
-          <p>Entre 6 a 10 días hábiles, según la cantidad de profesionales y canales que active tu clínica. Dejamos todo configurado, probado y listo para operar sin interrumpir la atención diaria.</p>
+          <summary>¿Qué pasa con los datos de mis pacientes?</summary>
+          <p>Tu clínica es la dueña de sus datos. Solo los usamos para prestar el servicio: no los vendemos, no los compartimos y nuestro equipo no accede a ellos salvo que tú lo autorices. Si terminas el servicio, te entregamos una copia y los eliminamos dentro de 30 días.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>¿Qué pasa si la IA se equivoca o hay una urgencia?</summary>
+          <p>La IA responde solo con la información y las reglas de tu clínica, y nunca entrega diagnósticos. Ante una urgencia con riesgo vital indica llamar al 131 (SAMU) y avisa a tu equipo al instante. Si detectas un error, lo corregimos dentro de 24 a 48 horas hábiles.</p>
         </details>
       </div>
+
+      <p class="faq-more reveal">¿Tienes otra pregunta? <a href="https://wa.me/56979247572" class="js-whatsapp" data-wa-text="Hola, tengo una pregunta sobre ClinIAssist." target="_blank" rel="noopener">Escríbenos por WhatsApp</a></p>
     </div>
   </section>
 
@@ -1609,6 +1620,7 @@
       <a href="/terminos.html">Términos y condiciones</a>
       <a href="#" data-cookie-prefs>Preferencias de cookies</a>
     </nav>
+    <p class="footer-copy">ClinIAssist SpA · RUT 78.523.619-K · Santiago, Chile · <a href="https://wa.me/56979247572" target="_blank" rel="noopener">WhatsApp +56 9 7924 7572</a> · <a href="https://www.instagram.com/cliniassist/" target="_blank" rel="noopener">Instagram @cliniassist</a></p>
     <p class="footer-copy">© <span id="year">2026</span> ClinIAssist. Todos los derechos reservados.</p>
   </div>
 </footer>
