@@ -5,7 +5,7 @@
   'use strict';
 
   var GA_ID = 'G-2FBNMFZW8W';
-  var PIXEL_ID = ''; // ej: '123456789012345'
+  var PIXEL_ID = '1382577790276463';
   var KEY = 'ca_cookie_consent'; // 'granted' | 'denied'
 
   function readChoice() {
