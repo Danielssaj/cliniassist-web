@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://www.facebook.com; media-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.facebook.com https://connect.facebook.net; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Política de Privacidad — ClinIAssist</title>
 <meta name="description" content="Política de privacidad de ClinIAssist SpA (Chile): qué datos tratamos, para qué, con quién se comparten y cómo ejercer tus derechos según la Ley 19.628.">
@@ -33,7 +33,7 @@
 <main class="legal-main">
   <div class="container">
     <h1>Política de Privacidad</h1>
-    <p class="legal-updated">Última actualización: 4 de octubre de 2026.</p>
+    <p class="legal-updated">Última actualización: 5 de octubre de 2026.</p>
 
     <p>Esta Política de Privacidad explica qué datos personales trata <strong>ClinIAssist SpA</strong> a través del sitio <strong>cliniassist.online</strong> (en adelante, "el Sitio") y en la prestación de sus servicios, para qué los usa, con quién los comparte y cómo puedes ejercer tus derechos. Se rige por la <strong>Ley N° 19.628 sobre Protección de la Vida Privada</strong> y, desde su entrada en vigencia el 1 de diciembre de 2026, por las modificaciones de la <strong>Ley N° 21.719</strong>.</p>
 
@@ -70,11 +70,19 @@
       <li><strong>Hostinger:</strong> correo electrónico de contacto@cliniassist.online.</li>
       <li><strong>GitHub (Microsoft):</strong> alojamiento del Sitio. Registra datos técnicos de la visita, como la dirección IP, por motivos de seguridad.</li>
       <li><strong>Google Fonts:</strong> carga de tipografías del Sitio, que puede registrar tu dirección IP.</li>
+      <li><strong>Google Analytics (Google):</strong> medición de visitas, solo si aceptas las cookies (ver punto 5).</li>
+      <li><strong>Pixel de Meta (Meta Platforms):</strong> medición de nuestros anuncios en Instagram y Facebook, solo si aceptas las cookies (ver punto 5).</li>
     </ul>
     <p>Solo compartimos lo necesario para cada fin, con proveedores que cuentan con políticas de seguridad y privacidad propias. También entregaremos datos a una autoridad cuando la ley lo exija.</p>
 
-    <h2>5. Cookies y analítica</h2>
-    <p>Hoy el Sitio <strong>no usa cookies de seguimiento, Google Analytics ni Meta Pixel</strong>. Si en el futuro incorporamos herramientas de analítica o publicidad, actualizaremos esta política y te pediremos tu consentimiento antes de activarlas.</p>
+    <h2 id="cookies">5. Cookies y analítica</h2>
+    <p>El Sitio usa cookies de medición <strong>solo si las aceptas</strong> en el aviso que aparece al entrar. Si las rechazas, no se carga ninguna herramienta de medición.</p>
+    <ul>
+      <li><strong>Google Analytics:</strong> nos dice cuántas personas visitan el Sitio, desde dónde llegan (Google, Instagram, anuncios) y qué secciones ven. Google no nos entrega tu nombre ni datos de contacto.</li>
+      <li><strong>Pixel de Meta:</strong> nos permite medir si nuestros anuncios en Instagram y Facebook generan contactos, y mostrar anuncios a personas que ya visitaron el Sitio.</li>
+    </ul>
+    <p>También registramos de forma anónima cuándo alguien toca un botón de WhatsApp o correo, o envía el formulario, para saber qué secciones generan más consultas. No enviamos a estas herramientas el contenido del formulario ni tus datos de contacto.</p>
+    <p>Puedes cambiar tu decisión cuando quieras con el enlace <strong>"Preferencias de cookies"</strong> al final de cada página, o borrando las cookies de tu navegador. Más información en las políticas de <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google</a> y <a href="https://www.facebook.com/privacy/policy" target="_blank" rel="noopener">Meta</a>.</p>
 
     <h2>6. Cuánto tiempo guardamos tus datos</h2>
     <ul>
@@ -129,11 +137,13 @@
     <nav class="footer-links" aria-label="Legal">
       <a href="/privacidad.html">Política de privacidad</a>
       <a href="/terminos.html">Términos y condiciones</a>
+      <a href="#" data-cookie-prefs>Preferencias de cookies</a>
     </nav>
     <p class="footer-copy">© <span id="year">2026</span> ClinIAssist. Todos los derechos reservados.</p>
   </div>
 </footer>
 
 <script src="js/script.js"></script>
+<script src="js/consent.js"></script>
 </body>
 </html>

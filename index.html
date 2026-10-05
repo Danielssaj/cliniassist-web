@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://www.facebook.com; media-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.facebook.com https://connect.facebook.net; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>ClinIAssist — Asistente con IA para clínicas en Chile | WhatsApp 24/7</title>
 <meta name="description" content="Asistente virtual con IA para clínicas y consultas en Chile: responde WhatsApp 24/7, agenda horas, envía recordatorios para reducir inasistencias y pide reseñas en Google. Listo en 6 a 10 días hábiles.">
@@ -1607,6 +1607,7 @@
     <nav class="footer-links" aria-label="Legal">
       <a href="/privacidad.html">Política de privacidad</a>
       <a href="/terminos.html">Términos y condiciones</a>
+      <a href="#" data-cookie-prefs>Preferencias de cookies</a>
     </nav>
     <p class="footer-copy">© <span id="year">2026</span> ClinIAssist. Todos los derechos reservados.</p>
   </div>
@@ -1619,6 +1620,7 @@
 </a>
 
 <script src="js/script.js"></script>
+<script src="js/consent.js"></script>
 <script src="js/asistentes.js"></script>
 </body>
 </html>
