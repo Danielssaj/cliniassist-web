@@ -715,11 +715,9 @@
     });
   });
 
-  // El formulario envía la solicitud por email vía Formspree (para que
-  // llegue a contacto@cliniassist.online) y, en paralelo, abre WhatsApp con
-  // el mensaje ya redactado — igual que los demás botones de WhatsApp del
-  // sitio. Así, aunque el endpoint de Formspree no esté configurado aún, el
-  // canal de WhatsApp (que sí funciona hoy) nunca deja de capturar el lead.
+  // El formulario NO envía datos a ningún servidor: solo abre WhatsApp con
+  // la solicitud ya redactada hacia el número de ClinIAssist, igual que los
+  // demás botones del sitio. Toda contratación pasa por WhatsApp directo.
   const form = document.getElementById('contactForm');
   const formNote = document.getElementById('formNote');
   const formErrorNote = document.getElementById('formErrorNote');
@@ -769,8 +767,8 @@
 
       // Los navegadores (sobre todo en móvil y en navegación privada) solo
       // permiten window.open() cuando se llama de forma síncrona dentro del
-      // gesto de clic del usuario. Si primero esperáramos el fetch a
-      // Formspree, para cuando llegáramos acá el clic original ya "expiró" y
+      // gesto de clic del usuario. Si primero esperáramos
+      // algo asíncrono, para cuando llegáramos acá el clic original ya "expiró" y
       // el pop-up de WhatsApp queda bloqueado en silencio — eso era lo que le
       // pasaba al formulario. Por eso WhatsApp se abre primero, sin await.
       const mensaje =
@@ -791,16 +789,6 @@
         try { waWindow.opener = null; } catch { /* cross-origin: se ignora */ }
       }
       const waBlocked = !waWindow || waWindow.closed;
-
-      // El envío a Formspree corre en paralelo, de mejor esfuerzo, para que
-      // el correo llegue a contacto@cliniassist.online cuando el endpoint
-      // esté configurado; no bloquea ni condiciona la confirmación visual,
-      // porque WhatsApp es el canal real que sí funciona hoy.
-      fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' },
-      }).catch(() => {});
 
       setSubmitLoading(false);
 
