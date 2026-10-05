@@ -275,6 +275,54 @@
 .ca-card.is-highlight .ca-member-head img{ border-color: rgba(255,255,255,0.6); box-shadow: 0 0 12px rgba(255,255,255,0.4); }
 .ca-card.is-highlight .ca-member li svg{ color:#fff; }
 
+/* Compactación de #precios: al 100% de zoom debe verse aprox. lo mismo que
+   hoy se ve al 70% (título + 3 tarjetas completas + inicio de "TU EQUIPO").
+   clamp() usa estos valores reducidos (~×0.65–0.85 según el elemento) como
+   techo para pantallas grandes, y deja un piso legible en celular; nada se
+   escala con transform, son tamaños reales. Todo escopado a #precios para
+   no tocar #asistentes, que comparte varias de estas clases. */
+.ca-pricing{ padding-top: clamp(32px, 5vh, 38px); padding-bottom: clamp(32px, 5vh, 38px); }
+#precios .ca-head{ gap: 8px; }
+#precios .ca-eyebrow{ font-size: clamp(8.5px, 1vw, 9px); }
+#precios .ca-head h2{ font-size: clamp(22px, 3.5vw, 31px); }
+#precios .ca-head p{ font-size: clamp(12px, 1.4vw, 13px); }
+
+#precios .ca-grid{ gap: clamp(14px, 1.8vw, 17px); }
+#precios .ca-card-face{ padding: clamp(14px, 1.8vw, 17px); gap: 10px; border-radius: clamp(16px, 2vw, 19px); }
+#precios .ca-card-title{ gap: 2px; }
+#precios .ca-card-title > span{ font-size: 12px; }
+#precios .ca-card-title h3{ font-size: clamp(17px, 2.2vw, 19.5px); }
+#precios .ca-card-title p{ font-size: 13px; }
+#precios .ca-price{ padding: clamp(12px, 1.6vw, 14px); gap: 10px; }
+#precios .ca-price-sub{ padding-top: 10px; }
+#precios .ca-install{ font-size: clamp(13px, 1.4vw, 15px); }
+#precios .ca-monthly{ font-size: clamp(21px, 3vw, 26px); }
+#precios .ca-monthly small{ font-size: clamp(12px, 1.3vw, 14px); }
+#precios .ca-capacity-line{ font-size: clamp(10.5px, 1.2vw, 11px); }
+#precios .ca-mini-icon{ width: 12px; height: 12px; }
+#precios .ca-btn{ min-height: clamp(38px, 4.5vw, 40px); font-size: clamp(13px, 1.5vw, 14px); }
+#precios .ca-team-meta{ font-size: clamp(10.5px, 1.2vw, 11px); }
+#precios .ca-team-sub{ font-size: clamp(10.5px, 1.2vw, 11px); }
+#precios .ca-member{ gap: 8px; }
+#precios .ca-member-head{ gap: 10px; }
+#precios .ca-member-head img{ width: clamp(32px, 3.6vw, 35px); height: clamp(32px, 3.6vw, 35px); }
+#precios .ca-member li{ font-size: clamp(11.5px, 1.3vw, 12px); gap: 7px; }
+#precios .ca-member li svg{ width: 12px; height: 12px; }
+#precios .ca-flip-cue{ font-size: clamp(10.5px, 1.2vw, 11px); }
+#precios .ca-flip-cue-icon{ width: 12px; height: 12px; }
+
+/* Dorso de la tarjeta: misma proporción, por consistencia visual */
+#precios .ca-back-close{ font-size: 11px; }
+#precios .ca-back-close svg{ width: 14px; height: 14px; }
+#precios .ca-back-title{ font-size: clamp(16px, 2vw, 17px); }
+#precios .ca-capacity-block{ padding: 12px; gap: 7px; }
+#precios .ca-capacity-list li{ font-size: 11.5px; }
+#precios .ca-includes-block{ gap: 5px; }
+#precios .ca-chip-task{ font-size: 10px; padding: 3px 7px; }
+#precios .ca-back-meta{ font-size: 11px; }
+#precios .ca-back-install{ font-size: 10px; }
+#precios .ca-capacity-more{ font-size: 11px; }
+
 /* Mateo adicional: columna angosta (foto + texto, centrado) a la
    izquierda y las opciones Base/Pro/Premium a todo el ancho a la derecha. */
 .ca-addon{ display:grid; grid-template-columns:260px 1fr; gap:40px; align-items:start; padding:36px; border-radius:28px; background:#0e1730; border:1px solid #33466f; transition:transform .3s var(--ease, ease), box-shadow .3s var(--ease, ease); }
